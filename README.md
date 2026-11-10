@@ -42,3 +42,8 @@ Copie un bloc dans `cards.json`, change l'`id` et le texte. N'oublie pas la virg
 
 - `type` : `notion`, `quiz`, `situation` ou `piege`
 - `matiere` : `eco`, `juridique`, `transaction`, `copropriete` ou `gestion-locative`
+
+## Filtrer par matière
+
+Les boutons en haut de l'écran affichent seulement les cartes d'une matière (le chiffre = nombre de cartes).
+Le dernier filtre choisi est retenu à la prochaine ouverture.

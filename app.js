@@ -84,6 +84,16 @@ function creerCarte(carte) {
 }
 
 // -------------------------------------------------------------
+// Les variables qui décrivent "l'état" de l'appli
+// -------------------------------------------------------------
+let toutesLesCartes = [];   // toutes les cartes lues dans cards.json
+let filtreActif = "tout";   // "tout" ou une clé de matière (ex: "juridique")
+let observateur = null;     // surveille quelle carte est à l'écran
+
+const filtres = document.getElementById("filtres");
+const CLE_MEMOIRE = "revision-immo-filtre"; // nom de la "case" en mémoire du navigateur
+
+// -------------------------------------------------------------
 // Met à jour le compteur "3 / 10" selon la carte visible.
 // IntersectionObserver = le navigateur nous prévient quand
 // une carte occupe la majorité de l'écran.
@@ -91,7 +101,10 @@ function creerCarte(carte) {
 function suivreCarteVisible(sections) {
   const total = sections.length;
 
-  const observateur = new IntersectionObserver(
+  // Si on surveillait les anciennes cartes, on arrête
+  if (observateur) observateur.disconnect();
+
+  observateur = new IntersectionObserver(
     (entrees) => {
       entrees.forEach((entree) => {
         if (entree.isIntersecting) {
@@ -107,25 +120,104 @@ function suivreCarteVisible(sections) {
 }
 
 // -------------------------------------------------------------
+// Affiche dans le fil uniquement les cartes du filtre choisi
+// -------------------------------------------------------------
+function afficherFil() {
+  // .filter() garde seulement les cartes qui passent le test
+  const cartes =
+    filtreActif === "tout"
+      ? toutesLesCartes
+      : toutesLesCartes.filter((c) => c.matiere === filtreActif);
+
+  fil.innerHTML = ""; // on vide le fil
+  fil.scrollTop = 0;  // et on remonte tout en haut
+
+  if (cartes.length === 0) {
+    fil.append(creer("p", "chargement", "Aucune carte pour cette matière… pour l'instant !"));
+    compteur.textContent = "0 / 0";
+    return;
+  }
+
+  const sections = cartes.map(creerCarte);
+  sections.forEach((s) => fil.append(s));
+
+  // Indice "swipe" uniquement sur la première carte, s'il y en a une suivante
+  if (sections.length > 1) {
+    sections[0].append(creer("div", "indice-swipe", "⬆️ Swipe vers le haut pour continuer"));
+  }
+
+  compteur.textContent = "1 / " + sections.length;
+  suivreCarteVisible(sections);
+}
+
+// -------------------------------------------------------------
+// Crée la rangée de boutons : "Tout", puis une par matière
+// -------------------------------------------------------------
+function creerFiltres() {
+  // Liste des choix : [clé, nom affiché]
+  const choix = [["tout", "Tout"], ...Object.entries(NOMS_MATIERES)];
+
+  choix.forEach(([cle, nom]) => {
+    // Combien de cartes dans cette matière ?
+    const nombre =
+      cle === "tout"
+        ? toutesLesCartes.length
+        : toutesLesCartes.filter((c) => c.matiere === cle).length;
+
+    const bouton = creer("button", "filtre", nom + " · " + nombre);
+    bouton.dataset.cle = cle; // on range la clé dans le bouton pour la retrouver
+    if (cle === filtreActif) bouton.classList.add("actif");
+
+    bouton.addEventListener("click", () => choisirFiltre(cle));
+    filtres.append(bouton);
+  });
+}
+
+// Fait défiler la rangée pour que le bouton actif soit bien visible
+function centrerFiltreActif() {
+  const actif = filtres.querySelector(".filtre.actif");
+  if (actif) actif.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+}
+
+// -------------------------------------------------------------
+// Quand on tape sur un filtre
+// -------------------------------------------------------------
+function choisirFiltre(cle) {
+  filtreActif = cle;
+
+  // Le bouton choisi devient "actif", les autres non
+  filtres.querySelectorAll(".filtre").forEach((b) => {
+    b.classList.toggle("actif", b.dataset.cle === cle);
+  });
+  centrerFiltreActif();
+
+  // On retient le choix pour la prochaine ouverture de l'appli.
+  // try/catch : en navigation privée, la mémoire peut être bloquée.
+  try {
+    localStorage.setItem(CLE_MEMOIRE, cle);
+  } catch (e) {}
+
+  afficherFil();
+}
+
+// -------------------------------------------------------------
 // Point de départ : on charge cards.json puis on affiche tout
 // -------------------------------------------------------------
 async function demarrer() {
   try {
     const reponse = await fetch("cards.json");
     if (!reponse.ok) throw new Error("HTTP " + reponse.status);
-    const cartes = await reponse.json();
+    toutesLesCartes = await reponse.json();
 
-    fil.innerHTML = ""; // on enlève "Chargement…"
+    // On reprend le dernier filtre choisi, s'il existe encore
+    try {
+      const memo = localStorage.getItem(CLE_MEMOIRE);
+      if (memo && (memo === "tout" || NOMS_MATIERES[memo])) filtreActif = memo;
+    } catch (e) {}
 
-    const sections = cartes.map(creerCarte);
-    sections.forEach((s) => fil.append(s));
-
-    // Indice "swipe" uniquement sur la première carte
-    if (sections[0]) {
-      sections[0].append(creer("div", "indice-swipe", "⬆️ Swipe vers le haut pour continuer"));
-    }
-
-    suivreCarteVisible(sections);
+    creerFiltres();
+    centrerFiltreActif();
+    afficherFil();
   } catch (erreur) {
     console.error(erreur);
     fil.innerHTML = "";

@@ -57,7 +57,8 @@ body {
   gap: 1.2rem;
 
   /* env(safe-area-inset-…) = espace à laisser pour l'encoche et la barre d'accueil de l'iPhone */
-  padding: calc(env(safe-area-inset-top) + 4rem) 1.5rem calc(env(safe-area-inset-bottom) + 4rem);
+  /* En haut, on laisse la place à la barre de filtres + compteur (7rem) */
+  padding: calc(env(safe-area-inset-top) + 7rem) 1.5rem calc(env(safe-area-inset-bottom) + 4rem);
 
   /* Léger dégradé avec la couleur du type de carte */
   background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--couleur) 30%, transparent), var(--fond) 70%);
@@ -145,12 +146,59 @@ body {
 
 /* ========== 5. Éléments fixes ========== */
 
-.compteur {
+/* La barre du haut reste fixe pendant qu'on fait défiler les cartes */
+.entete {
   position: fixed;
-  top: calc(env(safe-area-inset-top) + 1rem);
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
+  padding-top: calc(env(safe-area-inset-top) + 0.75rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  /* Fond dégradé pour que les boutons restent lisibles au-dessus des cartes */
+  background: linear-gradient(to bottom, rgba(15, 15, 20, 0.9), transparent);
+  pointer-events: none; /* les zones vides de la barre laissent passer les swipes… */
+}
+.entete > * {
+  pointer-events: auto; /* …mais les boutons restent cliquables */
+}
+
+/* Rangée de boutons qui défile à l'horizontale si elle dépasse l'écran */
+.filtres {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0 1rem;
+  scrollbar-width: none;
+}
+.filtres::-webkit-scrollbar {
+  display: none;
+}
+
+.filtre {
+  flex-shrink: 0; /* un bouton ne se tasse pas, il garde sa taille */
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texte);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Le filtre sélectionné : fond blanc, texte foncé */
+.filtre.actif {
+  background: var(--texte);
+  color: var(--fond);
+}
+
+.compteur {
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.3rem 0.8rem;
