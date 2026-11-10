@@ -89,9 +89,33 @@ function creerCarte(carte) {
 let toutesLesCartes = [];   // toutes les cartes lues dans cards.json
 let filtreActif = "tout";   // "tout" ou une clé de matière (ex: "juridique")
 let observateur = null;     // surveille quelle carte est à l'écran
+let melange = false;        // true = cartes dans un ordre aléatoire
 
 const filtres = document.getElementById("filtres");
+const boutonMelanger = document.getElementById("bouton-melanger");
 const CLE_MEMOIRE = "revision-immo-filtre"; // nom de la "case" en mémoire du navigateur
+const CLE_MELANGE = "revision-immo-melange";
+
+// -------------------------------------------------------------
+// Mélange une liste au hasard (méthode de Fisher-Yates).
+// Idée : on part de la fin, et on échange chaque carte avec une
+// carte tirée au sort parmi celles qui sont avant elle.
+// -------------------------------------------------------------
+function melanger(liste) {
+  const copie = [...liste]; // on mélange une copie, l'original ne bouge pas
+  for (let i = copie.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // nombre au hasard entre 0 et i
+    [copie[i], copie[j]] = [copie[j], copie[i]];   // on échange les deux cartes
+  }
+  return copie;
+}
+
+// Petite fonction pour écrire en mémoire sans planter si c'est bloqué
+function memoriser(cle, valeur) {
+  try {
+    localStorage.setItem(cle, valeur);
+  } catch (e) {}
+}
 
 // -------------------------------------------------------------
 // Met à jour le compteur "3 / 10" selon la carte visible.
@@ -124,10 +148,13 @@ function suivreCarteVisible(sections) {
 // -------------------------------------------------------------
 function afficherFil() {
   // .filter() garde seulement les cartes qui passent le test
-  const cartes =
+  let cartes =
     filtreActif === "tout"
       ? toutesLesCartes
       : toutesLesCartes.filter((c) => c.matiere === filtreActif);
+
+  // Si le mélange est activé, on tire un nouvel ordre au hasard
+  if (melange) cartes = melanger(cartes);
 
   fil.innerHTML = ""; // on vide le fil
   fil.scrollTop = 0;  // et on remonte tout en haut
@@ -191,14 +218,26 @@ function choisirFiltre(cle) {
   });
   centrerFiltreActif();
 
-  // On retient le choix pour la prochaine ouverture de l'appli.
-  // try/catch : en navigation privée, la mémoire peut être bloquée.
-  try {
-    localStorage.setItem(CLE_MEMOIRE, cle);
-  } catch (e) {}
+  // On retient le choix pour la prochaine ouverture de l'appli
+  memoriser(CLE_MEMOIRE, cle);
 
   afficherFil();
 }
+
+// -------------------------------------------------------------
+// Bouton "Mélanger" : un tap = on, un autre tap = off
+// -------------------------------------------------------------
+function mettreAJourBoutonMelanger() {
+  boutonMelanger.classList.toggle("actif", melange);
+  boutonMelanger.setAttribute("aria-pressed", melange);
+}
+
+boutonMelanger.addEventListener("click", () => {
+  melange = !melange; // "!" inverse : true devient false, false devient true
+  mettreAJourBoutonMelanger();
+  memoriser(CLE_MELANGE, melange ? "oui" : "non");
+  afficherFil(); // on réaffiche : mélangé, ou de nouveau dans l'ordre
+});
 
 // -------------------------------------------------------------
 // Point de départ : on charge cards.json puis on affiche tout
@@ -213,8 +252,10 @@ async function demarrer() {
     try {
       const memo = localStorage.getItem(CLE_MEMOIRE);
       if (memo && (memo === "tout" || NOMS_MATIERES[memo])) filtreActif = memo;
+      melange = localStorage.getItem(CLE_MELANGE) === "oui";
     } catch (e) {}
 
+    mettreAJourBoutonMelanger();
     creerFiltres();
     centrerFiltreActif();
     afficherFil();

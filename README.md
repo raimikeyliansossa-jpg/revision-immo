@@ -11,6 +11,7 @@ Une carte par écran, on fait défiler pour passer à la suivante.
 | `style.css`  | L'apparence : couleurs, plein écran, défilement aimanté     |
 | `app.js`     | La logique : lit `cards.json` et fabrique les cartes        |
 | `cards.json` | Les cartes de révision (c'est ici qu'on en ajoute)          |
+| `manifest.json` + `icone-*.png` | Nom et icône de l'appli pour l'écran d'accueil Android |
 
 ## Lancer l'appli sur ton ordinateur
 
@@ -21,8 +22,8 @@ Il faut un petit serveur local. Dans un terminal, dans le dossier du projet :
 python3 -m http.server 8000
 ```
 
-Puis ouvre http://localhost:8000. Pour voir le rendu iPhone dans Chrome :
-F12 → icône téléphone → choisir « iPhone ».
+Puis ouvre http://localhost:8000. Pour voir le rendu téléphone dans Chrome :
+F12 → icône téléphone → choisir un modèle « Samsung Galaxy ».
 
 ## Ajouter une carte
 
@@ -47,3 +48,9 @@ Copie un bloc dans `cards.json`, change l'`id` et le texte. N'oublie pas la virg
 
 Les boutons en haut de l'écran affichent seulement les cartes d'une matière (le chiffre = nombre de cartes).
 Le dernier filtre choisi est retenu à la prochaine ouverture.
+
+## Mélanger les cartes
+
+Le bouton 🔀 **Mélanger** (sous les filtres) met les cartes dans un ordre aléatoire.
+Il devient jaune quand il est activé. Un nouveau tirage est fait à chaque changement de filtre.
+Pour re-mélanger : désactiver puis réactiver. Le choix est retenu à la prochaine ouverture.

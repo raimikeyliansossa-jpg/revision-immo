@@ -26,16 +26,16 @@ body {
   background: var(--fond);
   color: var(--texte);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  /* Empêche l'effet "rebond" de Safari sur toute la page */
+  /* Empêche l'effet "rebond" / rafraîchissement quand on tire la page vers le bas */
   overscroll-behavior: none;
-  /* Évite que l'iPhone grossisse le texte tout seul en mode paysage */
+  /* Évite que le téléphone grossisse le texte tout seul en mode paysage */
   -webkit-text-size-adjust: 100%;
 }
 
 /* ========== 2. Le fil vertical (le cœur du style TikTok) ========== */
 
 .fil {
-  height: 100dvh;              /* dvh = hauteur réelle de l'écran, barre Safari comprise */
+  height: 100dvh;              /* dvh = hauteur réelle visible, même quand la barre d'adresse apparaît/disparaît */
   overflow-y: scroll;          /* on peut défiler verticalement */
   scroll-snap-type: y mandatory; /* le défilement "s'aimante" toujours sur une carte */
   scrollbar-width: none;       /* cache la barre de défilement (Firefox) */
@@ -56,7 +56,7 @@ body {
   justify-content: center;
   gap: 1.2rem;
 
-  /* env(safe-area-inset-…) = espace à laisser pour l'encoche et la barre d'accueil de l'iPhone */
+  /* env(safe-area-inset-…) = espace à laisser pour la caméra et la barre de navigation du téléphone */
   /* En haut, on laisse la place à la barre de filtres + compteur (7rem) */
   padding: calc(env(safe-area-inset-top) + 7rem) 1.5rem calc(env(safe-area-inset-bottom) + 4rem);
 
@@ -125,7 +125,7 @@ body {
   border-radius: 12px;
   padding: 1.1rem;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; /* pas de flash gris au tap sur iPhone */
+  -webkit-tap-highlight-color: transparent; /* pas de flash bleu/gris au tap sur mobile */
 }
 
 /* Tant que la carte n'est pas "revelee", on cache la réponse… */
@@ -196,6 +196,32 @@ body {
 .filtre.actif {
   background: var(--texte);
   color: var(--fond);
+}
+
+/* La ligne sous les filtres : compteur + bouton Mélanger côte à côte */
+.outils {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bouton-melanger {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texte);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Quand le mélange est activé, le bouton passe en jaune */
+.bouton-melanger.actif {
+  background: #facc15;
+  color: var(--fond);
+  border-color: #facc15;
 }
 
 .compteur {

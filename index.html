@@ -2,13 +2,14 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport-fit=cover : on utilise tout l'écran de l'iPhone, y compris autour de l'encoche -->
+  <!-- viewport-fit=cover : on utilise tout l'écran, y compris autour de la caméra du téléphone -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- Permet "Ajouter à l'écran d'accueil" sur iPhone, comme une vraie appli -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Révision Immo">
+  <!-- Couleur de la barre du haut d'Android (heure, batterie) -->
   <meta name="theme-color" content="#0f0f14">
+  <!-- Le "manifeste" : permet "Ajouter à l'écran d'accueil" sur Android (Samsung Internet, Chrome),
+       avec une icône et une ouverture en plein écran, comme une vraie appli -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icone-192.png">
   <title>Révision Immo</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -17,8 +18,12 @@
   <header class="entete">
     <!-- app.js crée ici un bouton par matière ("Tout", "Juridique"…) -->
     <nav class="filtres" id="filtres" aria-label="Filtrer par matière"></nav>
-    <!-- Petit compteur : "3 / 10" -->
-    <div class="compteur" id="compteur">…</div>
+    <div class="outils">
+      <!-- Petit compteur : "3 / 10" -->
+      <div class="compteur" id="compteur">…</div>
+      <!-- Bouton pour mélanger les cartes (on / off) -->
+      <button class="bouton-melanger" id="bouton-melanger" aria-pressed="false">🔀 Mélanger</button>
+    </div>
   </header>
 
   <!-- Le fil vertical : app.js va y ajouter une <section> par carte -->
