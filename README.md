@@ -54,3 +54,20 @@ Le dernier filtre choisi est retenu à la prochaine ouverture.
 Le bouton 🔀 **Mélanger** (sous les filtres) met les cartes dans un ordre aléatoire.
 Il devient jaune quand il est activé. Un nouveau tirage est fait à chaque changement de filtre.
 Pour re-mélanger : désactiver puis réactiver. Le choix est retenu à la prochaine ouverture.
+
+## Mettre l'appli en ligne (GitHub Pages)
+
+1. Sur GitHub : **Settings → Pages**.
+2. *Source* : **Deploy from a branch**, branche `claude/tiktok-bts-revision-app-833uf4`, dossier `/ (root)` → **Save**.
+3. Après 1 à 2 minutes, l'appli est sur : https://raimikeyliansossa-jpg.github.io/revision-immo/
+
+⚠️ Avec un compte GitHub gratuit, Pages ne marche que si le dépôt est **public**
+(Settings → General → Danger Zone → Change visibility).
+
+Chaque `git push` sur la branche met le site à jour automatiquement.
+
+### Installer sur Samsung
+
+Ouvre l'adresse dans **Samsung Internet** ou **Chrome**, puis :
+- Samsung Internet : menu ☰ → **Ajouter la page à** → **Écran d'accueil**
+- Chrome : menu ⋮ → **Ajouter à l'écran d'accueil** (ou **Installer l'application**)
