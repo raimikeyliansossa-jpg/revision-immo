@@ -1,0 +1,189 @@
+/* ========== 1. Réglages de base ========== */
+
+/* box-sizing: border-box = la taille d'un élément inclut ses marges intérieures (plus simple) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Variables de couleurs : on les définit une fois, on les réutilise partout */
+:root {
+  --fond: #0f0f14;
+  --texte: #f5f5f7;
+  --texte-doux: #a1a1aa;
+
+  /* Une couleur par type de carte */
+  --notion: #3b82f6;     /* bleu */
+  --quiz: #a855f7;       /* violet */
+  --situation: #10b981;  /* vert */
+  --piege: #ef4444;      /* rouge */
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Empêche l'effet "rebond" de Safari sur toute la page */
+  overscroll-behavior: none;
+  /* Évite que l'iPhone grossisse le texte tout seul en mode paysage */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ========== 2. Le fil vertical (le cœur du style TikTok) ========== */
+
+.fil {
+  height: 100dvh;              /* dvh = hauteur réelle de l'écran, barre Safari comprise */
+  overflow-y: scroll;          /* on peut défiler verticalement */
+  scroll-snap-type: y mandatory; /* le défilement "s'aimante" toujours sur une carte */
+  scrollbar-width: none;       /* cache la barre de défilement (Firefox) */
+}
+.fil::-webkit-scrollbar {
+  display: none;               /* cache la barre de défilement (Safari/Chrome) */
+}
+
+/* ========== 3. Une carte = un écran ========== */
+
+.carte {
+  height: 100dvh;
+  scroll-snap-align: start;    /* la carte se cale en haut de l'écran */
+  scroll-snap-stop: always;    /* un swipe rapide ne saute pas plusieurs cartes */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+
+  /* env(safe-area-inset-…) = espace à laisser pour l'encoche et la barre d'accueil de l'iPhone */
+  padding: calc(env(safe-area-inset-top) + 4rem) 1.5rem calc(env(safe-area-inset-bottom) + 4rem);
+
+  /* Léger dégradé avec la couleur du type de carte */
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--couleur) 30%, transparent), var(--fond) 70%);
+}
+
+/* Chaque type de carte définit sa couleur dans --couleur */
+.carte.notion    { --couleur: var(--notion); }
+.carte.quiz      { --couleur: var(--quiz); }
+.carte.situation { --couleur: var(--situation); }
+.carte.piege     { --couleur: var(--piege); }
+
+/* Les étiquettes (type + matière) */
+.etiquettes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.etiquette {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.etiquette.type {
+  background: var(--couleur);
+}
+
+.chapitre {
+  color: var(--texte-doux);
+  font-size: 0.9rem;
+}
+
+.titre {
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.contenu {
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+/* ========== 4. La zone réponse (cachée puis révélée au tap) ========== */
+
+.reponse {
+  border-left: 4px solid var(--couleur);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+/* Le bouton "Tap pour voir la réponse" */
+.bouton-reveler {
+  font: inherit;
+  font-weight: 600;
+  color: var(--texte);
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px dashed var(--couleur);
+  border-radius: 12px;
+  padding: 1.1rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* pas de flash gris au tap sur iPhone */
+}
+
+/* Tant que la carte n'est pas "revelee", on cache la réponse… */
+.carte:not(.revelee) .reponse.cachee {
+  display: none;
+}
+/* …et une fois révélée, on cache le bouton et on fait apparaître la réponse en douceur */
+.carte.revelee .bouton-reveler {
+  display: none;
+}
+.carte.revelee .reponse.cachee {
+  animation: apparition 0.3s ease-out;
+}
+@keyframes apparition {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== 5. Éléments fixes ========== */
+
+.compteur {
+  position: fixed;
+  top: calc(env(safe-area-inset-top) + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Petit indice "swipe" en bas de la première carte */
+.indice-swipe {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom) + 1.5rem);
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--texte-doux);
+  font-size: 0.85rem;
+  animation: rebond 1.5s infinite;
+}
+@keyframes rebond {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.carte {
+  position: relative; /* pour que .indice-swipe se place par rapport à la carte */
+}
+
+.chargement {
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  color: var(--texte-doux);
+  padding: 1.5rem;
+  text-align: center;
+}

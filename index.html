@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport-fit=cover : on utilise tout l'écran de l'iPhone, y compris autour de l'encoche -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Permet "Ajouter à l'écran d'accueil" sur iPhone, comme une vraie appli -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Révision Immo">
+  <meta name="theme-color" content="#0f0f14">
+  <title>Révision Immo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Petit compteur en haut de l'écran : "3 / 10" -->
+  <div class="compteur" id="compteur">…</div>
+
+  <!-- Le fil vertical : app.js va y ajouter une <section> par carte -->
+  <main class="fil" id="fil">
+    <p class="chargement">Chargement des cartes…</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

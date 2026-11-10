@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "type": "notion",
+    "matiere": "juridique",
+    "chapitre": "Loi Hoguet",
+    "titre": "La carte professionnelle",
+    "contenu": "La loi Hoguet du 2 janvier 1970 encadre les professions immobilières. Pour exercer, il faut une carte professionnelle : T (transaction), G (gestion immobilière) ou S (syndic de copropriété).",
+    "reponse": "Elle est délivrée par la CCI (depuis la loi ALUR) et est valable 3 ans."
+  },
+  {
+    "id": 2,
+    "type": "quiz",
+    "matiere": "copropriete",
+    "chapitre": "Assemblée générale",
+    "titre": "La majorité de l'article 25",
+    "contenu": "En AG de copropriété, que signifie la majorité de l'article 25 ?",
+    "reponse": "La majorité des voix de TOUS les copropriétaires (présents, représentés ET absents). Exemple : élection ou révocation du syndic."
+  },
+  {
+    "id": 3,
+    "type": "piege",
+    "matiere": "gestion-locative",
+    "chapitre": "Bail d'habitation",
+    "titre": "Dépôt de garantie : vide ou meublé ?",
+    "contenu": "Beaucoup pensent que le dépôt de garantie est toujours d'un mois de loyer.",
+    "reponse": "Location vide : 1 mois de loyer hors charges maximum. Location meublée : 2 mois hors charges maximum. Restitution : 1 mois si l'état des lieux de sortie est conforme, 2 mois sinon."
+  },
+  {
+    "id": 4,
+    "type": "situation",
+    "matiere": "transaction",
+    "chapitre": "Le mandat",
+    "titre": "Une vente sans mandat écrit",
+    "contenu": "M. Martin vous demande oralement de vendre son appartement. Vous trouvez un acquéreur et la vente se signe. Pouvez-vous réclamer vos honoraires ?",
+    "reponse": "Non. La loi Hoguet impose un mandat écrit préalable. Sans mandat écrit, l'agent ne peut percevoir aucune rémunération, même si la vente se réalise grâce à lui."
+  },
+  {
+    "id": 5,
+    "type": "notion",
+    "matiere": "eco",
+    "chapitre": "Financement",
+    "titre": "Les règles du HCSF",
+    "contenu": "Le Haut Conseil de Stabilité Financière encadre l'octroi des crédits immobiliers par les banques.",
+    "reponse": "Taux d'effort maximum : 35 % des revenus (assurance comprise). Durée maximum : 25 ans (27 ans possibles dans le neuf avec différé)."
+  },
+  {
+    "id": 6,
+    "type": "quiz",
+    "matiere": "juridique",
+    "chapitre": "Avant-contrat",
+    "titre": "Le délai de rétractation",
+    "contenu": "Quel est le délai de rétractation d'un acquéreur non professionnel après la signature d'un compromis pour un logement ?",
+    "reponse": "10 jours (article L271-1 du Code de la construction et de l'habitation), à compter du lendemain de la première présentation de la lettre notifiant l'acte."
+  },
+  {
+    "id": 7,
+    "type": "piege",
+    "matiere": "copropriete",
+    "chapitre": "Les organes",
+    "titre": "Syndic ≠ syndicat",
+    "contenu": "Ne confonds pas le syndic et le syndicat des copropriétaires !",
+    "reponse": "Le syndicat = l'ensemble des copropriétaires, c'est une personne morale. Le syndic = le mandataire (souvent un professionnel) qui exécute les décisions de l'AG et administre l'immeuble."
+  },
+  {
+    "id": 8,
+    "type": "situation",
+    "matiere": "gestion-locative",
+    "chapitre": "Fin du bail",
+    "titre": "Préavis en zone tendue",
+    "contenu": "Mme Diallo loue un appartement vide à Lyon (zone tendue). Elle envoie son congé le 1er mars. Quand peut-elle partir ?",
+    "reponse": "Le 1er avril. En location vide, le préavis du locataire est de 3 mois, mais il est réduit à 1 mois en zone tendue (ou en cas de mutation, perte d'emploi, raison de santé…)."
+  },
+  {
+    "id": 9,
+    "type": "quiz",
+    "matiere": "transaction",
+    "chapitre": "Diagnostics",
+    "titre": "Validité du DPE",
+    "contenu": "Combien de temps est valable un Diagnostic de Performance Énergétique (DPE) ?",
+    "reponse": "10 ans. Attention : les DPE réalisés avant le 1er juillet 2021 ont des dates de fin de validité anticipées."
+  },
+  {
+    "id": 10,
+    "type": "piege",
+    "matiere": "eco",
+    "chapitre": "Financement",
+    "titre": "Taux nominal ≠ TAEG",
+    "contenu": "Un client compare deux prêts uniquement sur le taux nominal. Erreur classique !",
+    "reponse": "Le taux nominal ne couvre que les intérêts. Le TAEG (taux annuel effectif global) inclut aussi les frais de dossier, l'assurance emprunteur obligatoire, les frais de garantie… C'est lui qu'il faut comparer."
+  }
+]
