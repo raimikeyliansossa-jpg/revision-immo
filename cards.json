@@ -5,8 +5,8 @@
     "matiere": "transaction",
     "chapitre": "La vente immobilière",
     "titre": "Du mandat aux clés : le parcours d'une vente",
-    "contenu": "Comment se passe une vente, du vendeur jusqu'à la remise des clés ?",
-    "reponse": "1. Mandat écrit signé avec l'agence (loi Hoguet)\n2. Visite puis offre d'achat\n3. Compromis de vente : 10 jours de rétractation\n4. Prêt accordé = condition suspensive levée\n5. Acte authentique chez le notaire : remise des clés",
+    "contenu": "Entre la pancarte *À vendre* et la remise des clés, il y a *5 étapes*. Tu les connais ?",
+    "reponse": "1. *Mandat écrit* signé avec l'agence (loi Hoguet)\n2. Visite puis *offre d'achat*\n3. *Compromis de vente* : *10 jours* de rétractation\n4. *Prêt accordé* = condition suspensive levée\n5. *Acte authentique* chez le notaire : remise des clés",
     "personnages": {
       "martin": {
         "nom": "M. Martin",
@@ -57,83 +57,233 @@
       {
         "decor": "rue",
         "persos": {
-          "martin": 30
+          "martin": {
+            "x": 50,
+            "emotion": "content"
+          }
         },
-        "parle": "martin",
-        "bulle": "Je veux vendre ma maison !",
-        "narration": "Monsieur Martin veut vendre sa maison. Il passe par une agence."
-      },
-      {
-        "decor": "agence",
-        "persos": {
-          "martin": 25,
-          "sophie": 72
-        },
-        "parle": "sophie",
-        "bulle": "On signe d'abord un mandat écrit.",
-        "objet": {
-          "emoji": "📄",
-          "texte": "Mandat"
-        },
-        "narration": "Il signe un mandat écrit. Sans mandat, l'agence n'a pas droit à ses honoraires."
+        "narration": "Voici Martin. Il veut *vendre sa maison*."
       },
       {
         "decor": "rue",
         "persos": {
-          "sophie": 22,
-          "lea": 55
+          "martin": {
+            "x": 50,
+            "emotion": "triste"
+          }
         },
-        "parle": "lea",
-        "bulle": "Coup de cœur ! Je fais une offre.",
-        "objet": {
-          "emoji": "🏠",
-          "texte": "Offre d'achat"
-        },
-        "narration": "Léa visite la maison. Coup de cœur : elle fait une offre."
+        "gros_plan": "martin",
+        "narration": "Mais il n'a *aucune idée* de comment faire."
       },
       {
         "decor": "agence",
         "persos": {
-          "martin": 18,
-          "lea": 50,
-          "sophie": 82
+          "martin": {
+            "x": 28,
+            "emotion": "neutre"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "content"
+          }
         },
         "parle": "sophie",
-        "bulle": "Léa, vous avez 10 jours pour changer d'avis.",
+        "bulle": "Bonjour ! Je suis Sophie.",
+        "narration": "Alors il pousse la porte d'une *agence immobilière*."
+      },
+      {
+        "type": "etapes",
+        "titre": "La vente en 5 étapes",
+        "items": [
+          "Le mandat",
+          "L'offre d'achat",
+          "Le compromis",
+          "Le prêt",
+          "L'acte authentique"
+        ],
+        "actif": 0,
+        "narration": "Étape 1 : le *mandat*."
+      },
+      {
+        "type": "document",
+        "titre": "MANDAT DE VENTE",
+        "lignes": [
+          "Mandant : M. Martin",
+          "Mandataire : Agence Immo",
+          "Bien : maison, 12 rue des Lilas",
+          "Durée : 3 mois",
+          "*Honoraires : 5 % TTC*"
+        ],
+        "tampon": "SIGNÉ",
+        "narration": "Sophie lui fait signer un *mandat écrit*."
+      },
+      {
+        "type": "loi",
+        "source": "Loi Hoguet du 2 janvier 1970 · en résumé",
+        "texte": "Sans *mandat écrit*, l'agent immobilier ne peut percevoir *aucune rémunération*.",
+        "narration": "Sans ce papier, Sophie ne toucherait *pas un euro*. C'est la *loi Hoguet*."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "sophie": {
+            "x": 25,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 68,
+            "emotion": "surpris"
+          }
+        },
+        "narration": "Quelques jours plus tard, *Léa* visite la maison."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "sophie": {
+            "x": 25,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 68,
+            "emotion": "rougit"
+          }
+        },
+        "gros_plan": "lea",
+        "objet": {
+          "emoji": "🏠",
+          "texte": "Offre d'achat"
+        },
+        "narration": "Coup de cœur. Elle fait une *offre*."
+      },
+      {
+        "type": "etapes",
+        "titre": "La vente en 5 étapes",
+        "items": [
+          "Le mandat",
+          "L'offre d'achat",
+          "Le compromis",
+          "Le prêt",
+          "L'acte authentique"
+        ],
+        "actif": 2,
+        "narration": "Étape 3 : le *compromis de vente*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": {
+            "x": 20,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 50,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 80,
+            "emotion": "neutre"
+          }
+        },
         "objet": {
           "emoji": "✍️",
-          "texte": "Compromis de vente"
+          "texte": "Compromis"
         },
-        "narration": "Ils signent le compromis de vente. Léa a dix jours pour se rétracter."
+        "narration": "Martin et Léa signent le compromis."
+      },
+      {
+        "type": "chiffre",
+        "texte": "10 JOURS",
+        "sous": "pour se rétracter, sans se justifier",
+        "narration": "Et là, Léa a *10 jours* pour changer d'avis. Sans se justifier."
       },
       {
         "decor": "banque",
         "persos": {
-          "lea": 28,
-          "bernard": 72
+          "lea": {
+            "x": 30,
+            "emotion": "triste"
+          },
+          "bernard": {
+            "x": 70,
+            "emotion": "neutre"
+          }
         },
-        "parle": "bernard",
-        "bulle": "Votre prêt est accepté !",
+        "gros_plan": "lea",
+        "narration": "Reste le *prêt*. Si la banque refuse, la vente *tombe*."
+      },
+      {
+        "decor": "banque",
+        "persos": {
+          "lea": {
+            "x": 30,
+            "emotion": "surpris"
+          },
+          "bernard": {
+            "x": 70,
+            "emotion": "content"
+          }
+        },
+        "gros_plan": "bernard",
         "objet": {
           "emoji": "💶",
-          "texte": "Offre de prêt"
+          "texte": "Prêt accepté"
         },
-        "narration": "Si la banque refuse le prêt, la vente tombe sans pénalité. Ici, c'est accepté !"
+        "narration": "C'est la *condition suspensive*. Mais ici, c'est *oui*."
+      },
+      {
+        "type": "etapes",
+        "titre": "La vente en 5 étapes",
+        "items": [
+          "Le mandat",
+          "L'offre d'achat",
+          "Le compromis",
+          "Le prêt",
+          "L'acte authentique"
+        ],
+        "actif": 4,
+        "narration": "Dernière étape : l'*acte authentique*."
       },
       {
         "decor": "notaire",
         "persos": {
-          "martin": 18,
-          "lea": 50,
-          "dubois": 82
+          "martin": {
+            "x": 20,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 50,
+            "emotion": "content"
+          },
+          "dubois": {
+            "x": 80,
+            "emotion": "neutre"
+          }
         },
-        "parle": "lea",
-        "bulle": "Enfin chez moi !",
         "objet": {
           "emoji": "🔑",
           "texte": "Les clés"
         },
-        "narration": "Chez le notaire, on signe l'acte authentique. Léa devient propriétaire !"
+        "narration": "Chez le *notaire*, tout le monde signe."
+      },
+      {
+        "decor": "notaire",
+        "persos": {
+          "martin": {
+            "x": 20,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 50,
+            "emotion": "pleure"
+          },
+          "dubois": {
+            "x": 80,
+            "emotion": "neutre"
+          }
+        },
+        "gros_plan": "lea",
+        "narration": "Léa est enfin *propriétaire*."
       }
     ]
   },
@@ -143,8 +293,8 @@
     "matiere": "gestion-locative",
     "chapitre": "Fin du bail",
     "titre": "Partir plus vite : le préavis en zone tendue",
-    "contenu": "Peut-on quitter un logement vide avec un mois de préavis au lieu de trois ?",
-    "reponse": "Location vide : préavis de 3 mois en principe\nRéduit à 1 mois en zone tendue (et en cas de mutation, perte d'emploi, raison de santé…)\nLe locataire doit indiquer le motif dans sa lettre de congé",
+    "contenu": "Ton locataire veut partir. Il te doit *3 mois* de préavis… ou *1 seul* ?",
+    "reponse": "Location vide : préavis de *3 mois* en principe\nRéduit à *1 mois* en *zone tendue* (et en cas de mutation, perte d'emploi, raison de santé…)\nLe locataire doit *indiquer le motif* dans sa lettre de congé",
     "personnages": {
       "diallo": {
         "nom": "Mme Diallo",
@@ -168,48 +318,113 @@
       {
         "decor": "appartement",
         "persos": {
-          "diallo": 40
+          "diallo": {
+            "x": 50,
+            "emotion": "content"
+          }
         },
-        "parle": "diallo",
-        "bulle": "J'ai trouvé plus près de mon travail !",
-        "narration": "Madame Diallo loue un appartement vide à Lyon. Elle veut déménager."
+        "narration": "Madame Diallo loue un appartement *vide* à *Lyon*."
       },
       {
         "decor": "appartement",
         "persos": {
-          "diallo": 30
+          "diallo": {
+            "x": 50,
+            "emotion": "rougit"
+          }
         },
-        "parle": "diallo",
-        "bulle": "J'envoie mon congé le 1er mars.",
-        "objet": {
-          "emoji": "✉️",
-          "texte": "Lettre de congé"
-        },
-        "narration": "Le 1er mars, elle envoie son congé en recommandé."
+        "gros_plan": "diallo",
+        "narration": "Elle a trouvé un logement plus près de son travail."
+      },
+      {
+        "type": "document",
+        "titre": "LETTRE DE CONGÉ",
+        "lignes": [
+          "Lyon, le 1er mars",
+          "Monsieur,",
+          "Je vous donne congé de mon logement.",
+          "*Logement en zone tendue : préavis d'un mois.*",
+          "Mme Diallo"
+        ],
+        "tampon": "RECOMMANDÉ",
+        "narration": "Le *1er mars*, elle envoie son congé en *recommandé*."
       },
       {
         "decor": "appartement",
         "persos": {
-          "diallo": 28,
-          "petit": 72
+          "diallo": {
+            "x": 28,
+            "emotion": "neutre"
+          },
+          "petit": {
+            "x": 72,
+            "emotion": "fache"
+          }
         },
         "parle": "petit",
-        "bulle": "C'est 3 mois de préavis : jusqu'au 1er juin !",
-        "narration": "Son propriétaire exige trois mois : c'est la règle… en principe."
+        "bulle": "3 mois ! Pas un jour de moins !",
+        "narration": "Son propriétaire n'est *pas d'accord*."
+      },
+      {
+        "type": "calcul",
+        "titre": "Le calcul de M. Petit",
+        "lignes": [
+          [
+            "Congé envoyé",
+            "1er mars"
+          ],
+          [
+            "Préavis location vide",
+            "3 mois"
+          ]
+        ],
+        "total": [
+          "Départ",
+          "1er juin"
+        ],
+        "narration": "Pour lui : *3 mois* de préavis. Donc départ le *1er juin*."
       },
       {
         "decor": "appartement",
         "persos": {
-          "diallo": 28,
-          "petit": 72
+          "diallo": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "petit": {
+            "x": 72,
+            "emotion": "fache"
+          }
         },
-        "parle": "diallo",
-        "bulle": "Lyon est en zone tendue : c'est 1 mois !",
-        "objet": {
-          "emoji": "📅",
-          "texte": "Départ le 1er avril"
+        "gros_plan": "diallo",
+        "narration": "Sauf que Lyon est en *zone tendue*."
+      },
+      {
+        "type": "loi",
+        "source": "Loi du 6 juillet 1989, art. 15 · en résumé",
+        "texte": "En *zone tendue*, le préavis du locataire d'un logement vide est réduit à *un mois*.",
+        "narration": "Et là, la loi réduit le préavis à *un mois*."
+      },
+      {
+        "type": "chiffre",
+        "texte": "1ER AVRIL",
+        "sous": "date de départ de Mme Diallo",
+        "narration": "Elle partira le *1er avril*. Si elle l'a bien *écrit dans sa lettre*."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "diallo": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "petit": {
+            "x": 72,
+            "emotion": "triste"
+          }
         },
-        "narration": "Mais Lyon est en zone tendue : un mois suffit, si elle l'indique dans sa lettre."
+        "gros_plan": "petit",
+        "narration": "Raté pour Monsieur Petit."
       }
     ]
   },

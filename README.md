@@ -47,43 +47,54 @@ Copie un bloc dans `cards.json`, change l'`id` et le texte. N'oublie pas la virg
 
 ## Créer une vidéo animée 🎬
 
-Une vidéo est une carte de type `video`, avec 2 champs en plus : `personnages` et `scenes`.
-Déroulé : **question** (`contenu`) → **scènes** → **À retenir** (`reponse`, une ligne par point, séparées par `\n`).
+Une vidéo est une carte de type `video`, plein écran, façon TikTok « explainer » :
+**accroche** (`contenu`) → une suite de **plans courts** (`scenes`) → **À retenir** (`reponse`, un point par ligne, séparés par `\n`).
+
+La voix off lit la `narration` de chaque plan, affichée en sous-titres de 2-3 mots.
+Les mots entre `*astérisques*` s'affichent **en jaune** (et sont surlignés dans les documents).
+
+### Les personnages
 
 ```json
-{
-  "id": 13,
-  "type": "video",
-  "matiere": "copropriete",
-  "chapitre": "Assemblée générale",
-  "titre": "Titre de la vidéo",
-  "contenu": "La question de départ ?",
-  "reponse": "Premier point à retenir\nDeuxième point",
-  "personnages": {
-    "paul": { "nom": "Paul", "role": "copropriétaire", "style": "homme",
-              "couleur": "#2563eb", "peau": "#f1c27d", "cheveux": "#3f2a14", "accessoire": "lunettes" }
-  },
-  "scenes": [
-    {
-      "decor": "appartement",
-      "persos": { "paul": 40 },
-      "parle": "paul",
-      "bulle": "Ce que dit le personnage",
-      "objet": { "emoji": "📄", "texte": "Convocation" },
-      "narration": "Ce que dit la voix off (une ou deux phrases courtes)."
-    }
-  ]
+"personnages": {
+  "lea": { "nom": "Léa", "style": "femme", "couleur": "#f97316", "peau": "#f1c27d", "cheveux": "#92400e" }
 }
 ```
+`style` : `homme` ou `femme` · `accessoire` (facultatif) : `cravate`, `lunettes`, `badge`, `moustache`
 
-- `decor` : `rue`, `agence`, `banque`, `notaire` ou `appartement`
-- `persos` : qui est sur scène, et où (0 = tout à gauche, 100 = tout à droite). Un personnage qui change de place **marche** jusqu'à sa nouvelle position.
-- `style` : `homme` ou `femme` · `accessoire` : `cravate`, `lunettes`, `badge`, `moustache` (facultatif)
-- `parle`, `bulle`, `objet` : facultatifs
-- Viser 4 à 6 scènes et des narrations de 60 à 80 caractères → une vidéo de 30 à 40 secondes.
+### Les 6 types de plans
 
-**Pendant la vidéo :** tap sur la scène = pause / reprise. 🔊 en haut = couper / remettre la voix.
-Au tout premier lancement, il faut taper ▶ (le téléphone bloque le son tant qu'on n'a pas touché l'écran), ensuite les vidéos démarrent toutes seules.
+| Type | Ce qu'on voit | Champs |
+|---|---|---|
+| `scene` (par défaut) | Des personnages dans un décor | `decor`, `persos`, `gros_plan`, `objet`, `parle` + `bulle` |
+| `document` | Une feuille avec une ligne surlignée et un tampon | `titre`, `lignes`, `tampon` |
+| `loi` | Un extrait de texte officiel surligné | `source`, `texte` |
+| `etapes` | Une liste numérotée, l'étape en cours en jaune | `titre`, `items`, `actif` (0 = 1re) |
+| `chiffre` | Un chiffre clé énorme | `texte`, `sous` |
+| `calcul` | Des lignes puis un TOTAL | `titre`, `lignes` : `[["Libellé","Valeur"]]`, `total` |
+
+Exemples :
+```json
+{ "decor": "banque",
+  "persos": { "lea": { "x": 30, "emotion": "triste" }, "bernard": 70 },
+  "gros_plan": "lea",
+  "objet": { "emoji": "💶", "texte": "Prêt refusé" },
+  "narration": "Si la banque refuse, la vente *tombe*." }
+
+{ "type": "chiffre", "texte": "10 JOURS", "sous": "pour se rétracter",
+  "narration": "Léa a *10 jours* pour changer d'avis." }
+```
+
+- `decor` : `rue`, `agence`, `banque`, `notaire`, `appartement`
+- `persos` : position de 0 (gauche) à 100 (droite), ou `{ "x": 40, "emotion": "…" }`
+- `emotion` : `neutre`, `content`, `rougit`, `triste`, `pleure`, `surpris`, `fache`
+- `gros_plan` : l'identifiant du personnage sur lequel la caméra zoome (le fond devient flou)
+
+**Conseils de rythme :** une seule idée par plan, des narrations de 5 à 12 mots,
+alterner personnages et infographies. 12 à 16 plans ≈ 45 à 60 secondes.
+
+**Pendant la vidéo :** tap = pause / reprise · 🔊 = couper / remettre la voix.
+Au tout premier lancement, taper ▶ (le téléphone bloque le son tant qu'on n'a pas touché l'écran).
 
 ## Filtrer par matière
 

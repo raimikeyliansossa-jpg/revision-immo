@@ -262,51 +262,65 @@ body {
   text-align: center;
 }
 
-/* ========== 6. Les vidéos animées ========== */
+/* ========== 6. Les vidéos animées (plein écran) ========== */
 
 .carte.video {
-  --couleur: #f59e0b; /* orange */
-  gap: 0.8rem;
+  --couleur: #f59e0b;
+  display: block;
+  padding: 0;
+  background: #0d0d12;
 }
-.carte.video .titre {
-  font-size: 1.35rem;
+.carte.video .indice-swipe {
+  display: none;
 }
 
-/* La "scène" : le petit théâtre où jouent les personnages */
+/* La scène occupe tout l'écran */
 .scene {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 6 / 5;
-  border-radius: 18px;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  background: #1e1e26;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: #14141c;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
 }
 
+/* "monde" = ce que filme la caméra ; on le déplace pour les gros plans */
+.monde {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+}
+.travelling {
+  position: absolute;
+  inset: 0;
+}
+/* Léger zoom continu pendant chaque plan (effet "caméra vivante") */
+.zoom-lent {
+  animation: zoom-lent 4s ease-out forwards;
+}
+@keyframes zoom-lent {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
 .decor {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
-.decor.fondu {
-  animation: fondu 0.5s ease-out;
-}
-@keyframes fondu {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* Gros plan : le décor se floute (profondeur de champ) */
+.monde.gros-plan .decor,
+.perso.flou {
+  filter: blur(2.5px) brightness(0.85);
 }
 
-/* Un personnage : positionné par "left" (en %), les pieds en bas */
+/* Un personnage : grand, les pieds vers 80 % de la hauteur */
 .perso {
   position: absolute;
-  bottom: 12%;
-  width: 16%;
+  bottom: 20%;
+  width: 32%;
   transform: translateX(-50%);
-  transition: left 0.9s ease-in-out, opacity 0.4s;
   opacity: 0;
 }
 .perso.visible {
@@ -315,211 +329,436 @@ body {
 .perso svg {
   display: block;
   width: 100%;
+  overflow: visible;
   transform-origin: bottom center;
-  animation: respire 2.4s ease-in-out infinite; /* petit mouvement au repos */
+  animation: respire 2.4s ease-in-out infinite;
 }
 @keyframes respire {
   0%, 100% { transform: scale(1, 1); }
-  50%      { transform: scale(1.02, 0.98); }
+  50%      { transform: scale(1.015, 0.985); }
 }
-/* Quand il parle : il sautille et sa bouche s'ouvre */
 .perso.parle svg {
   animation: parle 0.5s ease-in-out infinite;
 }
 @keyframes parle {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-4%); }
+  50%      { transform: translateY(-3%); }
 }
-.perso.parle .bouche {
-  animation: bouche 0.25s infinite alternate;
-  transform-origin: 30px 35px;
+.larme {
+  animation: larme 1.2s ease-in infinite;
 }
-@keyframes bouche {
-  to { transform: scaleY(2); }
-}
-/* Quand il marche : il se dandine */
-.perso.marche svg {
-  animation: marche 0.3s ease-in-out infinite alternate;
-}
-@keyframes marche {
-  from { transform: rotate(-5deg); }
-  to   { transform: rotate(5deg); }
+@keyframes larme {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(14px); opacity: 0; }
 }
 
-/* Le prénom sous les pieds */
-.nom {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 2px;
-  font-size: 0.58rem;
-  font-weight: 700;
-  line-height: 1.15;
-  text-align: center;
-  white-space: nowrap;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.55);
-  padding: 1px 6px 2px;
-  border-radius: 8px;
-}
-.nom small {
-  display: block;
-  font-size: 0.5rem;
-  font-weight: 600;
-  opacity: 0.8;
-}
-
-/* La bulle de dialogue au-dessus de la tête */
+/* Bulle de dialogue */
 .bulle {
   position: absolute;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   width: max-content;
-  max-width: 9.5rem;
+  max-width: 10rem;
   background: #fff;
   color: #111;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 800;
   line-height: 1.25;
-  padding: 0.4rem 0.55rem;
-  border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  padding: 0.45rem 0.6rem;
+  border-radius: 14px;
+  border: 2.5px solid #2a1a12;
 }
 .bulle:empty {
   display: none;
 }
-.bulle::after { /* la petite pointe de la bulle */
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: #fff;
-}
-/* Près des bords, la bulle se décale pour ne pas sortir de l'écran */
 .bulle.gauche { left: 0; transform: none; }
-.bulle.gauche::after { left: 1.2rem; }
 .bulle.droite { left: auto; right: 0; transform: none; }
-.bulle.droite::after { left: auto; right: 0.6rem; transform: none; }
-.perso.parle .bulle {
-  animation: pop 0.35s ease-out;
+
+/* Assombrit les bords de l'image (vignette, ambiance cinéma) */
+.lumiere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(0, 0, 0, 0.6) 100%);
 }
 
-/* L'objet qui apparaît (📄 Mandat, 🔑 Les clés…) */
-.objet {
+/* Pop-up qui surgit (📄 MANDAT, 🔑 LES CLÉS…) */
+.popup {
   position: absolute;
-  top: 9%;
+  top: 16%;
   left: 50%;
-  transform: translateX(-50%) scale(0);
-  font-size: 0.85rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
   white-space: nowrap;
-  color: #111;
-  background: #fde047;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: #2a1a12;
+  background: #ffd23f;
+  border: 3px solid #2a1a12;
+  padding: 0.35rem 0.9rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 0 #2a1a12;
+  transform: translateX(-50%) rotate(-4deg) scale(0);
+  z-index: 2;
 }
-.objet.visible {
-  animation: pop 0.45s 0.5s ease-out forwards;
+.popup.visible {
+  animation: pop 0.45s 0.25s ease-out forwards;
 }
 @keyframes pop {
-  0%   { transform: translateX(-50%) scale(0); }
-  70%  { transform: translateX(-50%) scale(1.15); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-.bulle.gauche, .bulle.droite { animation-name: pop-simple !important; }
-@keyframes pop-simple {
-  from { opacity: 0; } to { opacity: 1; }
+  0%   { transform: translateX(-50%) rotate(-4deg) scale(0); }
+  70%  { transform: translateX(-50%) rotate(-4deg) scale(1.15); }
+  100% { transform: translateX(-50%) rotate(-4deg) scale(1); }
 }
 
-/* Les écrans plein cadre : titre au début, "À retenir" à la fin */
+/* ---------- Plans infographie : fond sombre + spot de lumière ---------- */
+.graphique {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  /* le contenu se place dans la moitié haute, au-dessus des sous-titres */
+  padding: 7rem 1.4rem 16rem;
+  background: radial-gradient(ellipse at 50% 30%, #3a3340 0%, #16141c 60%, #0d0c12 100%);
+}
+.graphique.visible {
+  display: grid;
+}
+.graphique > * {
+  animation: entree 0.4s ease-out;
+}
+@keyframes entree {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Surlignage façon stabilo jaune, qui se "trace" de gauche à droite */
+.papier mark,
+.extrait mark,
+.liste-retenir mark {
+  color: inherit;
+  background: linear-gradient(#ffd23f, #ffd23f) no-repeat left center / 0% 100%;
+  padding: 0 0.15em;
+  animation: stabilo 0.6s 0.7s ease-out forwards;
+  border-radius: 3px;
+}
+@keyframes stabilo {
+  to { background-size: 100% 100%; }
+}
+
+/* Feuille de papier (mandat, lettre…) */
+.papier {
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+  background: #fbf6ea;
+  color: #2a2420;
+  border-radius: 6px;
+  padding: 1.2rem 1.1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  transform: rotate(-1.5deg);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.papier h4 {
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #2a2420;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+.tampon {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.6rem;
+  font-weight: 900;
+  font-size: 1rem;
+  color: #d9442e;
+  border: 3px solid #d9442e;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  transform: rotate(-12deg) scale(3);
+  opacity: 0;
+  animation: tampon 0.3s 1.1s ease-in forwards;
+}
+@keyframes tampon {
+  to { transform: rotate(-12deg) scale(1); opacity: 0.9; }
+}
+
+/* Extrait de loi */
+.extrait {
+  width: 100%;
+  max-width: 20rem;
+  background: #fff;
+  color: #1f2937;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+.extrait-source {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+.extrait-texte {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* Panneau sombre (étapes, calcul) */
+.panneau {
+  width: 100%;
+  max-width: 20rem;
+  background: #24222b;
+  border: 1px solid #3a3742;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+.panneau-titre {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a1a1aa;
+  margin-bottom: 0.7rem;
+}
+.liste-etapes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.liste-etapes li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #6b6875;
+}
+.liste-etapes .puce {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  background: #34313c;
+}
+.liste-etapes li.passee { color: #a1a1aa; }
+.liste-etapes li.passee .puce { background: #10b981; color: #fff; }
+.liste-etapes li.active {
+  color: #fff;
+  font-size: 1.15rem;
+  animation: entree 0.4s 0.3s both;
+}
+.liste-etapes li.active .puce { background: #ffd23f; color: #2a1a12; }
+
+/* Calcul ligne par ligne */
+.calcul-ligne,
+.calcul-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  opacity: 0;
+  animation: entree 0.35s ease-out forwards;
+}
+.calcul-ligne { color: #d4d4d8; }
+.calcul-total {
+  margin-top: 0.4rem;
+  border-top: 1px solid #4a4652;
+  padding-top: 0.6rem;
+  font-size: 1.05rem;
+  color: #fff;
+}
+.calcul-total b {
+  font-size: 1.8rem;
+  color: #ff6b4a;
+}
+
+/* Chiffre clé énorme */
+.chiffre {
+  text-align: center;
+}
+.chiffre-gros {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffd23f;
+  text-shadow: 0 6px 0 #2a1a12, 0 0 40px rgba(255, 210, 63, 0.35);
+  animation: pop-simple 0.5s ease-out;
+}
+.chiffre-sous {
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e4e4e7;
+}
+@keyframes pop-simple {
+  0%   { transform: scale(0.3); opacity: 0; }
+  70%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Sous-titres : 2-3 mots, très gros, mot clé en couleur ---------- */
+.sous-titre {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: 62%;
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #fff;
+  /* contour noir autour des lettres, lisible sur tous les fonds */
+  -webkit-text-stroke: 7px #111;
+  paint-order: stroke fill;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  pointer-events: none;
+}
+.sous-titre mark {
+  background: none;
+  color: #ffd23f;
+}
+/* Sur une infographie, les sous-titres descendent un peu */
+.sous-titre.bas {
+  top: 70%;
+}
+.sous-titre.pop {
+  animation: mot 0.18s ease-out;
+}
+@keyframes mot {
+  from { transform: scale(0.8); }
+  to   { transform: scale(1); }
+}
+
+/* Accroche du début : décor assombri + titre */
 .ecran {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 0.7rem;
-  padding: 1.5rem 1.2rem 1rem;
-  background: linear-gradient(160deg, #f59e0b, #b45309);
-  color: #fff;
+  padding: 7rem 1.2rem 8rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s;
+  transition: opacity 0.35s;
+  z-index: 2;
 }
 .ecran.visible {
   opacity: 1;
   pointer-events: auto;
 }
-.ecran-fin {
-  background: linear-gradient(160deg, #10b981, #047857);
-  gap: 0.45rem;
-  padding: 1.3rem 1rem 0.8rem;
-}
-.ecran-fin .ecran-gros {
-  font-size: 1.05rem;
-}
-.ecran-icone {
-  font-size: 2.2rem;
-}
-.ecran-gros {
-  font-size: 1.3rem;
-  line-height: 1.2;
+.ecran-titre {
+  justify-content: flex-start;
+  padding-top: 9rem;
+  background: rgba(10, 10, 16, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 .ecran-etiquette {
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  opacity: 0.85;
+  text-align: center;
+  color: #2a1a12;
+  background: #ffd23f;
+  border: 3px solid #2a1a12;
+  border-radius: 12px;
+  padding: 0.4rem 0.9rem;
+  box-shadow: 0 5px 0 #2a1a12;
 }
-.ecran-question {
-  font-size: 1rem;
-  line-height: 1.4;
-  font-weight: 600;
+
+/* Écran final "À retenir" */
+.ecran-fin {
+  background: rgba(10, 10, 16, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.carte-fin {
+  width: 100%;
+  max-width: 21rem;
+  background: #fbf6ea;
+  color: #2a2420;
+  border-radius: 16px;
+  padding: 1.1rem 1.1rem 1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+.carte-fin h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
 }
 .liste-retenir {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  font-size: 0.74rem;
+  gap: 0.4rem;
+  font-size: 0.88rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.35;
 }
 .bouton-revoir {
-  align-self: flex-start;
+  margin-top: 0.8rem;
   font: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #047857;
-  background: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+  background: #2a2420;
   border: none;
   border-radius: 999px;
-  padding: 0.4rem 0.9rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
 }
 
-/* Barre de progression en segments, en haut de la scène */
+/* Titre en bas à gauche, comme la description d'un TikTok */
+.infos {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: calc(env(safe-area-inset-bottom) + 1.6rem);
+  z-index: 3;
+  pointer-events: none;
+}
+.infos .etiquettes {
+  margin-bottom: 0.35rem;
+}
+.infos .etiquette {
+  font-size: 0.65rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(0, 0, 0, 0.45);
+}
+.infos .etiquette.type {
+  background: var(--couleur);
+}
+.infos-titre {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Barre de progression tout en bas */
 .progression {
   position: absolute;
-  top: 8px;
-  left: 10px;
-  right: 10px;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: calc(env(safe-area-inset-bottom) + 0.6rem);
   display: flex;
-  gap: 4px;
+  gap: 3px;
   z-index: 3;
 }
 .segment {
   flex: 1;
   height: 3px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
 .segment i {
@@ -529,21 +768,21 @@ body {
   background: #fff;
 }
 
-/* Gros bouton ▶ (affiché seulement si le téléphone bloque le son) */
+/* Gros bouton ▶ (si le téléphone bloque le son au départ) */
 .bouton-lecture {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
-  border: none;
-  font-size: 1.8rem;
-  color: #b45309;
-  background: #fff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  border: 3px solid #2a1a12;
+  font-size: 2rem;
+  color: #2a1a12;
+  background: #ffd23f;
+  box-shadow: 0 6px 0 #2a1a12;
   display: none;
-  z-index: 4;
+  z-index: 5;
   cursor: pointer;
 }
 .bouton-lecture.visible {
@@ -557,15 +796,7 @@ body {
   inset: 0;
   display: grid;
   place-items: center;
-  font-size: 3rem;
+  font-size: 3.5rem;
   background: rgba(0, 0, 0, 0.35);
-  z-index: 3;
-}
-
-/* Les sous-titres sous la scène, en gros, façon TikTok */
-.sous-titre {
-  min-height: 5.6em; /* hauteur fixe : la page ne "saute" pas */
-  font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1.4;
+  z-index: 4;
 }

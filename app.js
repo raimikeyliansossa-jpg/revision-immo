@@ -59,19 +59,18 @@ function creerCarte(carte) {
     creer("span", "etiquette", NOMS_MATIERES[carte.matiere] || carte.matiere)
   );
 
-  section.append(
-    etiquettes,
-    creer("p", "chapitre", carte.chapitre),
-    creer("h2", "titre", carte.titre)
-  );
-
-  // Une vidéo : c'est video.js qui construit la suite
+  // Une vidéo plein écran : c'est video.js qui construit tout
   if (carte.type === "video") {
-    ajouterVideo(section, carte);
+    ajouterVideo(section, carte, etiquettes);
     return section;
   }
 
-  section.append(creer("p", "contenu", carte.contenu));
+  section.append(
+    etiquettes,
+    creer("p", "chapitre", carte.chapitre),
+    creer("h2", "titre", carte.titre),
+    creer("p", "contenu", carte.contenu)
+  );
 
   if (carte.type === "notion") {
     // Une notion se lit directement : la réponse est visible tout de suite
