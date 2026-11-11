@@ -97,6 +97,27 @@ alterner personnages et infographies. 12 à 16 plans ≈ 45 à 60 secondes.
 **Pendant la vidéo :** tap = pause / reprise · 🔊 = couper / remettre la voix.
 Au tout premier lancement, taper ▶ (le téléphone bloque le son tant qu'on n'a pas touché l'écran).
 
+## Quiz, examens et suivi
+
+- **Quiz après chaque vidéo** : sur l'écran « À retenir », bouton 🧠 Quiz. Les questions sont dans le champ `quiz` de la vidéo :
+  ```json
+  "quiz": [ { "question": "…", "choix": ["A", "B", "C"], "bonne": 1, "explication": "…" } ]
+  ```
+  (`bonne` = numéro de la bonne réponse, en commençant à 0)
+- **Examen de fin de chapitre** : une carte de type `examen` avec des `questions` (mêmes champs + `situation`). Note sur 20.
+- **Suivi** (`suivi.js`) : vidéos déjà vues, dernier score au quiz, dernière et meilleure note aux examens.
+  C'est enregistré dans la mémoire du navigateur du téléphone : si tu vides les données du navigateur, ça repart de zéro.
+
+## Avancer / reculer dans une vidéo
+
+Tap à **gauche** = plan précédent · tap à **droite** = plan suivant · tap au **milieu** = pause ·
+tap sur un **trait** de la barre du bas = aller directement à ce moment.
+
+## Voix naturelle (fichiers audio)
+
+Si le dossier `audio/` contient des fichiers MP3 pour une vidéo (listés dans `audio/voix.json`),
+ils remplacent la voix du téléphone. Sinon, c'est la voix du téléphone qui lit.
+
 ## Filtrer par matière
 
 Les boutons en haut de l'écran affichent seulement les cartes d'une matière (le chiffre = nombre de cartes).

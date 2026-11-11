@@ -167,6 +167,38 @@
         "sous": "intermédiaire et conseiller, du mandat à la signature",
         "narration": "Retiens ça : l'agent est un *intermédiaire neutre*. Et un *conseiller*."
       }
+    ],
+    "quiz": [
+      {
+        "question": "Un agent immobilier s'occupe de biens…",
+        "choix": [
+          "qui lui appartiennent",
+          "appartenant à d'autres personnes",
+          "uniquement neufs"
+        ],
+        "bonne": 1,
+        "explication": "Il intervient régulièrement sur les biens d'autrui."
+      },
+      {
+        "question": "Avant de signer le mandat, l'agent doit d'abord…",
+        "choix": [
+          "publier l'annonce",
+          "estimer le bien au juste prix",
+          "organiser les visites"
+        ],
+        "bonne": 1,
+        "explication": "Informer et estimer au juste prix, avant le mandat."
+      },
+      {
+        "question": "En location, que vérifie l'agent chez le candidat ?",
+        "choix": [
+          "Sa solvabilité et sa motivation",
+          "Son casier judiciaire",
+          "Son diplôme"
+        ],
+        "bonne": 0,
+        "explication": "Il étudie la solvabilité et la motivation du candidat."
+      }
     ]
   },
   {
@@ -314,6 +346,38 @@
           "texte": "Carte T"
         },
         "narration": "Karim, lui, veut vendre. Ce sera la carte *T*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "De quand date la loi Hoguet ?",
+        "choix": [
+          "2 janvier 1970",
+          "20 juillet 1972",
+          "24 mars 2014"
+        ],
+        "bonne": 0,
+        "explication": "1970 la loi, 1972 son décret d'application, 2014 la loi ALUR."
+      },
+      {
+        "question": "Qui délivre la carte professionnelle ?",
+        "choix": [
+          "La préfecture",
+          "La CCI",
+          "Le notaire"
+        ],
+        "bonne": 1,
+        "explication": "La Chambre de Commerce et d'Industrie."
+      },
+      {
+        "question": "Encaisser les loyers pour un propriétaire demande la carte…",
+        "choix": [
+          "T",
+          "G",
+          "S"
+        ],
+        "bonne": 1,
+        "explication": "G = gestion immobilière. T = transaction, S = syndic."
       }
     ]
   },
@@ -475,6 +539,38 @@
           "texte": "Attestation"
         },
         "narration": "Et ses salariés ? Une *attestation de collaborateur* chacun."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Avec un BTS Professions Immobilières, l'accès à la carte est…",
+        "choix": [
+          "direct",
+          "possible après 3 ans d'activité",
+          "impossible"
+        ],
+        "bonne": 0,
+        "explication": "BTS PI ou Bac + 3 : accès direct."
+      },
+      {
+        "question": "Combien de temps la carte professionnelle est-elle valable ?",
+        "choix": [
+          "1 an",
+          "3 ans",
+          "10 ans"
+        ],
+        "bonne": 1,
+        "explication": "3 ans, renouvelable avec la formation continue."
+      },
+      {
+        "question": "Un agent qui ne détient jamais de fonds peut…",
+        "choix": [
+          "se passer d'assurance RCP",
+          "être dispensé de garantie financière",
+          "ne pas s'inscrire au RCS"
+        ],
+        "bonne": 1,
+        "explication": "Avec une déclaration sur l'honneur, il est dispensé de garantie financière. La RCP reste obligatoire."
       }
     ]
   },
@@ -649,6 +745,38 @@
         "sous": "4 en vente, 3 en location",
         "narration": "*Quatre* en vente, *trois* en location."
       }
+    ],
+    "quiz": [
+      {
+        "question": "Quel document prouve que l'agent a présenté le bien à l'acheteur ?",
+        "choix": [
+          "L'offre d'achat",
+          "La reconnaissance de visite",
+          "Le mandat"
+        ],
+        "bonne": 1,
+        "explication": "La reconnaissance (ou bon) de visite signée par le prospect."
+      },
+      {
+        "question": "L'avant-contrat peut être…",
+        "choix": [
+          "une promesse ou un compromis",
+          "un bail",
+          "un état des lieux"
+        ],
+        "bonne": 0,
+        "explication": "Promesse ou compromis : il prépare la vente définitive."
+      },
+      {
+        "question": "L'état des lieux est établi…",
+        "choix": [
+          "seulement à l'entrée",
+          "à l'entrée et à la sortie",
+          "seulement en cas de litige"
+        ],
+        "bonne": 1,
+        "explication": "C'est un constat contradictoire, à l'entrée et à la sortie."
+      }
     ]
   },
   {
@@ -803,6 +931,38 @@
         "sous": "durée de conservation des documents",
         "narration": "Et tout ça se garde *10 ans*."
       }
+    ],
+    "quiz": [
+      {
+        "question": "Un acompte versé par un acheteur s'inscrit dans…",
+        "choix": [
+          "le registre des mandats",
+          "le registre-répertoire",
+          "aucun registre"
+        ],
+        "bonne": 1,
+        "explication": "Mouvements de fonds = registre-répertoire (art. 86)."
+      },
+      {
+        "question": "Le registre des mandats classe les mandats…",
+        "choix": [
+          "par ordre alphabétique",
+          "par ordre chronologique",
+          "par prix"
+        ],
+        "bonne": 1,
+        "explication": "Inscription immédiate, par ordre chronologique, avec un numéro."
+      },
+      {
+        "question": "Combien de temps faut-il conserver les documents ?",
+        "choix": [
+          "5 ans",
+          "10 ans",
+          "30 ans"
+        ],
+        "bonne": 1,
+        "explication": "Archivage obligatoire pendant 10 ans."
+      }
     ]
   },
   {
@@ -919,6 +1079,38 @@
         ],
         "actif": 1,
         "narration": "Et la *DGCCRF* vérifie prix, honoraires et publicités."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Un client veut payer une grosse somme en espèces, sans rapport avec ses revenus. L'agent doit…",
+        "choix": [
+          "refuser sans rien dire",
+          "faire une déclaration à TRACFIN",
+          "prévenir la DGCCRF"
+        ],
+        "bonne": 1,
+        "explication": "Toute opération suspecte de blanchiment se déclare à TRACFIN."
+      },
+      {
+        "question": "Honoraires à la charge de l'acquéreur : comment les afficher ?",
+        "choix": [
+          "En montant HT",
+          "En pourcentage TTC du prix de vente",
+          "Uniquement en agence"
+        ],
+        "bonne": 1,
+        "explication": "En % TTC du prix de vente, sur tous les supports."
+      },
+      {
+        "question": "Qui a un pouvoir disciplinaire sur les agents immobiliers ?",
+        "choix": [
+          "Le CNTGI",
+          "TRACFIN",
+          "La CCI"
+        ],
+        "bonne": 0,
+        "explication": "Le CNTGI veille à la moralité et à la compétence, et peut sanctionner."
       }
     ]
   },
@@ -1057,6 +1249,158 @@
         ],
         "actif": 1,
         "narration": "Fraude, abus de confiance ? Là, c'est *pénal*. Jusqu'au *retrait de la carte*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Pour vendre un bien, l'agent a une obligation…",
+        "choix": [
+          "de résultat",
+          "de moyens"
+        ],
+        "bonne": 1,
+        "explication": "Il doit faire de son mieux, sans garantir la vente."
+      },
+      {
+        "question": "L'agent rédige un compromis avec une clause fausse. Conséquence ?",
+        "choix": [
+          "Rien, le notaire vérifiera",
+          "Sa responsabilité est engagée (obligation de résultat)",
+          "Seul le vendeur est responsable"
+        ],
+        "bonne": 1,
+        "explication": "Comme rédacteur d'acte, il a une obligation de résultat."
+      },
+      {
+        "question": "Responsabilité envers un tiers qui n'a pas de contrat avec l'agent ?",
+        "choix": [
+          "Contractuelle",
+          "Extracontractuelle",
+          "Pénale"
+        ],
+        "bonne": 1,
+        "explication": "Envers un tiers sans contrat : extracontractuelle."
+      }
+    ]
+  },
+  {
+    "id": 199,
+    "type": "examen",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Examen · Chapitre 1",
+    "contenu": "10 mises en situation sur le métier d'agent immobilier. Réponds comme si tu étais en agence : ta note sur 20 sera enregistrée.",
+    "reponse": "",
+    "questions": [
+      {
+        "situation": "Tu ouvres ton agence. Ton activité : vendre des maisons et trouver des locataires pour des propriétaires.",
+        "question": "Quelle carte professionnelle demandes-tu ?",
+        "choix": [
+          "Carte T",
+          "Carte G",
+          "Carte S"
+        ],
+        "bonne": 0,
+        "explication": "Vendre et louer les biens d'autrui = entremise = carte T. La G sert à gérer des biens, la S à être syndic."
+      },
+      {
+        "situation": "Ton cousin a seulement le baccalauréat et veut sa propre carte professionnelle.",
+        "question": "Que lui faut-il pour obtenir la carte ?",
+        "choix": [
+          "Rien, l'accès est direct",
+          "3 ans d'activité à temps plein dans une entreprise titulaire de la carte",
+          "10 ans d'activité"
+        ],
+        "bonne": 1,
+        "explication": "Bac seul = 3 ans d'activité. Accès direct seulement avec un BTS PI ou un Bac + 3."
+      },
+      {
+        "situation": "Ton agence ne reçoit jamais d'argent : tous les fonds passent directement par le notaire.",
+        "question": "Dois-tu souscrire une garantie financière ?",
+        "choix": [
+          "Oui, c'est toujours obligatoire",
+          "Non, si tu fais une déclaration sur l'honneur",
+          "Non, l'assurance RCP la remplace"
+        ],
+        "bonne": 1,
+        "explication": "Aucun maniement de fonds + déclaration sur l'honneur = dispense. Attention : la RCP, elle, reste obligatoire."
+      },
+      {
+        "situation": "Ta carte expire le mois prochain. En 3 ans, tu as suivi 30 heures de formation.",
+        "question": "Peux-tu renouveler ta carte ?",
+        "choix": [
+          "Oui, 30 h suffisent",
+          "Non : il faut 42 h sur 3 ans, dont 2 h de déontologie",
+          "Oui, la formation ne concerne que les salariés"
+        ],
+        "bonne": 1,
+        "explication": "42 h sur 3 ans (14 h par an), dont au moins 2 h de déontologie."
+      },
+      {
+        "situation": "Un acheteur a visité une maison avec toi. Une semaine plus tard, il contacte le vendeur en direct pour acheter sans passer par toi.",
+        "question": "Quel document te protège ?",
+        "choix": [
+          "La reconnaissance de visite signée",
+          "L'état des lieux",
+          "Le registre-répertoire"
+        ],
+        "bonne": 0,
+        "explication": "Elle prouve que tu as présenté le bien à cet acheteur."
+      },
+      {
+        "situation": "Ton agence a une garantie financière. Un acquéreur te remet un chèque d'acompte de 5 000 €.",
+        "question": "Que fais-tu de ce chèque ?",
+        "choix": [
+          "Tu l'encaisses sur le compte de l'agence",
+          "Reçu + compte bancaire spécial + inscription au registre-répertoire",
+          "Tu l'inscris au registre des mandats"
+        ],
+        "bonne": 1,
+        "explication": "Fonds de tiers : reçu, compte spécial, et registre-répertoire (art. 86). Jamais sur le compte de l'agence."
+      },
+      {
+        "situation": "Tu publies une maison à 300 000 €. Les honoraires sont à la charge de l'acheteur.",
+        "question": "Que doit indiquer ton annonce ?",
+        "choix": [
+          "Rien de plus que le prix",
+          "Les honoraires en pourcentage TTC du prix de vente",
+          "Les honoraires HT, en euros"
+        ],
+        "bonne": 1,
+        "explication": "Honoraires acquéreur : en % TTC du prix de vente, sur tous les supports."
+      },
+      {
+        "situation": "Un client veut payer 200 000 € en liquide. Ses revenus déclarés n'ont aucun rapport avec cette somme.",
+        "question": "Quelle est la bonne réaction ?",
+        "choix": [
+          "Accepter, c'est la vente qui compte",
+          "Faire une déclaration à TRACFIN",
+          "Appeler la DGCCRF"
+        ],
+        "bonne": 1,
+        "explication": "Opération suspecte de blanchiment = déclaration à TRACFIN."
+      },
+      {
+        "situation": "Après 6 mois d'annonces et de visites, la maison de ton client n'est pas vendue. Il veut te poursuivre.",
+        "question": "Risques-tu une condamnation ?",
+        "choix": [
+          "Oui : tu avais une obligation de résultat",
+          "Non : en vente, tu as une obligation de moyens",
+          "Oui, au pénal"
+        ],
+        "bonne": 1,
+        "explication": "Pour vendre, l'agent doit faire de son mieux, sans garantir le résultat."
+      },
+      {
+        "situation": "Par ta faute, un acquéreur potentiel, qui n'a signé aucun contrat avec toi, subit un préjudice.",
+        "question": "Quelle responsabilité est engagée ?",
+        "choix": [
+          "Contractuelle",
+          "Extracontractuelle",
+          "Aucune"
+        ],
+        "bonne": 1,
+        "explication": "Pas de contrat entre vous : responsabilité extracontractuelle (civile, il faut réparer)."
       }
     ]
   },
@@ -1346,6 +1690,38 @@
         "gros_plan": "lea",
         "narration": "Léa est enfin *propriétaire*."
       }
+    ],
+    "quiz": [
+      {
+        "question": "Combien de jours a l'acquéreur pour se rétracter après le compromis ?",
+        "choix": [
+          "7 jours",
+          "10 jours",
+          "14 jours"
+        ],
+        "bonne": 1,
+        "explication": "10 jours pour un acquéreur non professionnel d'un logement."
+      },
+      {
+        "question": "Sans mandat écrit, l'agent immobilier…",
+        "choix": [
+          "touche la moitié de ses honoraires",
+          "ne peut percevoir aucune rémunération",
+          "est payé si la vente se fait"
+        ],
+        "bonne": 1,
+        "explication": "C'est la loi Hoguet : pas de mandat écrit, pas d'honoraires."
+      },
+      {
+        "question": "La banque refuse le prêt prévu au compromis. Que se passe-t-il ?",
+        "choix": [
+          "L'acheteur perd son acompte",
+          "La vente tombe, sans pénalité pour l'acheteur",
+          "L'agent doit trouver un autre prêt"
+        ],
+        "bonne": 1,
+        "explication": "C'est la condition suspensive de prêt."
+      }
     ]
   },
   {
@@ -1486,6 +1862,38 @@
         },
         "gros_plan": "petit",
         "narration": "Raté pour Monsieur Petit."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Location vide : quel est le préavis du locataire, en principe ?",
+        "choix": [
+          "1 mois",
+          "2 mois",
+          "3 mois"
+        ],
+        "bonne": 2,
+        "explication": "3 mois en principe, sauf cas de préavis réduit."
+      },
+      {
+        "question": "Le logement est en zone tendue. Quel préavis ?",
+        "choix": [
+          "1 mois",
+          "3 mois",
+          "6 mois"
+        ],
+        "bonne": 0,
+        "explication": "En zone tendue, le préavis est réduit à 1 mois."
+      },
+      {
+        "question": "Pour avoir droit au préavis d'un mois, la locataire doit…",
+        "choix": [
+          "prévenir oralement le propriétaire",
+          "indiquer le motif dans sa lettre de congé",
+          "obtenir l'accord du propriétaire"
+        ],
+        "bonne": 1,
+        "explication": "Le motif du préavis réduit doit figurer dans la lettre de congé."
       }
     ]
   },

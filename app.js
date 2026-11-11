@@ -8,6 +8,7 @@
 // Noms lisibles pour l'affichage (la clé = ce qui est écrit dans cards.json)
 const NOMS_TYPES = {
   video: "🎬 Vidéo",
+  examen: "📝 Examen",
   notion: "📘 Notion",
   quiz: "❓ Quiz",
   situation: "💼 Situation",
@@ -62,6 +63,11 @@ function creerCarte(carte) {
   // Une vidéo plein écran : c'est video.js qui construit tout
   if (carte.type === "video") {
     ajouterVideo(section, carte, etiquettes);
+    return section;
+  }
+  // Un examen de fin de chapitre : c'est examen.js
+  if (carte.type === "examen") {
+    ajouterExamen(section, carte, etiquettes);
     return section;
   }
 
@@ -258,6 +264,7 @@ async function demarrer() {
     const reponse = await fetch("cards.json");
     if (!reponse.ok) throw new Error("HTTP " + reponse.status);
     toutesLesCartes = await reponse.json();
+    await voixPretes; // la liste des voix enregistrées (video.js)
 
     // On reprend le dernier filtre choisi, s'il existe encore
     try {

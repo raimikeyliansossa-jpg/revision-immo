@@ -286,11 +286,78 @@ function dureeEstimee(texte) {
   return Math.max(1200, texte.length * 62);
 }
 
+// --- Voix enregistrée ---
+// Les narrations sont transformées à l'avance en fichiers MP3 avec une
+// voix naturelle (voir outils/generer_voix.py). La liste est dans
+// audio/voix.json. Si un fichier manque, on utilise la voix du téléphone.
+let VOIX = {};
+const voixPretes = fetch("audio/voix.json")
+  .then((r) => (r.ok ? r.json() : {}))
+  .then((v) => (VOIX = v))
+  .catch(() => {});
+
+const lecteur = new Audio(); // un seul lecteur, réutilisé (le téléphone le "débloque" au 1er tap)
+lecteur.preload = "auto";
+let arreterLecteur = null;   // permet de couper le fichier en cours
+
+// Le fichier audio d'une étape, seulement s'il correspond au texte actuel
+function pisteAudio(idVideo, i, texte) {
+  const piste = (VOIX[idVideo] || [])[i];
+  return piste && piste.texte === texte ? piste : null;
+}
+
+// Répartit l'affichage des morceaux de sous-titres sur une durée
+function programmerSousTitres(decoupage, duree, surMorceau, minuteurs) {
+  const { voix, morceaux } = decoupage;
+  let t = 0;
+  morceaux.forEach((m, k) => {
+    minuteurs.push(setTimeout(() => surMorceau(k), t));
+    const lettres = m.mots.reduce((s, x) => s + x.texte.length + 1, 0);
+    t += (lettres / (voix.length + 1)) * duree;
+  });
+}
+
+// Joue un fichier MP3 et fait défiler les sous-titres en rythme
+function lireFichier(decoupage, surMorceau, piste) {
+  const estime = dureeEstimee(decoupage.voix);
+  return new Promise((ok) => {
+    const minuteurs = [];
+    let fini = false;
+    const terminer = () => {
+      if (fini) return;
+      fini = true;
+      minuteurs.forEach(clearTimeout);
+      lecteur.onended = lecteur.onerror = null;
+      arreterLecteur = null;
+      ok();
+    };
+    const sansSon = () => {
+      // Fichier illisible : on affiche quand même les sous-titres
+      programmerSousTitres(decoupage, estime, surMorceau, minuteurs);
+      minuteurs.push(setTimeout(terminer, estime));
+    };
+    arreterLecteur = terminer;
+    lecteur.src = piste.fichier;
+    lecteur.onended = terminer;
+    lecteur.onerror = sansSon;
+    lecteur
+      .play()
+      .then(() => {
+        const duree = (piste.duree || lecteur.duration || estime / 1000) * 1000;
+        programmerSousTitres(decoupage, duree, surMorceau, minuteurs);
+        minuteurs.push(setTimeout(terminer, duree + 4000)); // sécurité
+      })
+      .catch(sansSon);
+  });
+}
+
 // Lit la narration et appelle surMorceau(k) quand le k-ième morceau
-// de sous-titre doit s'afficher. Deux façons de le savoir :
-//  - le téléphone indique le mot prononcé (événement "boundary") ;
-//  - sinon, on répartit les morceaux sur la durée estimée.
-function parler(decoupage, surMorceau) {
+// de sous-titre doit s'afficher.
+//  - Avec un fichier MP3 : on le joue (voix naturelle).
+//  - Sinon, voix du téléphone : il indique le mot prononcé (événement
+//    "boundary"), ou on répartit les morceaux sur la durée estimée.
+function parler(decoupage, surMorceau, piste) {
+  if (piste && sonActif) return lireFichier(decoupage, surMorceau, piste);
   const { voix, morceaux } = decoupage;
   const estime = dureeEstimee(voix);
   let parLaVoix = false;
@@ -339,6 +406,8 @@ function parler(decoupage, surMorceau) {
 
 function couperVoix() {
   if (voixDisponible) speechSynthesis.cancel();
+  lecteur.pause();
+  if (arreterLecteur) arreterLecteur();
 }
 
 // Le téléphone n'autorise le son qu'après un premier tap
@@ -492,17 +561,30 @@ function ajouterVideo(section, carte, etiquettes) {
     liste.append(li);
   });
   const boutonRevoir = creer("button", "bouton-revoir", "↻ Revoir");
-  carteFin.append(creer("h3", "", "✅ À retenir"), liste, boutonRevoir);
+  const boutons = creer("div", "boutons-fin");
+  boutons.append(boutonRevoir);
+  const questions = carte.quiz || [];
+  const boutonQuiz = creer("button", "bouton-quiz", "🧠 Quiz · " + questions.length + " questions");
+  if (questions.length) boutons.prepend(boutonQuiz);
+  carteFin.append(creer("h3", "", "✅ À retenir"), liste, boutons);
   ecranFin.append(carteFin);
 
   // Infos en bas à gauche, comme la description d'un TikTok
   const infos = creer("div", "infos");
-  infos.append(etiquettes, creer("p", "infos-titre", carte.titre));
+  const infosSuivi = creer("p", "infos-suivi"); // "✓ Déjà vue · Quiz 2/3"
+  infos.append(etiquettes, creer("p", "infos-titre", carte.titre), infosSuivi);
+  const majSuivi = () => (infosSuivi.textContent = resumeVideo(carte.id));
+  majSuivi();
 
   // Barre de progression en segments, tout en bas
   const progression = creer("div", "progression");
-  const segments = etapes.map(() => {
+  const segments = etapes.map((_, j) => {
     const seg = creer("span", "segment");
+    // Tap sur un trait = aller directement à ce moment de la vidéo
+    seg.addEventListener("click", (e) => {
+      e.stopPropagation();
+      allerA(j);
+    });
     const remplissage = creer("i");
     seg.append(remplissage);
     progression.append(seg);
@@ -573,6 +655,7 @@ function ajouterVideo(section, carte, etiquettes) {
     const etape = etapes[i];
     ecranTitre.classList.toggle("visible", etape.type === "intro");
     ecranFin.classList.toggle("visible", etape.type === "fin");
+    scene.classList.toggle("figee", etape.type === "fin");
     sousTitre.textContent = "";
 
     // Barre de progression
@@ -582,7 +665,9 @@ function ajouterVideo(section, carte, etiquettes) {
     });
     const actuel = segments[i];
     void actuel.offsetWidth;
-    actuel.style.transition = `width ${Math.max(dureeEstimee(etape.texte.voix), etape.mini)}ms linear`;
+    const piste = pisteAudio(carte.id, i, etape.texte.voix);
+    const duree = piste ? piste.duree * 1000 : dureeEstimee(etape.texte.voix);
+    actuel.style.transition = `width ${Math.max(duree, etape.mini)}ms linear`;
     actuel.style.width = "100%";
 
     // "Coupe" : à chaque plan, on relance le léger zoom continu
@@ -645,12 +730,15 @@ function ajouterVideo(section, carte, etiquettes) {
       const surMorceau = (k) => {
         if (monJeton === jeton && etape.type !== "fin") montrerMorceau(etape.texte, k);
       };
-      await Promise.all([parler(etape.texte, surMorceau), attendre(etape.mini)]);
+      const piste = pisteAudio(carte.id, i, etape.texte.voix);
+      await Promise.all([parler(etape.texte, surMorceau, piste), attendre(etape.mini)]);
       if (monJeton !== jeton) return;
       await attendre(120); // coupe sèche entre deux plans, comme au montage
       if (monJeton !== jeton) return;
     }
     etat = "fini";
+    marquerVue(carte.id); // retenue comme "déjà vue"
+    majSuivi();
   }
 
   const controle = {
@@ -677,6 +765,7 @@ function ajouterVideo(section, carte, etiquettes) {
         videoEnCours = null;
       }
       scene.classList.remove("en-pause");
+      fermerQuiz();
       afficherEtape(0);
     },
 
@@ -700,8 +789,122 @@ function ajouterVideo(section, carte, etiquettes) {
     derouler(0);
   });
 
-  // Tap sur l'écran = pause / reprise
-  scene.addEventListener("click", () => {
+  // --- Le quiz : quelques questions pour vérifier qu'on a compris ---
+  const ecranQuiz = creer("div", "ecran ecran-quiz");
+  scene.append(ecranQuiz);
+  ecranQuiz.addEventListener("click", (e) => e.stopPropagation());
+
+  function fermerQuiz() {
+    ecranQuiz.classList.remove("visible");
+  }
+
+  function lancerQuiz() {
+    let numero = 0;
+    let score = 0;
+
+    function afficherQuestion() {
+      const q = questions[numero];
+      ecranQuiz.textContent = "";
+      const boite = creer("div", "quiz");
+      boite.append(
+        creer("p", "quiz-numero", "Question " + (numero + 1) + " / " + questions.length),
+        creer("h3", "quiz-question", q.question)
+      );
+      const explication = creer("p", "quiz-explication");
+      const suivant = creer("button", "bouton-quiz", numero + 1 < questions.length ? "Question suivante →" : "Voir mon score");
+      suivant.hidden = true;
+
+      const choix = q.choix.map((texte, i) => {
+        const b = creer("button", "quiz-choix", texte);
+        b.addEventListener("click", () => {
+          if (!suivant.hidden) return; // déjà répondu
+          const bon = i === q.bonne;
+          if (bon) score++;
+          b.classList.add(bon ? "bon" : "faux");
+          choix[q.bonne].classList.add("bon");
+          explication.textContent = (bon ? "✅ Bien joué ! " : "❌ Raté. ") + (q.explication || "");
+          suivant.hidden = false;
+        });
+        return b;
+      });
+      suivant.addEventListener("click", () => {
+        numero++;
+        if (numero < questions.length) afficherQuestion();
+        else afficherScore();
+      });
+      boite.append(...choix, explication, suivant);
+      ecranQuiz.append(boite);
+    }
+
+    function afficherScore() {
+      noterQuiz(carte.id, score, questions.length);
+      majSuivi();
+      ecranQuiz.textContent = "";
+      const boite = creer("div", "quiz quiz-score");
+      const parfait = score === questions.length;
+      boite.append(
+        creer("p", "quiz-emoji", parfait ? "🔥" : score > 0 ? "💪" : "📚"),
+        creer("h3", "quiz-question", score + " / " + questions.length),
+        creer("p", "quiz-explication", parfait ? "Parfait, tu maîtrises !" : "Revois la vidéo pour bien fixer la notion.")
+      );
+      const revoir = creer("button", "bouton-revoir", "↻ Revoir la vidéo");
+      revoir.addEventListener("click", () => allerA(0));
+      const fermer = creer("button", "bouton-quiz", "⬆️ Vidéo suivante");
+      fermer.addEventListener("click", () => {
+        fermerQuiz();
+        const suivante = section.nextElementSibling;
+        if (suivante) suivante.scrollIntoView({ behavior: "smooth" });
+      });
+      const ligne = creer("div", "boutons-fin");
+      ligne.append(fermer, revoir);
+      boite.append(ligne);
+      ecranQuiz.append(boite);
+    }
+
+    afficherQuestion();
+    ecranQuiz.classList.add("visible");
+  }
+
+  boutonQuiz.addEventListener("click", (e) => {
+    e.stopPropagation();
+    lancerQuiz();
+  });
+
+  // Saute à l'étape j (plan précédent, suivant, ou un trait de la barre)
+  function allerA(j) {
+    j = Math.max(0, Math.min(etapes.length - 1, j));
+    jeton++;
+    couperVoix();
+    boutonLecture.classList.remove("visible");
+    fermerQuiz();
+    videoEnCours = controle;
+    derouler(j);
+  }
+
+  // Petite flèche qui s'affiche quand on saute en avant ou en arrière
+  const indicateur = creer("div", "saut");
+  scene.append(indicateur);
+  function flash(texte, cote) {
+    indicateur.textContent = texte;
+    indicateur.className = "saut " + cote;
+    void indicateur.offsetWidth;
+    indicateur.classList.add("visible");
+  }
+
+  // Tap à gauche = plan précédent · à droite = plan suivant · au milieu = pause
+  scene.addEventListener("click", (e) => {
+    const zone = scene.getBoundingClientRect();
+    const x = (e.clientX - zone.left) / zone.width;
+    if (etat !== "arret" && x < 0.25) {
+      flash("⏪", "gauche");
+      allerA(etat === "fini" ? etapes.length - 2 : index - 1);
+      return;
+    }
+    if (etat !== "arret" && x > 0.75 && etat !== "fini") {
+      flash("⏩", "droite");
+      allerA(index + 1);
+      return;
+    }
     if (etat === "lecture") {
       jeton++;
       etat = "pause";
