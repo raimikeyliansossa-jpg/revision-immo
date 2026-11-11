@@ -467,6 +467,9 @@ body {
   padding-bottom: 0.4rem;
   margin-bottom: 0.6rem;
 }
+.papier.avec-tampon {
+  padding-bottom: 3rem;
+}
 .tampon {
   position: absolute;
   right: 0.8rem;
@@ -799,4 +802,76 @@ body {
   font-size: 3.5rem;
   background: rgba(0, 0, 0, 0.35);
   z-index: 4;
+}
+
+/* Deux colonnes face à face (plan "versus") */
+.versus {
+  position: relative;
+  width: 100%;
+  max-width: 21rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+.versus-col {
+  border-radius: 14px;
+  padding: 0.9rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.3;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+}
+.versus-col.gauche {
+  background: #1e3a6b;
+  animation: entree-gauche 0.45s ease-out;
+}
+.versus-col.droite {
+  background: #7a2e2e;
+  animation: entree-droite 0.45s 0.35s ease-out both;
+}
+.versus-titre {
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  font-weight: 900;
+  color: #ffd23f;
+  margin-bottom: 0.2rem;
+}
+.versus-col mark {
+  background: none;
+  color: #ffd23f;
+}
+.versus-vs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: #2a1a12;
+  background: #ffd23f;
+  border: 3px solid #2a1a12;
+  animation: pop-simple 0.4s 0.6s both;
+}
+@keyframes entree-gauche {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes entree-droite {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Les valeurs d'un calcul ne se coupent jamais en deux lignes */
+.calcul-ligne b,
+.calcul-total b {
+  white-space: nowrap;
 }

@@ -1,5 +1,1066 @@
 [
   {
+    "id": 101,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Agent immobilier : tu sers à quoi ?",
+    "contenu": "Un agent immobilier, ça fait *quoi* exactement ? Spoiler : pas juste ouvrir des portes.",
+    "reponse": "Il aide *régulièrement* à vendre, acheter ou louer les biens *d'autrui*\nVendeur : *estimer* → mandat → communiquer → visites/négociation → documents\nAcquéreur : informer → sélectionner → visites → *suivi du financement*\nLocation : mandat → annonces → *sélection (solvabilité)* → bail + état des lieux + assurance\nIl reste un intermédiaire *neutre* et un *conseiller*",
+    "personnages": {
+      "martin": {
+        "nom": "M. Martin",
+        "role": "vendeur",
+        "style": "homme",
+        "couleur": "#2563eb",
+        "peau": "#e0ac69",
+        "cheveux": "#57534e",
+        "accessoire": "moustache"
+      },
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
+      "lea": {
+        "nom": "Léa",
+        "role": "acheteuse",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e"
+      },
+      "petit": {
+        "nom": "M. Petit",
+        "role": "bailleur",
+        "style": "homme",
+        "couleur": "#ef4444",
+        "peau": "#f1c27d",
+        "cheveux": "#78350f",
+        "accessoire": "lunettes"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "rue",
+        "persos": {
+          "martin": {
+            "x": 50,
+            "emotion": "triste"
+          }
+        },
+        "narration": "Martin veut vendre sa maison. Mais seul, il est *perdu*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": {
+            "x": 28,
+            "emotion": "neutre"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "parle": "sophie",
+        "bulle": "Je m'occupe de tout !",
+        "narration": "Sophie est *agent immobilier*. Elle vend, achète ou loue les biens *des autres*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Côté vendeur",
+        "items": [
+          "Estimer au juste prix",
+          "Signer le mandat",
+          "Communiquer",
+          "Visites et négociation",
+          "Réunir les documents"
+        ],
+        "actif": 0,
+        "narration": "Pour le vendeur, d'abord : *estimer le bien* au juste prix."
+      },
+      {
+        "type": "etapes",
+        "titre": "Côté vendeur",
+        "items": [
+          "Estimer au juste prix",
+          "Signer le mandat",
+          "Communiquer",
+          "Visites et négociation",
+          "Réunir les documents"
+        ],
+        "actif": 3,
+        "narration": "Puis annonces, visites, et *négociation*. En toute *neutralité*."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "sophie": {
+            "x": 25,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 68,
+            "emotion": "surpris"
+          }
+        },
+        "narration": "Côté acheteur, Léa cherche un *T3*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Côté acquéreur",
+        "items": [
+          "Informer sur le marché",
+          "Sélectionner des biens",
+          "Visites et négociation",
+          "Suivi + financement"
+        ],
+        "actif": 3,
+        "narration": "Sophie lui sélectionne des biens, et suit son *financement*."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "sophie": {
+            "x": 30,
+            "emotion": "content"
+          },
+          "petit": {
+            "x": 70,
+            "emotion": "neutre"
+          }
+        },
+        "narration": "En location, même logique avec le *bailleur*."
+      },
+      {
+        "type": "document",
+        "titre": "DOSSIER LOCATAIRE",
+        "lignes": [
+          "Candidat : Karim B.",
+          "Revenus : 2 400 € / mois",
+          "Loyer : 750 €",
+          "*Solvabilité : vérifiée*"
+        ],
+        "tampon": "VALIDÉ",
+        "narration": "Elle choisit un locataire *solvable*…"
+      },
+      {
+        "type": "etapes",
+        "titre": "Côté bailleur",
+        "items": [
+          "Mandat de location",
+          "Diffuser les annonces",
+          "Sélectionner le locataire",
+          "Bail + état des lieux + assurance"
+        ],
+        "actif": 3,
+        "narration": "…puis *bail*, *état des lieux*, et attestation d'*assurance*."
+      },
+      {
+        "type": "chiffre",
+        "texte": "NEUTRE",
+        "sous": "intermédiaire et conseiller, du mandat à la signature",
+        "narration": "Retiens ça : l'agent est un *intermédiaire neutre*. Et un *conseiller*."
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Loi Hoguet : la loi qui t'autorise à bosser",
+    "contenu": "Sans *cette loi*, n'importe qui pourrait vendre ta maison. Elle date de *1970*.",
+    "reponse": "*Loi Hoguet* : 2 janvier 1970, le socle de la profession\n*Décret* d'application : 20 juillet 1972\n*ALUR* (24/03/2014) et *Macron* (06/08/2015) modernisent : formation continue, carte délivrée par la CCI\nCarte *T* transaction (+ marchand de liste) · *G* gestion · *S* syndic",
+    "personnages": {
+      "karim": {
+        "nom": "Karim",
+        "role": "futur agent",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      },
+      "roux": {
+        "nom": "Mme Roux",
+        "role": "CCI",
+        "style": "femme",
+        "couleur": "#475569",
+        "peau": "#f1c27d",
+        "cheveux": "#b45309",
+        "accessoire": "lunettes"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "narration": "Karim veut ouvrir son *agence immobilière*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "surpris"
+          }
+        },
+        "gros_plan": "karim",
+        "narration": "Problème : une loi encadre tout ça."
+      },
+      {
+        "type": "loi",
+        "source": "Loi Hoguet du 2 janvier 1970 · en résumé",
+        "texte": "Elle encadre les *professionnels de l'immobilier* et *protège leurs clients*.",
+        "narration": "La *loi Hoguet*, du *2 janvier 1970*."
+      },
+      {
+        "type": "calcul",
+        "titre": "Les dates à connaître",
+        "lignes": [
+          [
+            "Loi Hoguet",
+            "2 janv. 1970"
+          ],
+          [
+            "Décret d'application",
+            "20 juil. 1972"
+          ],
+          [
+            "Loi ALUR",
+            "24 mars 2014"
+          ],
+          [
+            "Loi Macron",
+            "6 août 2015"
+          ]
+        ],
+        "narration": "Le *décret de 1972* l'applique. *ALUR* et *Macron* la modernisent."
+      },
+      {
+        "decor": "cci",
+        "persos": {
+          "karim": {
+            "x": 30,
+            "emotion": "neutre"
+          },
+          "roux": {
+            "x": 70,
+            "emotion": "content"
+          }
+        },
+        "parle": "roux",
+        "bulle": "Quelle carte voulez-vous ?",
+        "narration": "Pour exercer, il faut une *carte professionnelle*. Délivrée par la *CCI*."
+      },
+      {
+        "type": "etapes",
+        "titre": "3 cartes, 3 métiers",
+        "items": [
+          "T · Transaction : vendre, louer",
+          "G · Gestion : gérer des biens",
+          "S · Syndic : gérer une copropriété"
+        ],
+        "actif": 0,
+        "narration": "Carte *T* : transaction. Vendre ou louer les biens d'autrui."
+      },
+      {
+        "type": "etapes",
+        "titre": "3 cartes, 3 métiers",
+        "items": [
+          "T · Transaction : vendre, louer",
+          "G · Gestion : gérer des biens",
+          "S · Syndic : gérer une copropriété"
+        ],
+        "actif": 1,
+        "narration": "Carte *G* : gestion. Encaisser les loyers d'un propriétaire."
+      },
+      {
+        "type": "etapes",
+        "titre": "3 cartes, 3 métiers",
+        "items": [
+          "T · Transaction : vendre, louer",
+          "G · Gestion : gérer des biens",
+          "S · Syndic : gérer une copropriété"
+        ],
+        "actif": 2,
+        "narration": "Carte *S* : syndic de *copropriété*."
+      },
+      {
+        "decor": "cci",
+        "persos": {
+          "karim": {
+            "x": 30,
+            "emotion": "content"
+          },
+          "roux": {
+            "x": 70,
+            "emotion": "content"
+          }
+        },
+        "gros_plan": "karim",
+        "objet": {
+          "emoji": "📇",
+          "texte": "Carte T"
+        },
+        "narration": "Karim, lui, veut vendre. Ce sera la carte *T*."
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Carte pro : qui a le droit de l'avoir ?",
+    "contenu": "Tu prépares un *BTS PI* ? Bonne nouvelle : tu as déjà fait *le plus dur*.",
+    "reponse": "Aptitude : *BTS PI* ou *Bac+3* = direct · Bac = 3 ans · sans diplôme = 4 ans (cadre) ou 10 ans\nAussi : majeur capable, *RCS*, assurance *RCP*, *garantie financière*\n*Aucun maniement de fonds* + déclaration sur l'honneur = dispense de garantie\nCarte valable *3 ans* · formation *42 h / 3 ans* dont 2 h de déontologie\nSalariés et agents commerciaux : *attestation de collaborateur* · succursale : déclaration à la CCI",
+    "personnages": {
+      "karim": {
+        "nom": "Karim",
+        "role": "futur agent",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      },
+      "roux": {
+        "nom": "Mme Roux",
+        "role": "CCI",
+        "style": "femme",
+        "couleur": "#475569",
+        "peau": "#f1c27d",
+        "cheveux": "#b45309",
+        "accessoire": "lunettes"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "cci",
+        "persos": {
+          "karim": {
+            "x": 30,
+            "emotion": "content"
+          },
+          "roux": {
+            "x": 70,
+            "emotion": "neutre"
+          }
+        },
+        "narration": "Karim dépose sa demande de *carte pro*."
+      },
+      {
+        "type": "calcul",
+        "titre": "Aptitude : diplôme ou expérience",
+        "lignes": [
+          [
+            "BTS PI",
+            "Accès direct"
+          ],
+          [
+            "Bac + 3",
+            "Accès direct"
+          ],
+          [
+            "Bac seul",
+            "3 ans d'activité"
+          ],
+          [
+            "Cadre non subordonné",
+            "4 ans"
+          ],
+          [
+            "Autre salarié non-bachelier",
+            "10 ans"
+          ]
+        ],
+        "narration": "*BTS PI* ou *Bac + 3* : accès *direct*. Sinon, il faut de l'*expérience*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les autres conditions",
+        "items": [
+          "Majeur, capable, sans interdiction",
+          "Immatriculé au RCS",
+          "Assurance RCP",
+          "Garantie financière"
+        ],
+        "actif": 0,
+        "narration": "Il doit aussi être *majeur*, capable, et sans *interdiction* d'exercer."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les autres conditions",
+        "items": [
+          "Majeur, capable, sans interdiction",
+          "Immatriculé au RCS",
+          "Assurance RCP",
+          "Garantie financière"
+        ],
+        "actif": 3,
+        "narration": "Inscrit au *RCS*, assuré en *RCP*… et avoir une *garantie financière*."
+      },
+      {
+        "decor": "cci",
+        "persos": {
+          "karim": {
+            "x": 30,
+            "emotion": "surpris"
+          },
+          "roux": {
+            "x": 70,
+            "emotion": "neutre"
+          }
+        },
+        "gros_plan": "karim",
+        "narration": "Une garantie ? Elle sert à *rembourser les fonds* des clients."
+      },
+      {
+        "type": "document",
+        "titre": "DÉCLARATION SUR L'HONNEUR",
+        "lignes": [
+          "Je soussigné, Karim B.,",
+          "*ne reçois ni ne détiens aucun fonds,*",
+          "*effet ou valeur.*",
+          "Les fonds transitent par le notaire."
+        ],
+        "tampon": "DISPENSÉ",
+        "narration": "Mais s'il ne touche *jamais aux fonds*, une *déclaration sur l'honneur* l'en dispense."
+      },
+      {
+        "type": "chiffre",
+        "texte": "3 ANS",
+        "sous": "durée de validité de la carte",
+        "narration": "La carte est valable *3 ans*."
+      },
+      {
+        "type": "calcul",
+        "titre": "Formation continue",
+        "lignes": [
+          [
+            "Par an",
+            "14 h"
+          ],
+          [
+            "Dont déontologie (minimum)",
+            "2 h"
+          ]
+        ],
+        "total": [
+          "Sur 3 ans",
+          "42 h"
+        ],
+        "narration": "Pour la renouveler : *42 heures* de formation sur 3 ans."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "objet": {
+          "emoji": "🪪",
+          "texte": "Attestation"
+        },
+        "narration": "Et ses salariés ? Une *attestation de collaborateur* chacun."
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Les 7 documents de la transaction",
+    "contenu": "En immobilier, *tout passe par écrit*. Voici les *7 documents* à connaître.",
+    "reponse": "Vente : *mandat* → *reconnaissance de visite* → *offre d'achat* → *avant-contrat* (promesse ou compromis)\nLocation : *mandat* → *bail* → *état des lieux* (entrée et sortie)\nLa reconnaissance de visite *prouve* que l'agent a présenté le bien",
+    "personnages": {
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
+      "martin": {
+        "nom": "M. Martin",
+        "role": "vendeur",
+        "style": "homme",
+        "couleur": "#2563eb",
+        "peau": "#e0ac69",
+        "cheveux": "#57534e",
+        "accessoire": "moustache"
+      },
+      "lea": {
+        "nom": "Léa",
+        "role": "acheteuse",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e"
+      },
+      "diallo": {
+        "nom": "Mme Diallo",
+        "role": "locataire",
+        "style": "femme",
+        "couleur": "#a855f7",
+        "peau": "#5c3a21",
+        "cheveux": "#1c1917"
+      }
+    },
+    "scenes": [
+      {
+        "type": "etapes",
+        "titre": "En vente",
+        "items": [
+          "Mandat",
+          "Reconnaissance de visite",
+          "Offre d'achat",
+          "Avant-contrat"
+        ],
+        "actif": 0,
+        "narration": "Un : le *mandat*. Sans lui, l'agent ne peut *rien faire*."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "sophie": {
+            "x": 25,
+            "emotion": "content"
+          },
+          "lea": {
+            "x": 68,
+            "emotion": "neutre"
+          }
+        },
+        "narration": "Sophie fait visiter la maison de Martin à *Léa*."
+      },
+      {
+        "type": "document",
+        "titre": "BON DE VISITE",
+        "lignes": [
+          "Bien : maison, 12 rue des Lilas",
+          "Visité le 12 mars par Léa D.",
+          "*Présenté par : Agence Immo*",
+          "Signature : Léa D."
+        ],
+        "tampon": "SIGNÉ",
+        "narration": "Deux : la *reconnaissance de visite*. Léa la signe."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "lea": {
+            "x": 30,
+            "emotion": "content"
+          },
+          "martin": {
+            "x": 70,
+            "emotion": "content"
+          }
+        },
+        "narration": "Une semaine après, Léa veut acheter *directement* à Martin…"
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "sophie": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "gros_plan": "sophie",
+        "objet": {
+          "emoji": "📄",
+          "texte": "Preuve"
+        },
+        "narration": "Mais ce papier *prouve* que Sophie a présenté le bien."
+      },
+      {
+        "type": "etapes",
+        "titre": "En vente",
+        "items": [
+          "Mandat",
+          "Reconnaissance de visite",
+          "Offre d'achat",
+          "Avant-contrat"
+        ],
+        "actif": 2,
+        "narration": "Trois : l'*offre d'achat*. L'engagement écrit de l'acheteur."
+      },
+      {
+        "type": "etapes",
+        "titre": "En vente",
+        "items": [
+          "Mandat",
+          "Reconnaissance de visite",
+          "Offre d'achat",
+          "Avant-contrat"
+        ],
+        "actif": 3,
+        "narration": "Quatre : l'*avant-contrat*. Promesse ou compromis."
+      },
+      {
+        "type": "etapes",
+        "titre": "En location",
+        "items": [
+          "Mandat de location ou de gestion",
+          "Bail",
+          "État des lieux"
+        ],
+        "actif": 1,
+        "narration": "En location : le *mandat*, puis le *bail*…"
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "diallo": {
+            "x": 30,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 70,
+            "emotion": "neutre"
+          }
+        },
+        "objet": {
+          "emoji": "📋",
+          "texte": "État des lieux"
+        },
+        "narration": "…et l'*état des lieux*, à l'entrée et à la sortie."
+      },
+      {
+        "type": "chiffre",
+        "texte": "4 + 3",
+        "sous": "4 en vente, 3 en location",
+        "narration": "*Quatre* en vente, *trois* en location."
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Registre des mandats ou registre-répertoire ?",
+    "contenu": "Deux registres, deux noms presque pareils. Et un *piège classique* à l'examen.",
+    "reponse": "*Registre des mandats* (art. 72) : tous les mandats, ordre chronologique, numéro reporté sur l'exemplaire du client\n*Registre-répertoire* (art. 86) : tous les *mouvements de fonds* pour le compte de tiers\nFonds clients : *compte bancaire spécial* + *reçu*\nArchivage des documents : *10 ans*",
+    "personnages": {
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
+      "martin": {
+        "nom": "M. Martin",
+        "role": "vendeur",
+        "style": "homme",
+        "couleur": "#2563eb",
+        "peau": "#e0ac69",
+        "cheveux": "#57534e",
+        "accessoire": "moustache"
+      },
+      "lea": {
+        "nom": "Léa",
+        "role": "acheteuse",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "objet": {
+          "emoji": "✍️",
+          "texte": "Mandat signé"
+        },
+        "narration": "Sophie vient de signer un *mandat* avec Martin."
+      },
+      {
+        "type": "document",
+        "titre": "REGISTRE DES MANDATS",
+        "lignes": [
+          "N° 145 · 02/03 · Vente · M. Dupont",
+          "N° 146 · 05/03 · Location · Mme Diallo",
+          "*N° 147 · 12/03 · Vente · M. Martin*"
+        ],
+        "tampon": "ART. 72",
+        "narration": "Elle l'inscrit *tout de suite* au *registre des mandats*. Dans l'ordre *chronologique*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": {
+            "x": 28,
+            "emotion": "surpris"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "neutre"
+          }
+        },
+        "gros_plan": "martin",
+        "objet": {
+          "emoji": "🔢",
+          "texte": "N° 147"
+        },
+        "narration": "Le *numéro* est reporté sur l'exemplaire de Martin."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "lea": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "neutre"
+          }
+        },
+        "objet": {
+          "emoji": "💶",
+          "texte": "Acompte"
+        },
+        "narration": "Plus tard, Léa verse un *acompte* à l'agence."
+      },
+      {
+        "type": "document",
+        "titre": "REGISTRE-RÉPERTOIRE",
+        "lignes": [
+          "12/03 · Chèque · Léa D. · 5 000 €",
+          "*Fonds reçus pour le compte d'un tiers*"
+        ],
+        "tampon": "ART. 86",
+        "narration": "Ça, c'est de l'*argent*. Direction le *registre-répertoire*."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Registre des mandats",
+          "lignes": [
+            "Art. *72*",
+            "Tous les *mandats*",
+            "Ordre chronologique",
+            "N° reporté au client"
+          ]
+        },
+        "droite": {
+          "titre": "Registre-répertoire",
+          "lignes": [
+            "Art. *86*",
+            "Les *fonds*",
+            "Chèques, acomptes",
+            "Pour le compte de tiers"
+          ]
+        },
+        "narration": "Résumé : les *mandats* d'un côté. L'*argent* de l'autre."
+      },
+      {
+        "type": "etapes",
+        "titre": "Si l'agence manie des fonds",
+        "items": [
+          "Compte bancaire spécial",
+          "Un reçu pour chaque somme",
+          "Registre-répertoire à jour"
+        ],
+        "actif": 1,
+        "narration": "Pour l'argent : un *compte spécial*, et un *reçu* à chaque fois."
+      },
+      {
+        "type": "chiffre",
+        "texte": "10 ANS",
+        "sous": "durée de conservation des documents",
+        "narration": "Et tout ça se garde *10 ans*."
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Cash, prix, contrôles : l'agent sous surveillance",
+    "contenu": "Un client veut payer *en espèces*. Une très grosse somme. Tu fais quoi ?",
+    "reponse": "*Déontologie* (décret du 28 août 2015) : obligation de *loyauté*\nPrix *TTC* affichés · honoraires acquéreur en *% du prix de vente* sur tous les supports\n*TRACFIN* : déclarer toute opération suspecte de blanchiment\n*CNTGI* : contrôle moralité et compétence, pouvoir disciplinaire depuis le 1er juillet 2018\n*DGCCRF* : contrôle les pratiques commerciales et les droits des consommateurs",
+    "personnages": {
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
+      "x": {
+        "nom": "M. X",
+        "role": "client",
+        "style": "homme",
+        "couleur": "#1f2937",
+        "peau": "#e0ac69",
+        "cheveux": "#111827",
+        "accessoire": "cravate"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "x": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "neutre"
+          }
+        },
+        "objet": {
+          "emoji": "💰",
+          "texte": "Espèces"
+        },
+        "narration": "Monsieur X veut acheter un appartement. *En cash*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "x": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "surpris"
+          }
+        },
+        "gros_plan": "sophie",
+        "narration": "Mais la somme est *énorme* par rapport à ses revenus."
+      },
+      {
+        "type": "loi",
+        "source": "Lutte contre le blanchiment · en résumé",
+        "texte": "L'agent doit *déclarer à TRACFIN* toute opération *suspectée* de venir d'activités criminelles.",
+        "narration": "Sophie doit le *déclarer à TRACFIN*. C'est la lutte anti-*blanchiment*."
+      },
+      {
+        "type": "document",
+        "titre": "ANNONCE",
+        "lignes": [
+          "Appartement T3 · 68 m²",
+          "Prix : 300 000 €",
+          "*Honoraires acquéreur : 4 % TTC du prix de vente*"
+        ],
+        "narration": "Autre règle : la *transparence des prix*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Affichage des prix",
+        "items": [
+          "Tarifs TTC affichés en agence",
+          "Honoraires acquéreur en % du prix",
+          "Mentions légales sur tous les documents"
+        ],
+        "actif": 1,
+        "narration": "Honoraires payés par l'acheteur ? En *pourcentage TTC* du prix, partout."
+      },
+      {
+        "type": "chiffre",
+        "texte": "28/08/2015",
+        "sous": "décret : code de déontologie",
+        "narration": "Et le *code de déontologie* de 2015 impose la *loyauté* envers les clients."
+      },
+      {
+        "type": "etapes",
+        "titre": "Qui contrôle ?",
+        "items": [
+          "CNTGI : moralité et compétence",
+          "DGCCRF : pratiques commerciales"
+        ],
+        "actif": 0,
+        "narration": "Qui surveille ? Le *CNTGI*. Il peut *sanctionner* un professionnel."
+      },
+      {
+        "type": "etapes",
+        "titre": "Qui contrôle ?",
+        "items": [
+          "CNTGI : moralité et compétence",
+          "DGCCRF : pratiques commerciales"
+        ],
+        "actif": 1,
+        "narration": "Et la *DGCCRF* vérifie prix, honoraires et publicités."
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "Ch. 1 · Le métier d'agent immobilier",
+    "titre": "Responsabilité : moyens ou résultat ?",
+    "contenu": "Ta maison ne se vend pas. Tu peux *attaquer* ton agent ? Pas si vite.",
+    "reponse": "*Civile* = réparer (dommages et intérêts) · *pénale* = sanctionner (amende, prison)\nContractuelle : envers le *client* · extracontractuelle : envers un *tiers*\nObligation de *moyens* : faire de son mieux pour vendre, sans garantie\nObligation de *résultat* : rédaction d'actes et devoir de conseil\nSanction possible : interdiction d'exercer et *retrait de la carte*",
+    "personnages": {
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
+      "martin": {
+        "nom": "M. Martin",
+        "role": "vendeur",
+        "style": "homme",
+        "couleur": "#2563eb",
+        "peau": "#e0ac69",
+        "cheveux": "#57534e",
+        "accessoire": "moustache"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "rue",
+        "persos": {
+          "martin": {
+            "x": 50,
+            "emotion": "fache"
+          }
+        },
+        "narration": "Six mois, et la maison de Martin n'est *toujours pas vendue*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": {
+            "x": 28,
+            "emotion": "fache"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "triste"
+          }
+        },
+        "parle": "martin",
+        "bulle": "C'est votre faute !",
+        "narration": "Il veut attaquer Sophie. Mais elle a fait *son maximum*."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Obligation de moyens",
+          "lignes": [
+            "Cadre du *mandat*",
+            "Faire de son mieux",
+            "Pas de garantie de vente"
+          ]
+        },
+        "droite": {
+          "titre": "Obligation de résultat",
+          "lignes": [
+            "*Rédaction d'actes*",
+            "Devoir de *conseil*",
+            "Zéro erreur permise"
+          ]
+        },
+        "narration": "Pour vendre, l'agent a une obligation de *moyens*. Pas de résultat."
+      },
+      {
+        "type": "document",
+        "titre": "COMPROMIS DE VENTE",
+        "lignes": [
+          "Vendeur : M. Martin",
+          "Acquéreur : Léa D.",
+          "Prix : 250 000 €",
+          "*Prêt : 500 000 € (erreur)*"
+        ],
+        "tampon": "ERREUR",
+        "narration": "Mais si elle rédige un compromis avec une *clause fausse*…"
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "sophie": {
+            "x": 50,
+            "emotion": "pleure"
+          }
+        },
+        "gros_plan": "sophie",
+        "narration": "…là, c'est une obligation de *résultat*. Sa responsabilité est *engagée*."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Contractuelle",
+          "lignes": [
+            "Envers son *client*",
+            "(le mandant)"
+          ]
+        },
+        "droite": {
+          "titre": "Extracontractuelle",
+          "lignes": [
+            "Envers un *tiers*",
+            "sans contrat avec lui"
+          ]
+        },
+        "narration": "Envers son client : *contractuelle*. Envers un tiers : *extracontractuelle*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Deux responsabilités",
+        "items": [
+          "Civile : réparer (dommages et intérêts)",
+          "Pénale : sanctionner (amende, prison)"
+        ],
+        "actif": 0,
+        "narration": "Dans les deux cas, c'est du *civil* : il faut *réparer*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Deux responsabilités",
+        "items": [
+          "Civile : réparer (dommages et intérêts)",
+          "Pénale : sanctionner (amende, prison)"
+        ],
+        "actif": 1,
+        "narration": "Fraude, abus de confiance ? Là, c'est *pénal*. Jusqu'au *retrait de la carte*."
+      }
+    ]
+  },
+  {
     "id": 11,
     "type": "video",
     "matiere": "transaction",

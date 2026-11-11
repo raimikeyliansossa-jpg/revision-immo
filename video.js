@@ -10,6 +10,7 @@
 //   - "etapes"   : une liste numérotée, l'étape en cours en évidence
 //   - "chiffre"  : un chiffre clé en très gros
 //   - "calcul"   : des lignes qui s'additionnent jusqu'au TOTAL
+//   - "versus"   : deux colonnes face à face (ne pas confondre…)
 // La voix off s'affiche en sous-titres de 2-3 mots ; les mots
 // entre *astérisques* dans la narration sont mis en couleur.
 // Tout est dessiné par le navigateur : aucun fichier vidéo.
@@ -97,6 +98,22 @@ const DECORS = {
     <rect x="120" y="410" width="160" height="16" fill="#4a2a18" stroke="#2a1a12" stroke-width="3"/>
     <rect x="132" y="426" width="10" height="44" fill="#4a2a18"/><rect x="258" y="426" width="10" height="44" fill="#4a2a18"/>
     ${lampe(200, 70)}`,
+
+  cci: `
+    <rect width="360" height="640" fill="#d6dde6"/>
+    <rect y="470" width="360" height="170" fill="#6b7a8c"/>
+    <g stroke="#56657a" stroke-width="2"><line x1="0" y1="530" x2="360" y2="530"/><line x1="120" y1="470" x2="80" y2="640"/><line x1="240" y1="470" x2="280" y2="640"/></g>
+    <rect x="50" y="130" width="260" height="56" rx="6" fill="#1e3a6b" stroke="#2a1a12" stroke-width="3"/>
+    <text x="180" y="158" font-size="22" font-weight="900" fill="#fff" text-anchor="middle" font-family="sans-serif">CCI</text>
+    <text x="180" y="177" font-size="10" font-weight="700" fill="#cfe0ff" text-anchor="middle" font-family="sans-serif">CHAMBRE DE COMMERCE ET D'INDUSTRIE</text>
+    <rect x="20" y="230" width="90" height="70" fill="#fff" stroke="#2a1a12" stroke-width="3"/>
+    <text x="65" y="262" font-size="11" font-weight="800" fill="#1e3a6b" text-anchor="middle" font-family="sans-serif">CARTE PRO</text>
+    <text x="65" y="280" font-size="10" fill="#555" text-anchor="middle" font-family="sans-serif">T · G · S</text>
+    <rect x="250" y="220" width="80" height="60" rx="4" fill="#2a1a12"/>
+    <text x="290" y="258" font-size="22" font-weight="900" fill="#f6c453" text-anchor="middle" font-family="sans-serif">A12</text>
+    <rect x="80" y="390" width="200" height="80" fill="#e9eef4" stroke="#2a1a12" stroke-width="3"/>
+    <rect x="80" y="380" width="200" height="14" fill="#1e3a6b" stroke="#2a1a12" stroke-width="3"/>
+    ${lampe(180, 70)}`,
 
   appartement: `
     <rect width="360" height="640" fill="#d9b07c"/>
@@ -219,7 +236,9 @@ function ecrireSurligne(el, texte) {
 function decouper(narration) {
   const mots = [];
   let enCouleur = false;
-  (narration || "").split(/\s+/).filter(Boolean).forEach((brut) => {
+  // On coupe sur les espaces normaux seulement : une espace insécable
+  // (devant « : », « ! »…) garde le signe collé à son mot.
+  (narration || "").split(/[ \t\n]+/).filter(Boolean).forEach((brut) => {
     if (brut.startsWith("*")) enCouleur = true;
     const fort = enCouleur;
     if (/\*[^\wÀ-ÿ]*$/.test(brut)) enCouleur = false;
@@ -342,7 +361,10 @@ const INFOGRAPHIES = {
       ecrireSurligne(l, ligne);
       feuille.append(l);
     });
-    if (p.tampon) feuille.append(creer("div", "tampon", p.tampon));
+    if (p.tampon) {
+      feuille.classList.add("avec-tampon"); // laisse de la place en bas pour le tampon
+      feuille.append(creer("div", "tampon", p.tampon));
+    }
     return feuille;
   },
 
@@ -376,6 +398,24 @@ const INFOGRAPHIES = {
     const bloc = creer("div", "chiffre");
     bloc.append(creer("p", "chiffre-gros", p.texte || ""));
     if (p.sous) bloc.append(creer("p", "chiffre-sous", p.sous));
+    return bloc;
+  },
+
+  // Deux colonnes face à face : idéal pour "ne pas confondre"
+  versus(p) {
+    const bloc = creer("div", "versus");
+    [p.gauche, p.droite].forEach((col, i) => {
+      if (!col) return;
+      const c = creer("div", "versus-col " + (i === 0 ? "gauche" : "droite"));
+      c.append(creer("p", "versus-titre", col.titre || ""));
+      (col.lignes || []).forEach((l) => {
+        const ligne = creer("p");
+        ecrireSurligne(ligne, l);
+        c.append(ligne);
+      });
+      bloc.append(c);
+      if (i === 0) bloc.append(creer("div", "versus-vs", "VS"));
+    });
     return bloc;
   },
 

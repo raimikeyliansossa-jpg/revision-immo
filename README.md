@@ -62,7 +62,7 @@ Les mots entre `*astérisques*` s'affichent **en jaune** (et sont surlignés dan
 ```
 `style` : `homme` ou `femme` · `accessoire` (facultatif) : `cravate`, `lunettes`, `badge`, `moustache`
 
-### Les 6 types de plans
+### Les 7 types de plans
 
 | Type | Ce qu'on voit | Champs |
 |---|---|---|
@@ -72,6 +72,7 @@ Les mots entre `*astérisques*` s'affichent **en jaune** (et sont surlignés dan
 | `etapes` | Une liste numérotée, l'étape en cours en jaune | `titre`, `items`, `actif` (0 = 1re) |
 | `chiffre` | Un chiffre clé énorme | `texte`, `sous` |
 | `calcul` | Des lignes puis un TOTAL | `titre`, `lignes` : `[["Libellé","Valeur"]]`, `total` |
+| `versus` | Deux colonnes face à face (« ne pas confondre ») | `gauche` et `droite` : `{ "titre", "lignes" }` |
 
 Exemples :
 ```json
@@ -85,7 +86,7 @@ Exemples :
   "narration": "Léa a *10 jours* pour changer d'avis." }
 ```
 
-- `decor` : `rue`, `agence`, `banque`, `notaire`, `appartement`
+- `decor` : `rue`, `agence`, `banque`, `notaire`, `appartement`, `cci`
 - `persos` : position de 0 (gauche) à 100 (droite), ou `{ "x": 40, "emotion": "…" }`
 - `emotion` : `neutre`, `content`, `rougit`, `triste`, `pleure`, `surpris`, `fache`
 - `gros_plan` : l'identifiant du personnage sur lequel la caméra zoome (le fond devient flou)
