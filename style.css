@@ -261,3 +261,311 @@ body {
   padding: 1.5rem;
   text-align: center;
 }
+
+/* ========== 6. Les vidéos animées ========== */
+
+.carte.video {
+  --couleur: #f59e0b; /* orange */
+  gap: 0.8rem;
+}
+.carte.video .titre {
+  font-size: 1.35rem;
+}
+
+/* La "scène" : le petit théâtre où jouent les personnages */
+.scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 6 / 5;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #1e1e26;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.decor.fondu {
+  animation: fondu 0.5s ease-out;
+}
+@keyframes fondu {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Un personnage : positionné par "left" (en %), les pieds en bas */
+.perso {
+  position: absolute;
+  bottom: 12%;
+  width: 16%;
+  transform: translateX(-50%);
+  transition: left 0.9s ease-in-out, opacity 0.4s;
+  opacity: 0;
+}
+.perso.visible {
+  opacity: 1;
+}
+.perso svg {
+  display: block;
+  width: 100%;
+  transform-origin: bottom center;
+  animation: respire 2.4s ease-in-out infinite; /* petit mouvement au repos */
+}
+@keyframes respire {
+  0%, 100% { transform: scale(1, 1); }
+  50%      { transform: scale(1.02, 0.98); }
+}
+/* Quand il parle : il sautille et sa bouche s'ouvre */
+.perso.parle svg {
+  animation: parle 0.5s ease-in-out infinite;
+}
+@keyframes parle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4%); }
+}
+.perso.parle .bouche {
+  animation: bouche 0.25s infinite alternate;
+  transform-origin: 30px 35px;
+}
+@keyframes bouche {
+  to { transform: scaleY(2); }
+}
+/* Quand il marche : il se dandine */
+.perso.marche svg {
+  animation: marche 0.3s ease-in-out infinite alternate;
+}
+@keyframes marche {
+  from { transform: rotate(-5deg); }
+  to   { transform: rotate(5deg); }
+}
+
+/* Le prénom sous les pieds */
+.nom {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2px;
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  white-space: nowrap;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 1px 6px 2px;
+  border-radius: 8px;
+}
+.nom small {
+  display: block;
+  font-size: 0.5rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* La bulle de dialogue au-dessus de la tête */
+.bulle {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  width: max-content;
+  max-width: 9.5rem;
+  background: #fff;
+  color: #111;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 0.4rem 0.55rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+.bulle:empty {
+  display: none;
+}
+.bulle::after { /* la petite pointe de la bulle */
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #fff;
+}
+/* Près des bords, la bulle se décale pour ne pas sortir de l'écran */
+.bulle.gauche { left: 0; transform: none; }
+.bulle.gauche::after { left: 1.2rem; }
+.bulle.droite { left: auto; right: 0; transform: none; }
+.bulle.droite::after { left: auto; right: 0.6rem; transform: none; }
+.perso.parle .bulle {
+  animation: pop 0.35s ease-out;
+}
+
+/* L'objet qui apparaît (📄 Mandat, 🔑 Les clés…) */
+.objet {
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+  color: #111;
+  background: #fde047;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.objet.visible {
+  animation: pop 0.45s 0.5s ease-out forwards;
+}
+@keyframes pop {
+  0%   { transform: translateX(-50%) scale(0); }
+  70%  { transform: translateX(-50%) scale(1.15); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+.bulle.gauche, .bulle.droite { animation-name: pop-simple !important; }
+@keyframes pop-simple {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+/* Les écrans plein cadre : titre au début, "À retenir" à la fin */
+.ecran {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.5rem 1.2rem 1rem;
+  background: linear-gradient(160deg, #f59e0b, #b45309);
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.ecran.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ecran-fin {
+  background: linear-gradient(160deg, #10b981, #047857);
+  gap: 0.45rem;
+  padding: 1.3rem 1rem 0.8rem;
+}
+.ecran-fin .ecran-gros {
+  font-size: 1.05rem;
+}
+.ecran-icone {
+  font-size: 2.2rem;
+}
+.ecran-gros {
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+.ecran-etiquette {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+.ecran-question {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.liste-retenir {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.bouton-revoir {
+  align-self: flex-start;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #047857;
+  background: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+}
+
+/* Barre de progression en segments, en haut de la scène */
+.progression {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  z-index: 3;
+}
+.segment {
+  flex: 1;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+.segment i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #fff;
+}
+
+/* Gros bouton ▶ (affiché seulement si le téléphone bloque le son) */
+.bouton-lecture {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.8rem;
+  color: #b45309;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  display: none;
+  z-index: 4;
+  cursor: pointer;
+}
+.bouton-lecture.visible {
+  display: block;
+}
+
+/* Icône ⏸ quand la vidéo est en pause */
+.scene.en-pause::after {
+  content: "⏸";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 3;
+}
+
+/* Les sous-titres sous la scène, en gros, façon TikTok */
+.sous-titre {
+  min-height: 5.6em; /* hauteur fixe : la page ne "saute" pas */
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+}

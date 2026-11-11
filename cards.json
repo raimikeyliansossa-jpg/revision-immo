@@ -1,5 +1,219 @@
 [
   {
+    "id": 11,
+    "type": "video",
+    "matiere": "transaction",
+    "chapitre": "La vente immobilière",
+    "titre": "Du mandat aux clés : le parcours d'une vente",
+    "contenu": "Comment se passe une vente, du vendeur jusqu'à la remise des clés ?",
+    "reponse": "1. Mandat écrit signé avec l'agence (loi Hoguet)\n2. Visite puis offre d'achat\n3. Compromis de vente : 10 jours de rétractation\n4. Prêt accordé = condition suspensive levée\n5. Acte authentique chez le notaire : remise des clés",
+    "personnages": {
+      "martin": {
+        "nom": "M. Martin",
+        "style": "homme",
+        "couleur": "#2563eb",
+        "peau": "#e0ac69",
+        "cheveux": "#57534e",
+        "accessoire": "moustache",
+        "role": "vendeur"
+      },
+      "sophie": {
+        "nom": "Sophie",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge",
+        "role": "agente"
+      },
+      "lea": {
+        "nom": "Léa",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e",
+        "role": "acheteuse"
+      },
+      "bernard": {
+        "nom": "M. Bernard",
+        "style": "homme",
+        "couleur": "#475569",
+        "peau": "#c68642",
+        "cheveux": "#1c1917",
+        "accessoire": "cravate",
+        "role": "banquier"
+      },
+      "dubois": {
+        "nom": "Me Dubois",
+        "style": "homme",
+        "couleur": "#111827",
+        "peau": "#f1c27d",
+        "cheveux": "#d6d3d1",
+        "accessoire": "lunettes",
+        "role": "notaire"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "rue",
+        "persos": {
+          "martin": 30
+        },
+        "parle": "martin",
+        "bulle": "Je veux vendre ma maison !",
+        "narration": "Monsieur Martin veut vendre sa maison. Il passe par une agence."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": 25,
+          "sophie": 72
+        },
+        "parle": "sophie",
+        "bulle": "On signe d'abord un mandat écrit.",
+        "objet": {
+          "emoji": "📄",
+          "texte": "Mandat"
+        },
+        "narration": "Il signe un mandat écrit. Sans mandat, l'agence n'a pas droit à ses honoraires."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "sophie": 22,
+          "lea": 55
+        },
+        "parle": "lea",
+        "bulle": "Coup de cœur ! Je fais une offre.",
+        "objet": {
+          "emoji": "🏠",
+          "texte": "Offre d'achat"
+        },
+        "narration": "Léa visite la maison. Coup de cœur : elle fait une offre."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "martin": 18,
+          "lea": 50,
+          "sophie": 82
+        },
+        "parle": "sophie",
+        "bulle": "Léa, vous avez 10 jours pour changer d'avis.",
+        "objet": {
+          "emoji": "✍️",
+          "texte": "Compromis de vente"
+        },
+        "narration": "Ils signent le compromis de vente. Léa a dix jours pour se rétracter."
+      },
+      {
+        "decor": "banque",
+        "persos": {
+          "lea": 28,
+          "bernard": 72
+        },
+        "parle": "bernard",
+        "bulle": "Votre prêt est accepté !",
+        "objet": {
+          "emoji": "💶",
+          "texte": "Offre de prêt"
+        },
+        "narration": "Si la banque refuse le prêt, la vente tombe sans pénalité. Ici, c'est accepté !"
+      },
+      {
+        "decor": "notaire",
+        "persos": {
+          "martin": 18,
+          "lea": 50,
+          "dubois": 82
+        },
+        "parle": "lea",
+        "bulle": "Enfin chez moi !",
+        "objet": {
+          "emoji": "🔑",
+          "texte": "Les clés"
+        },
+        "narration": "Chez le notaire, on signe l'acte authentique. Léa devient propriétaire !"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "type": "video",
+    "matiere": "gestion-locative",
+    "chapitre": "Fin du bail",
+    "titre": "Partir plus vite : le préavis en zone tendue",
+    "contenu": "Peut-on quitter un logement vide avec un mois de préavis au lieu de trois ?",
+    "reponse": "Location vide : préavis de 3 mois en principe\nRéduit à 1 mois en zone tendue (et en cas de mutation, perte d'emploi, raison de santé…)\nLe locataire doit indiquer le motif dans sa lettre de congé",
+    "personnages": {
+      "diallo": {
+        "nom": "Mme Diallo",
+        "style": "femme",
+        "couleur": "#a855f7",
+        "peau": "#5c3a21",
+        "cheveux": "#1c1917",
+        "role": "locataire"
+      },
+      "petit": {
+        "nom": "M. Petit",
+        "style": "homme",
+        "couleur": "#ef4444",
+        "peau": "#f1c27d",
+        "cheveux": "#78350f",
+        "accessoire": "lunettes",
+        "role": "propriétaire"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "appartement",
+        "persos": {
+          "diallo": 40
+        },
+        "parle": "diallo",
+        "bulle": "J'ai trouvé plus près de mon travail !",
+        "narration": "Madame Diallo loue un appartement vide à Lyon. Elle veut déménager."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "diallo": 30
+        },
+        "parle": "diallo",
+        "bulle": "J'envoie mon congé le 1er mars.",
+        "objet": {
+          "emoji": "✉️",
+          "texte": "Lettre de congé"
+        },
+        "narration": "Le 1er mars, elle envoie son congé en recommandé."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "diallo": 28,
+          "petit": 72
+        },
+        "parle": "petit",
+        "bulle": "C'est 3 mois de préavis : jusqu'au 1er juin !",
+        "narration": "Son propriétaire exige trois mois : c'est la règle… en principe."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "diallo": 28,
+          "petit": 72
+        },
+        "parle": "diallo",
+        "bulle": "Lyon est en zone tendue : c'est 1 mois !",
+        "objet": {
+          "emoji": "📅",
+          "texte": "Départ le 1er avril"
+        },
+        "narration": "Mais Lyon est en zone tendue : un mois suffit, si elle l'indique dans sa lettre."
+      }
+    ]
+  },
+  {
     "id": 1,
     "type": "notion",
     "matiere": "juridique",

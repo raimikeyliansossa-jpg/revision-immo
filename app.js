@@ -1,11 +1,13 @@
 // =============================================================
-// Révision Immo — V1
+// Révision Immo
 // Rôle de ce fichier : lire cards.json et fabriquer une carte
-// plein écran pour chaque élément.
+// plein écran pour chaque élément. Les vidéos animées sont
+// gérées dans video.js.
 // =============================================================
 
 // Noms lisibles pour l'affichage (la clé = ce qui est écrit dans cards.json)
 const NOMS_TYPES = {
+  video: "🎬 Vidéo",
   notion: "📘 Notion",
   quiz: "❓ Quiz",
   situation: "💼 Situation",
@@ -60,9 +62,16 @@ function creerCarte(carte) {
   section.append(
     etiquettes,
     creer("p", "chapitre", carte.chapitre),
-    creer("h2", "titre", carte.titre),
-    creer("p", "contenu", carte.contenu)
+    creer("h2", "titre", carte.titre)
   );
+
+  // Une vidéo : c'est video.js qui construit la suite
+  if (carte.type === "video") {
+    ajouterVideo(section, carte);
+    return section;
+  }
+
+  section.append(creer("p", "contenu", carte.contenu));
 
   if (carte.type === "notion") {
     // Une notion se lit directement : la réponse est visible tout de suite
@@ -93,6 +102,7 @@ let melange = false;        // true = cartes dans un ordre aléatoire
 
 const filtres = document.getElementById("filtres");
 const boutonMelanger = document.getElementById("bouton-melanger");
+brancherBoutonSon(document.getElementById("bouton-son"));
 const CLE_MEMOIRE = "revision-immo-filtre"; // nom de la "case" en mémoire du navigateur
 const CLE_MELANGE = "revision-immo-melange";
 
@@ -134,6 +144,7 @@ function suivreCarteVisible(sections) {
         if (entree.isIntersecting) {
           const numero = sections.indexOf(entree.target) + 1;
           compteur.textContent = numero + " / " + total;
+          carteVisible(entree.target); // lance la vidéo si c'en est une
         }
       });
     },
@@ -156,6 +167,7 @@ function afficherFil() {
   // Si le mélange est activé, on tire un nouvel ordre au hasard
   if (melange) cartes = melanger(cartes);
 
+  arreterVideos();    // on coupe la vidéo en cours
   fil.innerHTML = ""; // on vide le fil
   fil.scrollTop = 0;  // et on remonte tout en haut
 

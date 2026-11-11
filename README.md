@@ -10,6 +10,7 @@ Une carte par écran, on fait défiler pour passer à la suivante.
 | `index.html` | La structure de la page (le « squelette »)                  |
 | `style.css`  | L'apparence : couleurs, plein écran, défilement aimanté     |
 | `app.js`     | La logique : lit `cards.json` et fabrique les cartes        |
+| `video.js`   | Le moteur des vidéos animées (décors, personnages, voix)    |
 | `cards.json` | Les cartes de révision (c'est ici qu'on en ajoute)          |
 | `manifest.json` + `icone-*.png` | Nom et icône de l'appli pour l'écran d'accueil Android |
 
@@ -41,8 +42,48 @@ Copie un bloc dans `cards.json`, change l'`id` et le texte. N'oublie pas la virg
 }
 ```
 
-- `type` : `notion`, `quiz`, `situation` ou `piege`
+- `type` : `video`, `notion`, `quiz`, `situation` ou `piege`
 - `matiere` : `eco`, `juridique`, `transaction`, `copropriete` ou `gestion-locative`
+
+## Créer une vidéo animée 🎬
+
+Une vidéo est une carte de type `video`, avec 2 champs en plus : `personnages` et `scenes`.
+Déroulé : **question** (`contenu`) → **scènes** → **À retenir** (`reponse`, une ligne par point, séparées par `\n`).
+
+```json
+{
+  "id": 13,
+  "type": "video",
+  "matiere": "copropriete",
+  "chapitre": "Assemblée générale",
+  "titre": "Titre de la vidéo",
+  "contenu": "La question de départ ?",
+  "reponse": "Premier point à retenir\nDeuxième point",
+  "personnages": {
+    "paul": { "nom": "Paul", "role": "copropriétaire", "style": "homme",
+              "couleur": "#2563eb", "peau": "#f1c27d", "cheveux": "#3f2a14", "accessoire": "lunettes" }
+  },
+  "scenes": [
+    {
+      "decor": "appartement",
+      "persos": { "paul": 40 },
+      "parle": "paul",
+      "bulle": "Ce que dit le personnage",
+      "objet": { "emoji": "📄", "texte": "Convocation" },
+      "narration": "Ce que dit la voix off (une ou deux phrases courtes)."
+    }
+  ]
+}
+```
+
+- `decor` : `rue`, `agence`, `banque`, `notaire` ou `appartement`
+- `persos` : qui est sur scène, et où (0 = tout à gauche, 100 = tout à droite). Un personnage qui change de place **marche** jusqu'à sa nouvelle position.
+- `style` : `homme` ou `femme` · `accessoire` : `cravate`, `lunettes`, `badge`, `moustache` (facultatif)
+- `parle`, `bulle`, `objet` : facultatifs
+- Viser 4 à 6 scènes et des narrations de 60 à 80 caractères → une vidéo de 30 à 40 secondes.
+
+**Pendant la vidéo :** tap sur la scène = pause / reprise. 🔊 en haut = couper / remettre la voix.
+Au tout premier lancement, il faut taper ▶ (le téléphone bloque le son tant qu'on n'a pas touché l'écran), ensuite les vidéos démarrent toutes seules.
 
 ## Filtrer par matière
 
