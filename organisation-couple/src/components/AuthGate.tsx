@@ -21,32 +21,28 @@ function Splash() {
 }
 
 function Login() {
+  const [mode, setMode] = useState<"connexion" | "inscription">("connexion");
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
-  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function sendLink(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const { error } = await supabase().auth.signInWithOtp({
-      email: email.trim(),
-      options: { emailRedirectTo: window.location.origin },
-    });
-    setBusy(false);
-    if (error) setError(errMsg(error));
-    else setSent(true);
-  }
-
-  async function verify(e: React.FormEvent) {
-    e.preventDefault();
-    setBusy(true);
-    setError(null);
-    const { error } = await supabase().auth.verifyOtp({ email: email.trim(), token: code.trim(), type: "email" });
-    setBusy(false);
-    if (error) setError("Code incorrect ou expiré. Réessaie 🙏");
+    const auth = supabase().auth;
+    const creds = { email: email.trim(), password };
+    if (mode === "inscription") {
+      const { data, error } = await auth.signUp(creds);
+      setBusy(false);
+      if (error) setError(errMsg(error));
+      else if (!data.session) setError("Compte créé. Confirme ton e-mail puis reviens te connecter ici 🙏");
+    } else {
+      const { error } = await auth.signInWithPassword(creds);
+      setBusy(false);
+      if (error) setError("E-mail ou mot de passe incorrect 🙏");
+    }
   }
 
   return (
@@ -57,50 +53,48 @@ function Login() {
         <p className="mt-2 text-muted">Chaque semaine, on fait le point. Ensemble.</p>
       </div>
       <Card className="p-5">
-        {!sent ? (
-          <form onSubmit={sendLink} className="flex flex-col gap-3">
-            <label className="text-sm font-medium" htmlFor="email">
-              Ton adresse e-mail
-            </label>
-            <input
-              id="email"
-              type="email"
-              required
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="toi@exemple.fr"
-              className="rounded-2xl border border-line bg-cream px-4 py-3 outline-none focus:border-rose"
-            />
-            <Button disabled={busy}>{busy ? "Envoi…" : "Recevoir mon code ✉️"}</Button>
-            <p className="text-xs text-muted">Pas de mot de passe : tu reçois un code (et un lien magique) par e-mail.</p>
-          </form>
-        ) : (
-          <form onSubmit={verify} className="flex flex-col gap-3">
-            <p className="text-sm">
-              E-mail envoyé à <b>{email}</b> 💌
-            </p>
-            <label className="text-sm font-medium" htmlFor="code">
-              Tape le code reçu
-            </label>
-            <input
-              id="code"
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              value={code}
-              onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
-              placeholder="123456"
-              className="rounded-2xl border border-line bg-cream px-4 py-3 text-center text-2xl tracking-[0.4em] outline-none focus:border-rose"
-            />
-            <Button disabled={busy || code.length < 6}>{busy ? "Vérification…" : "Me connecter"}</Button>
-            <p className="text-xs text-muted">
-              Sur iPhone avec l&apos;app installée, utilise le code plutôt que le lien (le lien ouvrirait Safari).
-            </p>
-            <button type="button" className="text-sm text-rose underline" onClick={() => { setSent(false); setCode(""); }}>
-              Changer d&apos;adresse
-            </button>
-          </form>
-        )}
+        <form onSubmit={submit} className="flex flex-col gap-3">
+          <label className="text-sm font-medium" htmlFor="email">
+            Ton adresse e-mail
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="toi@exemple.fr"
+            className="rounded-2xl border border-line bg-cream px-4 py-3 outline-none focus:border-rose"
+          />
+          <label className="text-sm font-medium" htmlFor="password">
+            {mode === "inscription" ? "Choisis un mot de passe" : "Ton mot de passe"}
+          </label>
+          <input
+            id="password"
+            type="password"
+            required
+            minLength={6}
+            autoComplete={mode === "inscription" ? "new-password" : "current-password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="6 caractères minimum"
+            className="rounded-2xl border border-line bg-cream px-4 py-3 outline-none focus:border-rose"
+          />
+          <Button disabled={busy}>
+            {busy ? "Un instant…" : mode === "inscription" ? "Créer mon compte 💞" : "Me connecter 💞"}
+          </Button>
+          <button
+            type="button"
+            className="text-sm text-rose underline"
+            onClick={() => {
+              setMode(mode === "connexion" ? "inscription" : "connexion");
+              setError(null);
+            }}
+          >
+            {mode === "connexion" ? "Première fois ? Créer mon compte" : "J'ai déjà un compte"}
+          </button>
+        </form>
         {error && <p className="mt-3 text-sm text-[#c0392b]">{error}</p>}
       </Card>
     </Page>
