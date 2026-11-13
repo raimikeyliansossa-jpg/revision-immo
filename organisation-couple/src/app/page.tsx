@@ -10,6 +10,7 @@ import { STEP_META, capitalize, formatDate, toIso, todayIso } from "@/lib/consta
 
 const TILES = [
   { href: "/outfits", emoji: "👗", title: "Outfit", sub: "Poster ma tenue" },
+  { href: "/musique", emoji: "🎵", title: "Musique", sub: "Le son du jour" },
   { href: "/souvenirs", emoji: "🖼️", title: "Nos souvenirs", sub: "Nos photos à deux" },
   { href: "/activites", emoji: "🎡", title: "Nos activités", sub: "La liste de la roulette" },
   { href: "/sorties", emoji: "🗺️", title: "Nos sorties", sub: "Historique et classement" },

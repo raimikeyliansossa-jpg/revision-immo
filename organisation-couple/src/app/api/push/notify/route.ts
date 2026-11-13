@@ -9,7 +9,15 @@ export async function POST(req: Request) {
   if (!u.user) return NextResponse.json({ error: "non connecté" }, { status: 401 });
 
   const { kind } = await req.json().catch(() => ({ kind: null }));
-  if (kind !== "outfit" && kind !== "reaction" && kind !== "comment") return NextResponse.json({ error: "type inconnu" }, { status: 400 });
+  const MESSAGES: Record<string, { body: string; url: string }> = {
+    outfit: { body: "vient de poster son outfit, viens voir 😍", url: "/outfits" },
+    reaction: { body: "a réagi à ton outfit 😍", url: "/outfits" },
+    comment: { body: "t'a écrit sous un outfit 💬", url: "/outfits" },
+    song: { body: "te recommande un son 🎵", url: "/musique" },
+    song_comment: { body: "t'a écrit sous un son 🎵💬", url: "/musique" },
+  };
+  const msg = MESSAGES[kind as string];
+  if (!msg) return NextResponse.json({ error: "type inconnu" }, { status: 400 });
 
   const { data: me } = await admin.from("profiles").select("*").eq("id", u.user.id).single();
   if (!me?.couple_id) return NextResponse.json({ sent: 0 });
@@ -19,14 +27,9 @@ export async function POST(req: Request) {
   const { data: subs } = await admin.from("push_subscriptions").select("*").in("user_id", ids);
 
   const res = await sendPush(subs || [], {
-    title: `👗 ${me.display_name} ${me.emoji}`.trim(),
-    body:
-      kind === "reaction"
-        ? "a réagi à ton outfit 😍"
-        : kind === "comment"
-          ? "t'a écrit sous un outfit 💬"
-          : "vient de poster son outfit, viens voir 😍",
-    url: "/outfits",
+    title: `${msg.url === "/musique" ? "🎵" : "👗"} ${me.display_name} ${me.emoji}`.trim(),
+    body: msg.body,
+    url: msg.url,
   });
   return NextResponse.json(res);
 }
