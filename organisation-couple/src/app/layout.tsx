@@ -8,10 +8,10 @@ const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"], dis
 const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Notre point du dimanche",
-  description: "Le point du dimanche, à deux 💞",
-  applicationName: "Notre point",
-  appleWebApp: { capable: true, title: "Notre point", statusBarStyle: "default" },
+  title: "KS & EK",
+  description: "Notre app à deux 💞",
+  applicationName: "KS & EK",
+  appleWebApp: { capable: true, title: "KS & EK", statusBarStyle: "default" },
   icons: {
     icon: [{ url: "/icon-192.png", sizes: "192x192", type: "image/png" }],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],

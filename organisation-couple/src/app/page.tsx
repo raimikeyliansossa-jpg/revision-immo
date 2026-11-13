@@ -158,7 +158,7 @@ export default function Home() {
 
 function InviteCard({ code }: { code: string }) {
   const { toast } = useApp();
-  const text = `Rejoins notre espace « Notre point du dimanche » 💞\n${typeof window !== "undefined" ? window.location.origin : ""}\nCode : ${code}`;
+  const text = `Rejoins notre espace « KS & EK » 💞\n${typeof window !== "undefined" ? window.location.origin : ""}\nCode : ${code}`;
   async function share() {
     try {
       if (navigator.share) await navigator.share({ text });

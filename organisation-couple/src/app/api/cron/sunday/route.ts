@@ -18,6 +18,6 @@ export async function GET(req: Request) {
   if (!force && (weekday !== "dimanche" || hour !== 20)) return NextResponse.json({ skipped: true, weekday, hour });
 
   const { data: subs } = await adminClient().from("push_subscriptions").select("*");
-  const res = await sendPush(subs || [], { title: "Notre point du dimanche", body: "C'est l'heure de notre point 💞", url: "/" });
+  const res = await sendPush(subs || [], { title: "KS & EK", body: "C'est l'heure de notre point du dimanche 💞", url: "/" });
   return NextResponse.json(res);
 }

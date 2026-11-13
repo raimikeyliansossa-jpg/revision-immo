@@ -54,7 +54,7 @@ function Login() {
     <Page className="flex flex-col justify-center gap-6 py-10">
       <div className="text-center">
         <div className="pop mb-3 text-6xl">💞</div>
-        <h1 className="text-4xl font-semibold leading-tight">Notre point du dimanche</h1>
+        <h1 className="text-4xl font-semibold leading-tight">KS &amp; EK</h1>
         <p className="mt-2 text-muted">Chaque semaine, on fait le point. Ensemble.</p>
       </div>
       <Card className="p-5">
