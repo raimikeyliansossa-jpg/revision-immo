@@ -5,7 +5,7 @@ import { Button, Card, Empty, Page, PageHeader, PhotoImg, Sheet, nameOf } from "
 import { supabase, errMsg } from "@/lib/supabase";
 import { deletePhoto, uploadPhoto } from "@/lib/photos";
 import { notifyPartner } from "@/lib/push";
-import type { OutfitReaction, Photo } from "@/lib/types";
+import type { OutfitComment, OutfitReaction, Photo } from "@/lib/types";
 import { capitalize, formatDate, todayIso } from "@/lib/constants";
 
 const dayOf = (o: Photo) => o.worn_on || o.created_at.slice(0, 10);
@@ -21,21 +21,24 @@ export default function OutfitsPage() {
   const [busy, setBusy] = useState(false);
   const [zoom, setZoom] = useState<Photo | null>(null);
   const [reactions, setReactions] = useState<OutfitReaction[]>([]);
+  const [comments, setComments] = useState<OutfitComment[]>([]);
   const input = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async () => {
     const sb = supabase();
-    const [{ data }, { data: r }] = await Promise.all([
+    const [{ data }, { data: r }, { data: c }] = await Promise.all([
       sb.from("outfits").select("*").order("worn_on", { ascending: false }).order("created_at", { ascending: false }),
       sb.from("outfit_reactions").select("*"),
+      sb.from("outfit_comments").select("*").order("created_at"),
     ]);
     setOutfits(data || []);
     setReactions(r || []);
+    setComments(c || []);
   }, []);
 
   useEffect(() => {
     load();
-    const offs = [on("db:outfits", load), on("db:outfit_reactions", load), on("resync", load)];
+    const offs = [on("db:outfits", load), on("db:outfit_reactions", load), on("db:outfit_comments", load), on("resync", load)];
     return () => offs.forEach((o) => o());
   }, [load, on]);
 
@@ -127,13 +130,11 @@ export default function OutfitsPage() {
                     <div className="p-2.5">
                       <p className="text-sm font-semibold">{o.user_id === me?.id ? "Moi" : nameOf(partner)}</p>
                       {o.caption && <p className="truncate text-xs text-muted">{o.caption}</p>}
-                      {reactions
-                        .filter((x) => x.outfit_id === o.id && (x.emoji || x.comment))
-                        .map((x) => (
-                          <p key={x.user_id} className="mt-1 truncate rounded-xl bg-rose-soft px-2 py-1 text-xs">
-                            {x.emoji} {x.comment}
-                          </p>
-                        ))}
+                      <Badges
+                        emojis={reactions.filter((x) => x.outfit_id === o.id && x.emoji).map((x) => x.emoji!)}
+                        last={comments.filter((x) => x.outfit_id === o.id).at(-1)}
+                        count={comments.filter((x) => x.outfit_id === o.id).length}
+                      />
                     </div>
                   </button>
                 ))}
@@ -170,8 +171,8 @@ export default function OutfitsPage() {
       </Sheet>
 
       {zoom && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/85 p-4" onClick={() => setZoom(null)}>
-          <PhotoImg path={zoom.path} className="max-h-[70dvh] w-auto rounded-2xl !object-contain" />
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto bg-black/85 p-4" onClick={() => setZoom(null)}>
+          <PhotoImg path={zoom.path} className="max-h-[50dvh] w-auto rounded-2xl !object-contain" />
           {zoom.caption && <p className="mt-3 text-white">{zoom.caption}</p>}
           {zoom.user_id === me?.id ? (
             <div className="mt-3 flex flex-col items-center gap-3" onClick={(e) => e.stopPropagation()}>
@@ -200,18 +201,40 @@ export default function OutfitsPage() {
             partnerName={nameOf(partner)}
             onSaved={load}
           />
+          <Thread
+            outfit={zoom}
+            list={comments.filter((x) => x.outfit_id === zoom.id)}
+            meId={me?.id}
+            partnerName={nameOf(partner)}
+            onSaved={load}
+          />
         </div>
       )}
     </Page>
   );
 }
 
+function Badges({ emojis, last, count }: { emojis: string[]; last?: OutfitComment; count: number }) {
+  if (!emojis.length && !count) return null;
+  return (
+    <p className="mt-1 truncate rounded-xl bg-rose-soft px-2 py-1 text-xs">
+      {emojis.join(" ")}
+      {count > 0 && (
+        <>
+          {emojis.length > 0 && " · "}💬 {count > 1 ? `${count} · ` : ""}
+          {last?.body}
+        </>
+      )}
+    </p>
+  );
+}
+
+/** Emoji de réaction : seulement sur l'outfit de l'autre. Sur le mien, je vois le sien. */
 function Reactions({
   outfit,
   mine,
   list,
   meId,
-  partnerName,
   onSaved,
 }: {
   outfit: Photo;
@@ -224,84 +247,141 @@ function Reactions({
   const { toast, hint } = useApp();
   const existing = list.find((x) => x.user_id === meId);
   const [emoji, setEmoji] = useState<string | null>(existing?.emoji ?? null);
-  const [comment, setComment] = useState(existing?.comment ?? "");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     setEmoji(existing?.emoji ?? null);
-    setComment(existing?.comment ?? "");
   }, [outfit.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  async function save(nextEmoji: string | null, nextComment: string) {
+  async function save(next: string | null) {
     setBusy(true);
-    const { error } = await supabase()
-      .from("outfit_reactions")
-      .upsert({
-        outfit_id: outfit.id,
-        user_id: meId,
-        couple_id: outfit.couple_id,
-        emoji: nextEmoji,
-        comment: nextComment.trim(),
-        updated_at: new Date().toISOString(),
-      });
+    setEmoji(next);
+    const { error } = await supabase().from("outfit_reactions").upsert({
+      outfit_id: outfit.id,
+      user_id: meId,
+      couple_id: outfit.couple_id,
+      emoji: next,
+      updated_at: new Date().toISOString(),
+    });
     setBusy(false);
     if (error) return toast(errMsg(error));
     hint("outfit_reactions");
-    notifyPartner("reaction");
+    if (next) notifyPartner("reaction");
     onSaved();
   }
 
-  // Sur mon outfit : je vois la réaction de l'autre
   if (mine) {
-    const theirs = list.filter((x) => x.user_id !== meId && (x.emoji || x.comment));
-    if (theirs.length === 0) return <p className="mt-3 text-sm text-white/60">Pas encore de réaction de {partnerName} 👀</p>;
+    const theirs = list.filter((x) => x.user_id !== meId && x.emoji);
+    if (!theirs.length) return null;
     return (
-      <div className="mt-3 flex flex-col items-center gap-2" onClick={(e) => e.stopPropagation()}>
-        {theirs.map((x) => (
-          <div key={x.user_id} className="max-w-sm rounded-2xl bg-white/15 px-4 py-2 text-center text-white">
-            {x.emoji && <span className="text-3xl">{x.emoji}</span>}
-            {x.comment && <p className="whitespace-pre-wrap text-sm">{x.comment}</p>}
-          </div>
-        ))}
-      </div>
+      <p className="mt-2 text-4xl" onClick={(e) => e.stopPropagation()}>
+        {theirs.map((x) => x.emoji).join(" ")}
+      </p>
     );
   }
 
-  // Sur l'outfit de l'autre : je réagis
+  return (
+    <div className="mt-3 flex justify-center gap-1" onClick={(e) => e.stopPropagation()}>
+      {REACTIONS.map((r) => (
+        <button
+          key={r}
+          disabled={busy}
+          onClick={() => save(emoji === r ? null : r)}
+          className={`rounded-full p-1.5 text-2xl transition ${emoji === r ? "scale-110 bg-white/30" : "opacity-80"}`}
+          aria-label={`Réagir ${r}`}
+        >
+          {r}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/** Petite conversation sous l'outfit : chacun peut écrire et répondre. */
+function Thread({
+  outfit,
+  list,
+  meId,
+  partnerName,
+  onSaved,
+}: {
+  outfit: Photo;
+  list: OutfitComment[];
+  meId?: string;
+  partnerName: string;
+  onSaved: () => void;
+}) {
+  const { toast, hint } = useApp();
+  const [text, setText] = useState("");
+  const [busy, setBusy] = useState(false);
+  const end = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: "nearest" });
+  }, [list.length]);
+
+  async function send() {
+    const body = text.trim();
+    if (!body) return;
+    setBusy(true);
+    const { error } = await supabase()
+      .from("outfit_comments")
+      .insert({ outfit_id: outfit.id, user_id: meId, couple_id: outfit.couple_id, body });
+    setBusy(false);
+    if (error) return toast(errMsg(error));
+    setText("");
+    hint("outfit_comments");
+    notifyPartner("comment");
+    onSaved();
+  }
+
+  async function remove(c: OutfitComment) {
+    if (!confirm("Supprimer ce message ?")) return;
+    const { error } = await supabase().from("outfit_comments").delete().eq("id", c.id);
+    if (error) return toast(errMsg(error));
+    hint("outfit_comments");
+    onSaved();
+  }
+
   return (
     <div className="mt-3 flex w-full max-w-sm flex-col gap-2" onClick={(e) => e.stopPropagation()}>
-      <div className="flex justify-center gap-1">
-        {REACTIONS.map((r) => (
-          <button
-            key={r}
-            disabled={busy}
-            onClick={() => {
-              const next = emoji === r ? null : r;
-              setEmoji(next);
-              save(next, comment);
-            }}
-            className={`rounded-full p-1.5 text-2xl transition ${emoji === r ? "scale-110 bg-white/30" : "opacity-80"}`}
-            aria-label={`Réagir ${r}`}
-          >
-            {r}
-          </button>
-        ))}
-      </div>
+      {list.length > 0 && (
+        <div className="flex max-h-[22dvh] flex-col gap-1.5 overflow-y-auto">
+          {list.map((c) => {
+            const mine = c.user_id === meId;
+            return (
+              <div
+                key={c.id}
+                onContextMenu={(e) => {
+                  if (!mine) return;
+                  e.preventDefault();
+                  remove(c);
+                }}
+                className={`max-w-[85%] rounded-2xl px-3 py-1.5 text-sm ${mine ? "self-end bg-rose text-white" : "self-start bg-white/15 text-white"}`}
+              >
+                {!mine && <p className="text-[11px] font-semibold text-white/60">{partnerName}</p>}
+                <p className="whitespace-pre-wrap break-words">{c.body}</p>
+              </div>
+            );
+          })}
+          <div ref={end} />
+        </div>
+      )}
       <form
         className="flex gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          save(emoji, comment);
+          send();
         }}
       >
         <input
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Un petit mot ?"
-          maxLength={200}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={list.length ? "Répondre…" : "Un petit mot ?"}
+          maxLength={500}
           className="min-w-0 flex-1 rounded-2xl bg-white/15 px-4 py-2 text-white placeholder:text-white/50 outline-none"
         />
-        <button disabled={busy} className="rounded-2xl bg-rose px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
+        <button disabled={busy || !text.trim()} className="rounded-2xl bg-rose px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
           Envoyer
         </button>
       </form>
