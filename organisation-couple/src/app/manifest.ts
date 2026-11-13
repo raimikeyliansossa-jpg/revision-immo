@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Notre point du dimanche",
-    short_name: "Notre point",
-    description: "Le point du dimanche, à deux 💞",
+    name: "KS & EK",
+    short_name: "KS & EK",
+    description: "Notre app à deux 💞",
     start_url: "/",
     display: "standalone",
     background_color: "#FFF8F0",
