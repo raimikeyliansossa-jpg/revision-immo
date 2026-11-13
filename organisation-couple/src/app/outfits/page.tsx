@@ -5,10 +5,11 @@ import { Button, Card, Empty, Page, PageHeader, PhotoImg, Sheet, nameOf } from "
 import { supabase, errMsg } from "@/lib/supabase";
 import { deletePhoto, uploadPhoto } from "@/lib/photos";
 import { notifyPartner } from "@/lib/push";
-import type { Photo } from "@/lib/types";
+import type { OutfitReaction, Photo } from "@/lib/types";
 import { capitalize, formatDate, todayIso } from "@/lib/constants";
 
 const dayOf = (o: Photo) => o.worn_on || o.created_at.slice(0, 10);
+const REACTIONS = ["😍", "🔥", "🥰", "👏", "💅", "😂", "👀", "🤔"];
 
 export default function OutfitsPage() {
   const { couple, me, partner, on, toast, hint } = useApp();
@@ -19,20 +20,22 @@ export default function OutfitsPage() {
   const [wornOn, setWornOn] = useState(todayIso());
   const [busy, setBusy] = useState(false);
   const [zoom, setZoom] = useState<Photo | null>(null);
+  const [reactions, setReactions] = useState<OutfitReaction[]>([]);
   const input = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async () => {
-    const { data } = await supabase()
-      .from("outfits")
-      .select("*")
-      .order("worn_on", { ascending: false })
-      .order("created_at", { ascending: false });
+    const sb = supabase();
+    const [{ data }, { data: r }] = await Promise.all([
+      sb.from("outfits").select("*").order("worn_on", { ascending: false }).order("created_at", { ascending: false }),
+      sb.from("outfit_reactions").select("*"),
+    ]);
     setOutfits(data || []);
+    setReactions(r || []);
   }, []);
 
   useEffect(() => {
     load();
-    const offs = [on("db:outfits", load), on("resync", load)];
+    const offs = [on("db:outfits", load), on("db:outfit_reactions", load), on("resync", load)];
     return () => offs.forEach((o) => o());
   }, [load, on]);
 
@@ -124,6 +127,13 @@ export default function OutfitsPage() {
                     <div className="p-2.5">
                       <p className="text-sm font-semibold">{o.user_id === me?.id ? "Moi" : nameOf(partner)}</p>
                       {o.caption && <p className="truncate text-xs text-muted">{o.caption}</p>}
+                      {reactions
+                        .filter((x) => x.outfit_id === o.id && (x.emoji || x.comment))
+                        .map((x) => (
+                          <p key={x.user_id} className="mt-1 truncate rounded-xl bg-rose-soft px-2 py-1 text-xs">
+                            {x.emoji} {x.comment}
+                          </p>
+                        ))}
                     </div>
                   </button>
                 ))}
@@ -182,8 +192,119 @@ export default function OutfitsPage() {
           ) : (
             <p className="mt-1 text-sm text-white/70">Porté le {formatDate(dayOf(zoom))}</p>
           )}
+          <Reactions
+            outfit={zoom}
+            mine={zoom.user_id === me?.id}
+            list={reactions.filter((x) => x.outfit_id === zoom.id)}
+            meId={me?.id}
+            partnerName={nameOf(partner)}
+            onSaved={load}
+          />
         </div>
       )}
     </Page>
+  );
+}
+
+function Reactions({
+  outfit,
+  mine,
+  list,
+  meId,
+  partnerName,
+  onSaved,
+}: {
+  outfit: Photo;
+  mine: boolean;
+  list: OutfitReaction[];
+  meId?: string;
+  partnerName: string;
+  onSaved: () => void;
+}) {
+  const { toast, hint } = useApp();
+  const existing = list.find((x) => x.user_id === meId);
+  const [emoji, setEmoji] = useState<string | null>(existing?.emoji ?? null);
+  const [comment, setComment] = useState(existing?.comment ?? "");
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    setEmoji(existing?.emoji ?? null);
+    setComment(existing?.comment ?? "");
+  }, [outfit.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function save(nextEmoji: string | null, nextComment: string) {
+    setBusy(true);
+    const { error } = await supabase()
+      .from("outfit_reactions")
+      .upsert({
+        outfit_id: outfit.id,
+        user_id: meId,
+        couple_id: outfit.couple_id,
+        emoji: nextEmoji,
+        comment: nextComment.trim(),
+        updated_at: new Date().toISOString(),
+      });
+    setBusy(false);
+    if (error) return toast(errMsg(error));
+    hint("outfit_reactions");
+    notifyPartner("reaction");
+    onSaved();
+  }
+
+  // Sur mon outfit : je vois la réaction de l'autre
+  if (mine) {
+    const theirs = list.filter((x) => x.user_id !== meId && (x.emoji || x.comment));
+    if (theirs.length === 0) return <p className="mt-3 text-sm text-white/60">Pas encore de réaction de {partnerName} 👀</p>;
+    return (
+      <div className="mt-3 flex flex-col items-center gap-2" onClick={(e) => e.stopPropagation()}>
+        {theirs.map((x) => (
+          <div key={x.user_id} className="max-w-sm rounded-2xl bg-white/15 px-4 py-2 text-center text-white">
+            {x.emoji && <span className="text-3xl">{x.emoji}</span>}
+            {x.comment && <p className="whitespace-pre-wrap text-sm">{x.comment}</p>}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // Sur l'outfit de l'autre : je réagis
+  return (
+    <div className="mt-3 flex w-full max-w-sm flex-col gap-2" onClick={(e) => e.stopPropagation()}>
+      <div className="flex justify-center gap-1">
+        {REACTIONS.map((r) => (
+          <button
+            key={r}
+            disabled={busy}
+            onClick={() => {
+              const next = emoji === r ? null : r;
+              setEmoji(next);
+              save(next, comment);
+            }}
+            className={`rounded-full p-1.5 text-2xl transition ${emoji === r ? "scale-110 bg-white/30" : "opacity-80"}`}
+            aria-label={`Réagir ${r}`}
+          >
+            {r}
+          </button>
+        ))}
+      </div>
+      <form
+        className="flex gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          save(emoji, comment);
+        }}
+      >
+        <input
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Un petit mot ?"
+          maxLength={200}
+          className="min-w-0 flex-1 rounded-2xl bg-white/15 px-4 py-2 text-white placeholder:text-white/50 outline-none"
+        />
+        <button disabled={busy} className="rounded-2xl bg-rose px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
+          Envoyer
+        </button>
+      </form>
+    </div>
   );
 }

@@ -86,6 +86,15 @@ export type OutingRating = {
   comment: string;
 };
 
+export type OutfitReaction = {
+  outfit_id: string;
+  user_id: string;
+  couple_id: string;
+  emoji: string | null;
+  comment: string;
+  updated_at: string;
+};
+
 export type Photo = {
   id: string;
   couple_id: string;

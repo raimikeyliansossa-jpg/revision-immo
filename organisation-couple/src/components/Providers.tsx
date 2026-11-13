@@ -39,7 +39,7 @@ export function useApp() {
   return c;
 }
 
-const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "memories", "activities", "profiles"];
+const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "outfit_reactions", "memories", "activities", "profiles"];
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const sb = supabase();
@@ -262,6 +262,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
           const who = partnerRef.current;
           toast(`👗 ${who?.display_name || "Ta moitié"} vient de poster un outfit !`);
         }
+      }),
+      on("db:outfit_reactions", (p) => {
+        const n = p.new;
+        if (!n || n.user_id === meRef.current?.id || (p.eventType !== "INSERT" && p.eventType !== "UPDATE")) return;
+        const key = `${n.outfit_id}:${n.emoji}:${n.comment}`;
+        if (toasted.current.has(key) || (!n.emoji && !n.comment)) return;
+        toasted.current.add(key);
+        const who = partnerRef.current;
+        toast(`${n.emoji || "💬"} ${who?.display_name || "Ta moitié"} a réagi à ton outfit !`);
       }),
     ];
     return () => offs.forEach((o) => o());

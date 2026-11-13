@@ -56,7 +56,7 @@ export async function disablePush(): Promise<void> {
 }
 
 /** Demande au serveur de prévenir l'autre (ex : nouvel outfit). */
-export async function notifyPartner(kind: "outfit") {
+export async function notifyPartner(kind: "outfit" | "reaction") {
   try {
     const { data } = await supabase().auth.getSession();
     const token = data.session?.access_token;
