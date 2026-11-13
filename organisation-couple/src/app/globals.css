@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --cream: #fff8f0;
+  --card: #ffffff;
+  --ink: #4a2c2a;
+  --muted: #9b7b76;
+  --rose: #e0607e;
+  --rose-soft: #ffe4e8;
+  --peach: #ff9f6e;
+  --peach-soft: #ffeadb;
+  --line: #f1e2d8;
+  --good: #3f9d6b;
+}
+
+.dark {
+  --cream: #1e1517;
+  --card: #2a1f22;
+  --ink: #f8e9e4;
+  --muted: #b79a95;
+  --rose: #f27f99;
+  --rose-soft: #4a2830;
+  --peach: #ffb08a;
+  --peach-soft: #45302a;
+  --line: #3a2c2f;
+  --good: #6cc796;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rose: var(--rose);
+  --color-rose-soft: var(--rose-soft);
+  --color-peach: var(--peach);
+  --color-peach-soft: var(--peach-soft);
+  --color-line: var(--line);
+  --color-good: var(--good);
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+}
+
+html {
+  /* garde le contenu visible sous l'en-tête collant et au-dessus de la barre « Prêt » */
+  scroll-padding-top: 7rem;
+  scroll-padding-bottom: 10rem;
+}
+
+html,
+body {
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* iOS zoome si la police < 16px dans les champs */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+}
+
+input[type="range"] {
+  accent-color: var(--rose);
+}
+
+/* ---------- Animations ---------- */
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes step-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.step-in {
+  animation: step-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.step-in-back {
+  animation: step-in-back 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.pop {
+  animation: pop 0.35s ease-out both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.toast {
+  animation: toast-in 0.3s ease-out both;
+}
+
+@keyframes typing-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+.typing-dots span {
+  animation: typing-dot 1.2s infinite;
+}
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--rose) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+.pulse-ring {
+  animation: pulse-ring 1.6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-in,
+  .step-in-back,
+  .pop,
+  .toast {
+    animation: none;
+  }
+}
+
+.safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.safe-top {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
