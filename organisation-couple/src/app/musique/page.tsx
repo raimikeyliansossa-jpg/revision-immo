@@ -16,6 +16,11 @@ let playingKey: string | null = null;
 const listeners = new Set<() => void>();
 const notify = () => listeners.forEach((l) => l());
 
+function spotifyId(link: string | null | undefined) {
+  return link?.match(/open\.spotify\.com\/(?:intl-[a-z]{2}\/)?track\/([A-Za-z0-9]+)/)?.[1] ?? null;
+}
+const isSpotifyUrl = (s: string) => /^https?:\/\/(open\.spotify\.com|spotify\.link|spotify\.app\.link)\//i.test(s.trim());
+
 function deezerId(link: string | null | undefined) {
   return link?.match(/deezer\.com\/(?:[a-z]{2}\/)?track\/(\d+)/)?.[1] ?? null;
 }
@@ -100,13 +105,14 @@ function Cover({ url, className }: { url: string | null; className?: string }) {
 
 function listenLinks(s: Pick<Song, "title" | "artist" | "link">) {
   const q = encodeURIComponent(`${s.title} ${s.artist}`.trim());
+  const sp = spotifyId(s.link);
   const links = [
-    { label: "Spotify", href: `https://open.spotify.com/search/${q}` },
-    { label: "YouTube Music", href: `https://music.youtube.com/search?q=${q}` },
-    { label: "Apple Music", href: `https://music.apple.com/fr/search?term=${q}` },
-    { label: "Deezer", href: s.link && s.link.includes("deezer.com") ? s.link : `https://www.deezer.com/search/${q}` },
+    { label: "Spotify", href: sp ? `https://open.spotify.com/track/${sp}` : `https://open.spotify.com/search/${q}`, main: true },
+    { label: "YouTube Music", href: `https://music.youtube.com/search?q=${q}`, main: false },
+    { label: "Apple Music", href: `https://music.apple.com/fr/search?term=${q}`, main: false },
+    { label: "Deezer", href: deezerId(s.link) && s.link ? s.link : `https://www.deezer.com/search/${q}`, main: false },
   ];
-  if (s.link && !s.link.includes("deezer.com")) links.unshift({ label: "Son lien", href: s.link });
+  if (s.link && !sp && !deezerId(s.link)) links.unshift({ label: "Son lien", href: s.link, main: false });
   return links;
 }
 
@@ -261,6 +267,16 @@ function AddSong({ onDone }: { onDone: () => void }) {
     setSearching(true);
     const t = setTimeout(async () => {
       try {
+        if (isSpotifyUrl(term)) {
+          const r = await fetch(`/api/music/spotify?url=${encodeURIComponent(term)}`).then((x) => x.json());
+          if (id !== seq.current) return;
+          if (r.result) setPicked(r.result);
+          else {
+            toast(r.error ? `Lien Spotify : ${r.error}` : "Lien Spotify non reconnu");
+            setResults([]);
+          }
+          return;
+        }
         const r = await fetch(`/api/music/search?q=${encodeURIComponent(term)}`).then((x) => x.json());
         if (id === seq.current) setResults(r.results || []);
       } catch {
@@ -270,7 +286,7 @@ function AddSong({ onDone }: { onDone: () => void }) {
       }
     }, 350);
     return () => clearTimeout(t);
-  }, [q]);
+  }, [q, toast]);
 
   async function send() {
     if (!couple) return;
@@ -369,10 +385,15 @@ function AddSong({ onDone }: { onDone: () => void }) {
         autoFocus
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="🔍 Titre ou artiste"
+        placeholder="🔍 Titre, artiste… ou lien Spotify"
         className="rounded-2xl border border-line bg-card px-4 py-3 outline-none focus:border-rose"
       />
-      {searching && !results && <p className="text-center text-sm text-muted">Recherche…</p>}
+      {!results && !searching && (
+        <p className="text-center text-xs text-muted">
+          💚 Depuis Spotify : <b>Partager → Copier le lien</b>, puis colle-le ici.
+        </p>
+      )}
+      {searching && !results && <p className="text-center text-sm text-muted">{isSpotifyUrl(q) ? "Lecture du lien Spotify…" : "Recherche…"}</p>}
       {results && results.length === 0 && !searching && (
         <p className="text-center text-sm text-muted">Rien trouvé 🤷 Essaie avec l&apos;artiste, ou écris-le à la main.</p>
       )}
@@ -481,7 +502,15 @@ function SongDetail({
 
       {song.note && <p className="rounded-2xl bg-rose-soft px-4 py-3 text-center italic">« {song.note} »</p>}
 
-      {(song.preview_url || deezerId(song.link)) && (
+      {spotifyId(song.link) ? (
+        <iframe
+          title={`Lecteur Spotify : ${song.title}`}
+          src={`https://open.spotify.com/embed/track/${spotifyId(song.link)}?utm_source=generator`}
+          className="h-[152px] w-full rounded-2xl border-0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        />
+      ) : (song.preview_url || deezerId(song.link)) && (
         <div className="flex items-center justify-center gap-3">
           <PlayButton id={song.id} url={song.preview_url} link={song.link} className="!h-14 !w-14 text-xl" />
           <span className="text-sm text-muted">Écouter l&apos;extrait (30 s)</span>
@@ -495,7 +524,10 @@ function SongDetail({
             href={l.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-line bg-card px-3 py-1.5 text-sm font-medium"
+            className={cx(
+              "rounded-full border px-3 py-1.5 text-sm font-medium",
+              l.main ? "border-[#1DB954] bg-[#1DB954] text-white" : "border-line bg-card",
+            )}
           >
             {l.label} ↗
           </a>
