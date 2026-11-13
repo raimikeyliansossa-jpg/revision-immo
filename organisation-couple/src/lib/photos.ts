@@ -45,12 +45,12 @@ export function isVideoPath(path: string) {
   return /\.(mp4|mov|m4v|webm|3gp)$/i.test(path);
 }
 
-export async function uploadVideo(coupleId: string, file: File) {
+export async function uploadVideo(coupleId: string, file: File, kind: "outfits" | "souvenirs" = "souvenirs") {
   if (file.size > MAX_VIDEO_MB * 1024 * 1024) {
     throw new Error(`vidéo trop lourde (${Math.round(file.size / 1024 / 1024)} Mo, maximum ${MAX_VIDEO_MB} Mo)`);
   }
   const ext = (file.name.match(/\.([a-z0-9]+)$/i)?.[1] || "mp4").toLowerCase();
-  const path = `${coupleId}/souvenirs/${crypto.randomUUID()}.${ext}`;
+  const path = `${coupleId}/${kind}/${crypto.randomUUID()}.${ext}`;
   const { error } = await supabase()
     .storage.from("photos")
     .upload(path, file, { contentType: file.type || "video/mp4", cacheControl: "31536000" });

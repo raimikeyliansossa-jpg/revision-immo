@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 import type { Answer, AnswerField, Outing, OutingRating, Photo, Profile, StepKey } from "@/lib/types";
 import { MOODS, REVIEW_OPTIONS, capitalize, formatDate, toIso } from "@/lib/constants";
 import { useApp, useBroadcastField, useDebouncedSave, useLive, useTyping } from "../Providers";
-import { Button, Card, Empty, PhotoImg, TypingIndicator, cx, fullName, nameOf } from "../ui";
+import { Button, Card, Empty, Media, TypingIndicator, cx, fullName, nameOf } from "../ui";
 import type { PointCtx } from "./PointScreen";
 import { RdvStep } from "./Rdv";
 import { Recap } from "./Recap";
@@ -460,7 +460,7 @@ function OutfitsStep({ ctx }: { ctx: PointCtx }) {
               <div className="grid grid-cols-3 gap-2">
                 {list.map((o) => (
                   <button key={o.id} onClick={() => setZoom(o)} className="overflow-hidden rounded-2xl">
-                    <PhotoImg path={o.path} className="aspect-[3/4] w-full" />
+                    <Media path={o.path} className="aspect-[3/4] w-full" />
                   </button>
                 ))}
               </div>
@@ -470,7 +470,9 @@ function OutfitsStep({ ctx }: { ctx: PointCtx }) {
       })}
       {zoom && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/85 p-4" onClick={() => setZoom(null)}>
-          <PhotoImg path={zoom.path} className="max-h-[80dvh] w-auto rounded-2xl !object-contain" />
+          <div onClick={(e) => e.stopPropagation()}>
+            <Media path={zoom.path} full className="max-h-[80dvh] w-auto max-w-full rounded-2xl !object-contain" />
+          </div>
           {zoom.caption && <p className="mt-3 text-white">{zoom.caption}</p>}
           <p className="mt-1 text-sm text-white/70">{capitalize(formatDate(zoom.worn_on || zoom.created_at))}</p>
         </div>

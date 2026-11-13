@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { signedUrl } from "@/lib/photos";
+import { isVideoPath, signedUrl } from "@/lib/photos";
 import { useApp } from "./Providers";
 
 export function cx(...c: (string | false | null | undefined)[]) {
@@ -135,6 +135,20 @@ export function VideoClip({ path, className, full = false }: { path: string; cla
   if (full) return <video src={url} className={className} controls autoPlay playsInline />;
   // "#t=0.1" force l'affichage de la première image comme vignette (iPhone compris)
   return <video src={`${url}#t=0.1`} className={cx("object-cover", className)} muted playsInline preload="metadata" />;
+}
+
+/** Photo ou vidéo selon le fichier stocké. */
+export function Media({ path, className, full = false }: { path: string; className?: string; full?: boolean }) {
+  if (isVideoPath(path)) {
+    if (full) return <VideoClip path={path} full className={className} />;
+    return (
+      <span className="relative block">
+        <VideoClip path={path} className={className} />
+        <span className="absolute bottom-1.5 right-1.5 rounded-full bg-black/55 px-1.5 text-xs text-white">▶</span>
+      </span>
+    );
+  }
+  return <PhotoImg path={path} className={className} />;
 }
 
 export function Sheet({ open, onClose, children, title }: { open: boolean; onClose: () => void; children: React.ReactNode; title?: string }) {
