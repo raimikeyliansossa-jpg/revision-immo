@@ -39,7 +39,7 @@ export function useApp() {
   return c;
 }
 
-const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "outfit_reactions", "outfit_comments", "memories", "activities", "profiles"];
+const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "outfit_reactions", "outfit_comments", "songs", "song_comments", "memories", "activities", "profiles"];
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const sb = supabase();
@@ -271,6 +271,29 @@ export function Providers({ children }: { children: React.ReactNode }) {
         toasted.current.add(key);
         const who = partnerRef.current;
         toast(`${n.emoji} ${who?.display_name || "Ta moitié"} a réagi à ton outfit !`);
+      }),
+      on("db:songs", (p) => {
+        const n = p.new;
+        if (!n || n.user_id === meRef.current?.id) {
+          // Réaction de l'autre sur un de mes sons
+          if (p.eventType === "UPDATE" && n && n.user_id === meRef.current?.id) {
+            const who = partnerRef.current?.display_name || "Ta moitié";
+            if (n.reaction && n.reaction !== p.old?.reaction) toast(`${n.reaction} ${who} a réagi à « ${n.title} »`);
+            else if (n.listened_at && !p.old?.listened_at) toast(`🎧 ${who} a écouté « ${n.title} »`);
+          }
+          return;
+        }
+        if (p.eventType === "INSERT" && !toasted.current.has(n.id)) {
+          toasted.current.add(n.id);
+          toast(`🎵 ${partnerRef.current?.display_name || "Ta moitié"} te recommande « ${n.title} »`);
+        }
+      }),
+      on("db:song_comments", (p) => {
+        const n = p.new;
+        if (p.eventType !== "INSERT" || !n || n.user_id === meRef.current?.id || toasted.current.has(n.id)) return;
+        toasted.current.add(n.id);
+        const txt = n.body.length > 60 ? n.body.slice(0, 60) + "…" : n.body;
+        toast(`🎵💬 ${partnerRef.current?.display_name || "Ta moitié"} : « ${txt} »`);
       }),
       on("db:outfit_comments", (p) => {
         const n = p.new;

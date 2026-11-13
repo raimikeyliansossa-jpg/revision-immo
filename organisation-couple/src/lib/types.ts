@@ -104,6 +104,31 @@ export type OutfitComment = {
   created_at: string;
 };
 
+export type Song = {
+  id: string;
+  couple_id: string;
+  user_id: string;
+  title: string;
+  artist: string;
+  cover_url: string | null;
+  artist_picture: string | null;
+  preview_url: string | null;
+  link: string | null;
+  note: string;
+  reaction: string | null;
+  listened_at: string | null;
+  created_at: string;
+};
+
+export type SongComment = {
+  id: string;
+  song_id: string;
+  user_id: string;
+  couple_id: string;
+  body: string;
+  created_at: string;
+};
+
 export type Photo = {
   id: string;
   couple_id: string;
