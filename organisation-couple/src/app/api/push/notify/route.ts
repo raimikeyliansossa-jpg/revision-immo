@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   if (!u.user) return NextResponse.json({ error: "non connecté" }, { status: 401 });
 
   const { kind } = await req.json().catch(() => ({ kind: null }));
-  if (kind !== "outfit" && kind !== "reaction") return NextResponse.json({ error: "type inconnu" }, { status: 400 });
+  if (kind !== "outfit" && kind !== "reaction" && kind !== "comment") return NextResponse.json({ error: "type inconnu" }, { status: 400 });
 
   const { data: me } = await admin.from("profiles").select("*").eq("id", u.user.id).single();
   if (!me?.couple_id) return NextResponse.json({ sent: 0 });
@@ -20,7 +20,12 @@ export async function POST(req: Request) {
 
   const res = await sendPush(subs || [], {
     title: `👗 ${me.display_name} ${me.emoji}`.trim(),
-    body: kind === "reaction" ? "a réagi à ton outfit 💬" : "vient de poster son outfit, viens voir 😍",
+    body:
+      kind === "reaction"
+        ? "a réagi à ton outfit 😍"
+        : kind === "comment"
+          ? "t'a écrit sous un outfit 💬"
+          : "vient de poster son outfit, viens voir 😍",
     url: "/outfits",
   });
   return NextResponse.json(res);

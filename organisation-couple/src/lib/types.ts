@@ -95,6 +95,15 @@ export type OutfitReaction = {
   updated_at: string;
 };
 
+export type OutfitComment = {
+  id: string;
+  outfit_id: string;
+  user_id: string;
+  couple_id: string;
+  body: string;
+  created_at: string;
+};
+
 export type Photo = {
   id: string;
   couple_id: string;

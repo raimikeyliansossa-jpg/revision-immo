@@ -39,7 +39,7 @@ export function useApp() {
   return c;
 }
 
-const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "outfit_reactions", "memories", "activities", "profiles"];
+const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "outfit_reactions", "outfit_comments", "memories", "activities", "profiles"];
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const sb = supabase();
@@ -266,11 +266,19 @@ export function Providers({ children }: { children: React.ReactNode }) {
       on("db:outfit_reactions", (p) => {
         const n = p.new;
         if (!n || n.user_id === meRef.current?.id || (p.eventType !== "INSERT" && p.eventType !== "UPDATE")) return;
-        const key = `${n.outfit_id}:${n.emoji}:${n.comment}`;
-        if (toasted.current.has(key) || (!n.emoji && !n.comment)) return;
+        const key = `${n.outfit_id}:${n.emoji}`;
+        if (toasted.current.has(key) || !n.emoji) return;
         toasted.current.add(key);
         const who = partnerRef.current;
-        toast(`${n.emoji || "💬"} ${who?.display_name || "Ta moitié"} a réagi à ton outfit !`);
+        toast(`${n.emoji} ${who?.display_name || "Ta moitié"} a réagi à ton outfit !`);
+      }),
+      on("db:outfit_comments", (p) => {
+        const n = p.new;
+        if (p.eventType !== "INSERT" || !n || n.user_id === meRef.current?.id || toasted.current.has(n.id)) return;
+        toasted.current.add(n.id);
+        const who = partnerRef.current;
+        const txt = n.body.length > 60 ? n.body.slice(0, 60) + "…" : n.body;
+        toast(`💬 ${who?.display_name || "Ta moitié"} : « ${txt} »`);
       }),
     ];
     return () => offs.forEach((o) => o());
