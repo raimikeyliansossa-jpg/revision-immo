@@ -121,6 +121,22 @@ export function PhotoImg({ path, alt = "", className }: { path: string; alt?: st
   return <img src={url} alt={alt} className={cx("object-cover", className)} loading="lazy" />;
 }
 
+/** Affiche une vidéo stockée (aperçu muet dans la grille, lecteur complet en grand). */
+export function VideoClip({ path, className, full = false }: { path: string; className?: string; full?: boolean }) {
+  const [url, setUrl] = useState<string | null>(null);
+  useEffect(() => {
+    let ok = true;
+    signedUrl(path).then((u) => ok && setUrl(u));
+    return () => {
+      ok = false;
+    };
+  }, [path]);
+  if (!url) return <div className={cx("animate-pulse bg-line", className)} />;
+  if (full) return <video src={url} className={className} controls autoPlay playsInline />;
+  // "#t=0.1" force l'affichage de la première image comme vignette (iPhone compris)
+  return <video src={`${url}#t=0.1`} className={cx("object-cover", className)} muted playsInline preload="metadata" />;
+}
+
 export function Sheet({ open, onClose, children, title }: { open: boolean; onClose: () => void; children: React.ReactNode; title?: string }) {
   if (!open) return null;
   return (

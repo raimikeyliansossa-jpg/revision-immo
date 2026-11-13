@@ -33,6 +33,31 @@ export async function uploadPhoto(coupleId: string, kind: "outfits" | "souvenirs
   return path;
 }
 
+/** Taille max d'un fichier sur l'offre gratuite de Supabase. */
+export const MAX_VIDEO_MB = 50;
+
+export function isVideoFile(f: File) {
+  return f.type.startsWith("video/") || /\.(mp4|mov|m4v|webm|3gp)$/i.test(f.name);
+}
+
+/** Les vidéos sont envoyées telles quelles ; leur chemin garde l'extension d'origine. */
+export function isVideoPath(path: string) {
+  return /\.(mp4|mov|m4v|webm|3gp)$/i.test(path);
+}
+
+export async function uploadVideo(coupleId: string, file: File) {
+  if (file.size > MAX_VIDEO_MB * 1024 * 1024) {
+    throw new Error(`vidéo trop lourde (${Math.round(file.size / 1024 / 1024)} Mo, maximum ${MAX_VIDEO_MB} Mo)`);
+  }
+  const ext = (file.name.match(/\.([a-z0-9]+)$/i)?.[1] || "mp4").toLowerCase();
+  const path = `${coupleId}/souvenirs/${crypto.randomUUID()}.${ext}`;
+  const { error } = await supabase()
+    .storage.from("photos")
+    .upload(path, file, { contentType: file.type || "video/mp4", cacheControl: "31536000" });
+  if (error) throw error;
+  return path;
+}
+
 // Cache des liens temporaires (valables 1 h)
 const cache = new Map<string, { url: string; exp: number }>();
 const pending = new Map<string, Promise<string | null>>();

@@ -1,9 +1,9 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useApp } from "@/components/Providers";
-import { Button, Empty, Page, PageHeader, PhotoImg } from "@/components/ui";
+import { Button, Empty, Page, PageHeader, PhotoImg, VideoClip } from "@/components/ui";
 import { supabase, errMsg } from "@/lib/supabase";
-import { deletePhoto, uploadPhoto } from "@/lib/photos";
+import { deletePhoto, isVideoFile, isVideoPath, uploadPhoto, uploadVideo } from "@/lib/photos";
 import type { Photo } from "@/lib/types";
 import { capitalize, formatDate } from "@/lib/constants";
 
@@ -31,11 +31,11 @@ export default function SouvenirsPage() {
     setProgress({ done: 0, total: list.length });
     for (const [i, f] of list.entries()) {
       try {
-        const path = await uploadPhoto(couple.id, "souvenirs", f);
+        const path = isVideoFile(f) ? await uploadVideo(couple.id, f) : await uploadPhoto(couple.id, "souvenirs", f);
         const { error } = await supabase().from("memories").insert({ couple_id: couple.id, path });
         if (error) throw error;
       } catch (e) {
-        toast("Une photo n'a pas pu être envoyée : " + errMsg(e));
+        toast(`${isVideoFile(f) ? "Une vidéo" : "Une photo"} n'a pas pu être envoyée : ` + errMsg(e));
       }
       setProgress({ done: i + 1, total: list.length });
     }
@@ -65,18 +65,25 @@ export default function SouvenirsPage() {
   return (
     <Page>
       <PageHeader title="Nos souvenirs" emoji="🖼️" />
-      <input ref={input} type="file" accept="image/*" multiple className="hidden" onChange={(e) => add(e.target.files)} />
+      <input ref={input} type="file" accept="image/*,video/*" multiple className="hidden" onChange={(e) => add(e.target.files)} />
       <Button className="mb-4 w-full" onClick={() => input.current?.click()} disabled={!!progress}>
-        {progress ? `Envoi ${progress.done}/${progress.total}…` : "➕ Ajouter des photos"}
+        {progress ? `Envoi ${progress.done}/${progress.total}…` : "➕ Ajouter photos et vidéos"}
       </Button>
 
       {photos.length === 0 ? (
-        <Empty emoji="📷">Ajoutez vos plus belles photos à deux depuis la galerie de votre téléphone.</Empty>
+        <Empty emoji="📷">Ajoutez vos plus belles photos et vidéos à deux depuis la galerie de votre téléphone.</Empty>
       ) : (
         <div className="grid grid-cols-3 gap-1.5">
           {photos.map((p) => (
             <button key={p.id} onClick={() => setZoom(p)} className="relative overflow-hidden rounded-xl">
-              <PhotoImg path={p.path} className="aspect-square w-full" />
+              {isVideoPath(p.path) ? (
+                <>
+                  <VideoClip path={p.path} className="aspect-square w-full" />
+                  <span className="absolute bottom-1 right-1 rounded-full bg-black/55 px-1.5 text-xs text-white">▶</span>
+                </>
+              ) : (
+                <PhotoImg path={p.path} className="aspect-square w-full" />
+              )}
               {couple?.cover_path === p.path && (
                 <span className="absolute left-1 top-1 rounded-full bg-white/85 px-1.5 text-xs">📌</span>
               )}
@@ -87,10 +94,16 @@ export default function SouvenirsPage() {
 
       {zoom && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90 p-4" onClick={() => setZoom(null)}>
-          <PhotoImg path={zoom.path} className="max-h-[70dvh] w-auto rounded-2xl !object-contain" />
+          {isVideoPath(zoom.path) ? (
+            <div onClick={(e) => e.stopPropagation()}>
+              <VideoClip path={zoom.path} full className="max-h-[70dvh] w-auto max-w-full rounded-2xl" />
+            </div>
+          ) : (
+            <PhotoImg path={zoom.path} className="max-h-[70dvh] w-auto rounded-2xl !object-contain" />
+          )}
           <p className="mt-2 text-sm text-white/70">{capitalize(formatDate(zoom.created_at))}</p>
           <div className="mt-4 flex gap-2" onClick={(e) => e.stopPropagation()}>
-            <Button onClick={() => setCover(zoom)}>📌 Photo de couverture</Button>
+            {!isVideoPath(zoom.path) && <Button onClick={() => setCover(zoom)}>📌 Photo de couverture</Button>}
             <Button variant="ghost" className="!text-white/80" onClick={() => remove(zoom)}>
               🗑️
             </Button>
