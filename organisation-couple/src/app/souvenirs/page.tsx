@@ -35,6 +35,7 @@ export default function SouvenirsPage() {
     const { data } = await supabase()
       .from("memories")
       .select("*")
+      .is("outing_id", null) // les photos des sorties restent dans Nos sorties
       .order("taken_on", { ascending: false })
       .order("created_at", { ascending: false });
     setPhotos(data || []);

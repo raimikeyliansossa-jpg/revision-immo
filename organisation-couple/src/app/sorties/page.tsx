@@ -329,7 +329,7 @@ function OutingDetail({
   }
 
   async function remove(p: Photo) {
-    if (!confirm("Supprimer cette photo de la sortie (et de Nos souvenirs) ?"))
+    if (!confirm("Supprimer cette photo de la sortie ?"))
       return;
     await supabase().from("memories").delete().eq("id", p.id);
     await deletePhoto(p.path);
@@ -366,7 +366,7 @@ function OutingDetail({
       <div>
         <div className="mb-2 flex items-center justify-between">
           <h3 className="font-semibold">📸 Nos photos de la sortie</h3>
-          <span className="text-xs text-muted">aussi dans Nos souvenirs</span>
+          
         </div>
         {photos.length > 0 && (
           <div className="mb-3 grid grid-cols-3 gap-1.5">
