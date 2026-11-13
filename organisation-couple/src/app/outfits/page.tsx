@@ -1,9 +1,9 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useApp } from "@/components/Providers";
-import { Button, Card, Empty, Page, PageHeader, PhotoImg, Sheet, nameOf } from "@/components/ui";
+import { Button, Card, Empty, Media, Page, PageHeader, Sheet, nameOf } from "@/components/ui";
 import { supabase, errMsg } from "@/lib/supabase";
-import { deletePhoto, uploadPhoto } from "@/lib/photos";
+import { deletePhoto, isVideoFile, isVideoPath, uploadPhoto, uploadVideo } from "@/lib/photos";
 import { notifyPartner } from "@/lib/push";
 import type { OutfitComment, OutfitReaction, Photo } from "@/lib/types";
 import { capitalize, formatDate, todayIso } from "@/lib/constants";
@@ -54,7 +54,7 @@ export default function OutfitsPage() {
     if (!file || !couple) return;
     setBusy(true);
     try {
-      const path = await uploadPhoto(couple.id, "outfits", file);
+      const path = isVideoFile(file) ? await uploadVideo(couple.id, file, "outfits") : await uploadPhoto(couple.id, "outfits", file);
       const { data: row, error } = await supabase()
         .from("outfits")
         .insert({ couple_id: couple.id, path, caption: caption.trim(), worn_on: wornOn })
@@ -108,9 +108,9 @@ export default function OutfitsPage() {
       <Card className="mb-5 bg-gradient-to-br from-rose-soft to-peach-soft text-center">
         <p className="font-display text-xl font-semibold">Tu sors ? Montre ta tenue ✨</p>
         <p className="mb-3 text-sm text-muted">{nameOf(partner)} la verra tout de suite.</p>
-        <input ref={input} type="file" accept="image/*" className="hidden" onChange={(e) => pick(e.target.files?.[0])} data-testid="outfit-input" />
+        <input ref={input} type="file" accept="image/*,video/*" className="hidden" onChange={(e) => pick(e.target.files?.[0])} data-testid="outfit-input" />
         <Button className="w-full" onClick={() => input.current?.click()}>
-          📸 Poster un outfit
+          📸 Poster un outfit (photo ou vidéo)
         </Button>
       </Card>
 
@@ -126,7 +126,7 @@ export default function OutfitsPage() {
               <div className="grid grid-cols-2 gap-3">
                 {list.map((o) => (
                   <button key={o.id} onClick={() => setZoom(o)} className="overflow-hidden rounded-3xl bg-card text-left shadow-sm">
-                    <PhotoImg path={o.path} className="aspect-[3/4] w-full" />
+                    <Media path={o.path} className="aspect-[3/4] w-full" />
                     <div className="p-2.5">
                       <p className="text-sm font-semibold">{o.user_id === me?.id ? "Moi" : nameOf(partner)}</p>
                       {o.caption && <p className="truncate text-xs text-muted">{o.caption}</p>}
@@ -145,10 +145,13 @@ export default function OutfitsPage() {
       )}
 
       <Sheet open={!!file} onClose={() => !busy && setFile(null)} title="Mon outfit">
-        {preview && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={preview} alt="" className="mb-3 max-h-[45dvh] w-full rounded-2xl object-contain" />
-        )}
+        {preview &&
+          (file && isVideoFile(file) ? (
+            <video src={preview} className="mb-3 max-h-[45dvh] w-full rounded-2xl object-contain" controls playsInline muted />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={preview} alt="" className="mb-3 max-h-[45dvh] w-full rounded-2xl object-contain" />
+          ))}
         <label className="mb-3 flex items-center justify-between gap-3 text-sm font-medium">
           Porté le
           <input
@@ -172,7 +175,13 @@ export default function OutfitsPage() {
 
       {zoom && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto bg-black/85 p-4" onClick={() => setZoom(null)}>
-          <PhotoImg path={zoom.path} className="max-h-[50dvh] w-auto rounded-2xl !object-contain" />
+          {isVideoPath(zoom.path) ? (
+            <div onClick={(e) => e.stopPropagation()}>
+              <Media path={zoom.path} full className="max-h-[50dvh] w-auto max-w-full rounded-2xl" />
+            </div>
+          ) : (
+            <Media path={zoom.path} className="max-h-[50dvh] w-auto rounded-2xl !object-contain" />
+          )}
           {zoom.caption && <p className="mt-3 text-white">{zoom.caption}</p>}
           {zoom.user_id === me?.id ? (
             <div className="mt-3 flex flex-col items-center gap-3" onClick={(e) => e.stopPropagation()}>
