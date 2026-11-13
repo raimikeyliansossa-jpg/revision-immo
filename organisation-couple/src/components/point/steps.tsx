@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Answer, AnswerField, Outing, OutingRating, Photo, Profile, StepKey } from "@/lib/types";
-import { MOODS, REVIEW_OPTIONS, capitalize, formatDate } from "@/lib/constants";
+import { MOODS, REVIEW_OPTIONS, capitalize, formatDate, toIso } from "@/lib/constants";
 import { useApp, useBroadcastField, useDebouncedSave, useLive, useTyping } from "../Providers";
 import { Button, Card, Empty, PhotoImg, TypingIndicator, cx, fullName, nameOf } from "../ui";
 import type { PointCtx } from "./PointScreen";
@@ -430,14 +430,15 @@ function OutfitsStep({ ctx }: { ctx: PointCtx }) {
   const [outfits, setOutfits] = useState<Photo[]>([]);
   const [zoom, setZoom] = useState<Photo | null>(null);
   const load = useCallback(async () => {
-    const end = new Date(ctx.point.week_date + "T23:59:59");
-    const start = new Date(end);
-    start.setDate(start.getDate() - 7);
+    // La semaine du point : du lundi au dimanche du point, selon le jour où la tenue a été portée
+    const start = new Date(ctx.point.week_date + "T12:00:00");
+    start.setDate(start.getDate() - 6);
     const { data } = await supabase()
       .from("outfits")
       .select("*")
-      .gte("created_at", start.toISOString())
-      .lte("created_at", end.toISOString())
+      .gte("worn_on", toIso(start))
+      .lte("worn_on", ctx.point.week_date)
+      .order("worn_on")
       .order("created_at");
     setOutfits(data || []);
   }, [ctx.point.week_date]);
@@ -471,7 +472,7 @@ function OutfitsStep({ ctx }: { ctx: PointCtx }) {
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/85 p-4" onClick={() => setZoom(null)}>
           <PhotoImg path={zoom.path} className="max-h-[80dvh] w-auto rounded-2xl !object-contain" />
           {zoom.caption && <p className="mt-3 text-white">{zoom.caption}</p>}
-          <p className="mt-1 text-sm text-white/70">{capitalize(formatDate(zoom.created_at))}</p>
+          <p className="mt-1 text-sm text-white/70">{capitalize(formatDate(zoom.worn_on || zoom.created_at))}</p>
         </div>
       )}
     </div>

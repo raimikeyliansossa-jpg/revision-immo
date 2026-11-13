@@ -5,6 +5,7 @@ import { Button, Page, PageHeader, Segmented, Sheet, cx } from "@/components/ui"
 import { supabase, errMsg } from "@/lib/supabase";
 import type { Activity, Outing } from "@/lib/types";
 import { MONTHS_SHORT, seasonLabel } from "@/lib/constants";
+import { ActivityRoulette } from "@/components/ActivityRoulette";
 
 type Draft = Omit<Activity, "id" | "couple_id" | "created_at"> & { id?: string };
 const EMPTY: Draft = { name: "", emoji: "✨", months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], location: "interieur", budget: "petit" };
@@ -15,6 +16,7 @@ export default function ActivitesPage() {
   const [outings, setOutings] = useState<Outing[]>([]);
   const [draft, setDraft] = useState<Draft | null>(null);
   const [query, setQuery] = useState("");
+  const [roulette, setRoulette] = useState(false);
 
   const load = useCallback(async () => {
     const sb = supabase();
@@ -72,6 +74,9 @@ export default function ActivitesPage() {
           </Button>
         }
       />
+      <Button className="mb-3 w-full" onClick={() => setRoulette(true)}>
+        🎡 Lancer la roulette
+      </Button>
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
@@ -103,6 +108,19 @@ export default function ActivitesPage() {
           );
         })}
       </ul>
+
+      <Sheet open={roulette} onClose={() => setRoulette(false)} title="🎡 La roulette">
+        {roulette && (
+          <ActivityRoulette
+            activities={activities}
+            outings={outings}
+            onPlanned={() => {
+              setRoulette(false);
+              load();
+            }}
+          />
+        )}
+      </Sheet>
 
       <Sheet open={!!draft} onClose={() => setDraft(null)} title={draft?.id ? "Modifier l'activité" : "Nouvelle activité"}>
         {draft && (

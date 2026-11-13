@@ -23,6 +23,7 @@ Compte environ 20 minutes. Tu vas créer 2 comptes gratuits (Supabase et Vercel)
 3. Dans le menu de gauche, ouvre **SQL Editor** → **New query**.
 4. Ouvre le fichier [`supabase/migrations/20261112000000_init.sql`](supabase/migrations/20261112000000_init.sql) sur GitHub, clique sur l'icône **Copy raw file** (deux carrés), colle tout dans Supabase, puis clique sur **Run**.
    → Tu dois voir **« Success. No rows returned »**. Ça crée toutes les tables, la sécurité (personne d'autre que vous deux ne voit vos données) et le stockage privé des photos.
+   Fais pareil ensuite avec [`supabase/migrations/20261113000000_outfits_par_date.sql`](supabase/migrations/20261113000000_outfits_par_date.sql) (date des outfits).
 5. **Connexion par mot de passe** : menu **Authentication** → **Sign In / Providers** → **Email** → désactive **Confirm email** → **Save**. Chacun crée son compte directement dans l'app (e-mail + mot de passe), sans attendre d'e-mail.
 6. Récupère tes clés : menu **Project Settings** (roue crantée) → **API Keys** (et **Data API** pour l'URL). Note dans un bloc-notes :
    - **Project URL** (ex. `https://abcdxyz.supabase.co`)

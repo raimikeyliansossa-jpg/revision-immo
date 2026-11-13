@@ -93,4 +93,6 @@ export type Photo = {
   path: string;
   caption: string;
   created_at: string;
+  /** Outfits uniquement : jour où la tenue a été portée (AAAA-MM-JJ) */
+  worn_on?: string;
 };
