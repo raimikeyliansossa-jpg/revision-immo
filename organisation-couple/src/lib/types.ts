@@ -75,6 +75,8 @@ export type Outing = {
   status: "prevue" | "faite" | "pas_faite";
   point_id: string | null;
   reviewed_point_id: string | null;
+  /** Lieu / détails de la sortie (ex. « Musée d'Orsay — expo Monet ») */
+  place?: string;
   created_at: string;
 };
 
@@ -140,4 +142,6 @@ export type Photo = {
   worn_on?: string;
   /** Souvenirs uniquement : jour du souvenir (AAAA-MM-JJ) */
   taken_on?: string;
+  /** Souvenirs uniquement : sortie à laquelle la photo est rattachée */
+  outing_id?: string | null;
 };
