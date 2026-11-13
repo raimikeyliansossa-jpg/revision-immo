@@ -231,7 +231,7 @@ function SortieStep({ ctx }: { ctx: PointCtx }) {
 }
 
 function OutingReview({ outing, ctx }: { outing: Outing; ctx: PointCtx }) {
-  const { on, track, userId } = useApp();
+  const { on, track, userId, hint } = useApp();
   const sb = supabase();
   const [ratings, setRatings] = useState<Record<string, OutingRating>>({});
   const [mine, setMineState] = useState<{ score: number | null; comment: string } | null>(null);
@@ -284,6 +284,7 @@ function OutingReview({ outing, ctx }: { outing: Outing; ctx: PointCtx }) {
           .eq("id", outing.id),
       ),
     );
+    hint("outings");
   }
 
   return (

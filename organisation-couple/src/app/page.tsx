@@ -18,7 +18,7 @@ const TILES = [
 ];
 
 export default function Home() {
-  const { me, partner, couple, pointsDone, on, toast } = useApp();
+  const { me, partner, couple, pointsDone, on, toast, hint } = useApp();
   const router = useRouter();
   const [latest, setLatest] = useState<Point | null>(null);
   const [nextOuting, setNextOuting] = useState<Outing | null>(null);
@@ -53,6 +53,7 @@ export default function Home() {
     const { data, error } = await supabase().rpc("start_point");
     setBusy(false);
     if (error) return toast(errMsg(error));
+    hint("points");
     router.push(`/point?id=${data.id}`);
   }
 
@@ -71,24 +72,26 @@ export default function Home() {
         {couple?.cover_path ? (
           <PhotoImg path={couple.cover_path} className="h-64 w-full" />
         ) : (
-          <div className="flex h-64 w-full items-center justify-center bg-gradient-to-br from-rose-soft via-peach-soft to-cream text-7xl">💞</div>
+          <div className="h-64 w-full bg-gradient-to-br from-rose-soft via-peach-soft to-cream">
+            <span className="absolute left-5 top-[max(1.25rem,env(safe-area-inset-top))] text-5xl">💞</span>
+          </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        {couple?.cover_path && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />}
         <div className="safe-top absolute inset-x-0 top-0 flex justify-end px-4">
           <Link href="/reglages" aria-label="Réglages" className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-lg backdrop-blur">
             ⚙️
           </Link>
         </div>
-        <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-          <h1 className="text-[1.7rem] font-semibold leading-tight drop-shadow">
+        <div className={`absolute inset-x-0 bottom-0 p-5 ${couple?.cover_path ? "text-white" : "text-ink"}`}>
+          <h1 className={`text-2xl font-semibold leading-tight ${couple?.cover_path ? "drop-shadow" : ""}`}>
             {fullName(me)} <span className="font-normal">&</span> {partner ? fullName(partner) : "…"}
           </h1>
           <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
-            <span className="rounded-full bg-white/25 px-3 py-1 font-semibold backdrop-blur">
+            <span className="rounded-full bg-white/40 px-3 py-1 font-semibold backdrop-blur">
               🔥 {pointsDone} point{pointsDone > 1 ? "s" : ""} fait{pointsDone > 1 ? "s" : ""} ensemble
             </span>
             {partner && (
-              <span className="flex items-center gap-1.5 rounded-full bg-white/25 px-3 py-1 backdrop-blur">
+              <span className="flex items-center gap-1.5 rounded-full bg-white/40 px-3 py-1 backdrop-blur">
                 <OnlineDot userId={partner.id} /> {nameOf(partner)}
               </span>
             )}

@@ -9,7 +9,7 @@ import type { Photo } from "@/lib/types";
 import { capitalize, formatDate } from "@/lib/constants";
 
 export default function OutfitsPage() {
-  const { couple, me, partner, on, toast } = useApp();
+  const { couple, me, partner, on, toast, hint } = useApp();
   const [outfits, setOutfits] = useState<Photo[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -46,8 +46,13 @@ export default function OutfitsPage() {
     setBusy(true);
     try {
       const path = await uploadPhoto(couple.id, "outfits", file);
-      const { error } = await supabase().from("outfits").insert({ couple_id: couple.id, path, caption: caption.trim() });
+      const { data: row, error } = await supabase()
+        .from("outfits")
+        .insert({ couple_id: couple.id, path, caption: caption.trim() })
+        .select()
+        .single();
       if (error) throw error;
+      hint("outfits", { eventType: "INSERT", new: row });
       notifyPartner("outfit");
       toast(`👗 Outfit posté ! ${nameOf(partner)} va adorer`);
       setFile(null);

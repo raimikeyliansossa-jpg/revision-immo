@@ -48,14 +48,14 @@ export default function ReglagesPage() {
             onChange={(e) => setEmoji(e.target.value)}
             onBlur={saveProfile}
             aria-label="Mon emoji"
-            className="w-24 rounded-2xl border border-line bg-cream px-2 py-3 text-center text-xl outline-none focus:border-rose"
+            className="w-24 shrink-0 rounded-2xl border border-line bg-cream px-2 py-3 text-center text-xl outline-none focus:border-rose"
           />
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             onBlur={saveProfile}
             aria-label="Mon prénom"
-            className="flex-1 rounded-2xl border border-line bg-cream px-4 py-3 outline-none focus:border-rose"
+            className="min-w-0 flex-1 rounded-2xl border border-line bg-cream px-4 py-3 outline-none focus:border-rose"
           />
         </div>
         <p className="text-xs text-muted">

@@ -20,7 +20,7 @@ import type { PointCtx } from "./PointScreen";
 import { Wheel, targetRotation } from "./Roulette";
 
 export function RdvStep({ ctx }: { ctx: PointCtx }) {
-  const { on, toast, track } = useApp();
+  const { on, toast, track, hint } = useApp();
   const sb = supabase();
   const [outings, setOutings] = useState<Outing[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -48,6 +48,7 @@ export function RdvStep({ ctx }: { ctx: PointCtx }) {
       if (existing.activity_id && !confirm(`Retirer le rendez-vous du ${formatDate(iso)} ?`)) return;
       setOutings((cur) => cur.filter((o) => o.id !== existing.id));
       await track(Promise.resolve(sb.from("outings").delete().eq("id", existing.id)));
+      hint("outings");
     } else {
       const { data, error } = await track(
         Promise.resolve(
@@ -55,7 +56,10 @@ export function RdvStep({ ctx }: { ctx: PointCtx }) {
         ),
       );
       if (error) toast(errMsg(error));
-      else if (data) setOutings((cur) => [...cur, data]);
+      else if (data) {
+        setOutings((cur) => [...cur, data]);
+        hint("outings");
+      }
     }
   }
 
@@ -150,7 +154,7 @@ function DateCard({
   allOutings: Outing[];
   onChanged: () => void;
 }) {
-  const { on, send, track, toast } = useApp();
+  const { on, send, track, toast, hint } = useApp();
   const sb = supabase();
   const [filters, setFilters] = useState<Filters>({ location: "tous", budget: "tous" });
   const [wheelItems, setWheelItems] = useState<Activity[] | null>(null);
@@ -247,6 +251,7 @@ function DateCard({
     setResult(null);
     setWheelItems(null);
     setManual(false);
+    hint("outings");
     onChanged();
   }
 
@@ -257,6 +262,7 @@ function DateCard({
       ),
     );
     send("spin-reset", { outing_id: outing.id });
+    hint("outings");
     onChanged();
   }
 
@@ -264,6 +270,7 @@ function DateCard({
     setStepsGoal(v);
     const n = parseInt(v.replace(/\D/g, ""), 10);
     await track(Promise.resolve(sb.from("outings").update({ steps_goal: Number.isFinite(n) ? n : null }).eq("id", outing.id)));
+    hint("outings");
   }
 
   return (

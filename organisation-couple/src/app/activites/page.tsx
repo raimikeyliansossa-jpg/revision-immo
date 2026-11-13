@@ -111,14 +111,14 @@ export default function ActivitesPage() {
               <input
                 value={draft.emoji}
                 onChange={(e) => setDraft({ ...draft, emoji: e.target.value })}
-                className="w-16 rounded-2xl border border-line bg-card px-2 py-3 text-center text-2xl outline-none focus:border-rose"
+                className="w-16 shrink-0 rounded-2xl border border-line bg-card px-2 py-3 text-center text-2xl outline-none focus:border-rose"
                 aria-label="Emoji"
               />
               <input
                 value={draft.name}
                 onChange={(e) => setDraft({ ...draft, name: e.target.value })}
                 placeholder="Nom de l'activité"
-                className="flex-1 rounded-2xl border border-line bg-card px-4 py-3 outline-none focus:border-rose"
+                className="min-w-0 flex-1 rounded-2xl border border-line bg-card px-4 py-3 outline-none focus:border-rose"
               />
             </div>
             <div>

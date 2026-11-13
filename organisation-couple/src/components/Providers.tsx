@@ -21,6 +21,8 @@ type Ctx = {
   reload: () => Promise<void>;
   on: (event: string, cb: Listener) => () => void;
   send: (event: string, payload: Record<string, unknown>) => void;
+  /** Prévient l'autre téléphone qu'une table a changé (plus rapide que l'événement de la base). */
+  hint: (table: string, payload?: Record<string, unknown>) => void;
   saveState: SaveState;
   track: <T>(p: PromiseLike<T>) => Promise<T>;
   toast: (msg: string) => void;
@@ -55,6 +57,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [dark, setDark] = useState(false);
 
   const listeners = useRef(new Map<string, Set<Listener>>());
+  const toasted = useRef(new Set<string>());
   const channelRef = useRef<RealtimeChannel | null>(null);
   const inflight = useRef(0);
   const savedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -79,6 +82,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const send = useCallback((event: string, payload: Record<string, unknown>) => {
     channelRef.current?.send({ type: "broadcast", event, payload });
   }, []);
+
+  const hint = useCallback(
+    (table: string, payload?: Record<string, unknown>) => send("db-hint", { table, payload: payload ?? { hint: true } }),
+    [send],
+  );
 
   const toast = useCallback((msg: string) => {
     const id = Date.now() + Math.random();
@@ -212,13 +220,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
       ch.on("postgres_changes", { event: "*", schema: "public", table: "couples", filter: `id=eq.${coupleId}` }, (p) =>
         emit("db:couples", p),
       );
-      ch.on("broadcast", { event: "*" }, (msg) => emit(`bc:${msg.event}`, msg.payload));
+      ch.on("broadcast", { event: "*" }, (msg) => {
+        if (msg.event === "db-hint") emit(`db:${msg.payload.table}`, msg.payload.payload);
+        else emit(`bc:${msg.event}`, msg.payload);
+      });
       ch.on("presence", { event: "sync" }, () => {
-        setOnline(new Set(Object.keys(ch!.presenceState())));
+        const ids = Object.keys(ch!.presenceState());
+        setOnline(new Set(ids));
+        // Quelqu'un de nouveau est connecté (ex : ta moitié vient de rejoindre) → on recharge les profils
+        if (ids.some((id) => id !== userId && id !== partnerRef.current?.id)) emit("unknown-presence", null);
       });
       ch.subscribe(async (status) => {
         setConnected(status === "SUBSCRIBED");
-        if (process.env.NODE_ENV !== "production") console.log("[realtime]", status);
         if (status === "SUBSCRIBED") {
           await ch!.track({ since: Date.now() });
           emit("resync", null);
@@ -238,12 +251,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const offs = [
       on("db:profiles", () => reload()),
+      on("unknown-presence", () => reload()),
       on("db:couples", () => reload()),
       on("db:points", (p) => {
         if (p.new?.status !== p.old?.status) reload();
       }),
       on("db:outfits", (p) => {
-        if (p.eventType === "INSERT" && p.new.user_id !== meRef.current?.id) {
+        if (p.eventType === "INSERT" && p.new.user_id !== meRef.current?.id && !toasted.current.has(p.new.id)) {
+          toasted.current.add(p.new.id);
           const who = partnerRef.current;
           toast(`👗 ${who?.display_name || "Ta moitié"} vient de poster un outfit !`);
         }
@@ -278,6 +293,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       reload,
       on,
       send,
+      hint,
       saveState,
       track,
       toast,
@@ -285,7 +301,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       setThemePref,
       dark,
     }),
-    [ready, session, userId, me, partner, couple, pointsDone, online, connected, reload, on, send, saveState, track, toast, themePref, setThemePref, dark],
+    [ready, session, userId, me, partner, couple, pointsDone, online, connected, reload, on, send, hint, saveState, track, toast, themePref, setThemePref, dark],
   );
 
   return (
