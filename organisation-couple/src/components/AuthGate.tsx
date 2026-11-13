@@ -36,7 +36,12 @@ function Login() {
     if (mode === "inscription") {
       const { data, error } = await auth.signUp(creds);
       setBusy(false);
-      if (error) setError(errMsg(error));
+      if (error)
+        setError(
+          /signups? not allowed|signup is disabled/i.test(error.message)
+            ? "Les inscriptions sont fermées : cet espace est réservé à vous deux 💞"
+            : errMsg(error),
+        );
       else if (!data.session) setError("Compte créé. Confirme ton e-mail puis reviens te connecter ici 🙏");
     } else {
       const { error } = await auth.signInWithPassword(creds);
