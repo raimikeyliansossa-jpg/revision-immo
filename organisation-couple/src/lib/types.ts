@@ -138,4 +138,6 @@ export type Photo = {
   created_at: string;
   /** Outfits uniquement : jour où la tenue a été portée (AAAA-MM-JJ) */
   worn_on?: string;
+  /** Souvenirs uniquement : jour du souvenir (AAAA-MM-JJ) */
+  taken_on?: string;
 };
