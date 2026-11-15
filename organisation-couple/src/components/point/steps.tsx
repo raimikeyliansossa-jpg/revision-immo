@@ -18,15 +18,21 @@ export function StepBody({ step, ctx }: { step: StepKey; ctx: PointCtx }) {
     case "humeur":
       return <HumeurStep ctx={ctx} />;
     case "objectifs":
+      return <ObjectifsStep ctx={ctx} />;
+    case "objectifs_suivants":
       return (
-        <DuoText ctx={ctx} field="goals_review" label="Mes objectifs : atteints ou pas, et pourquoi ?" placeholder="Cette semaine, j'ai…" rows={7} />
+        <DuoText ctx={ctx} field="next_goals" label="🚀 Mes objectifs perso pour la semaine prochaine" placeholder={"1. …\n2. …"} rows={6} hint="Ils te seront rappelés au prochain point 🎯" />
       );
     case "bilan":
       return (
         <div className="flex flex-col gap-5">
           <DuoText ctx={ctx} field="good_things" label="🌟 Ce qu'on a fait de bien (au moins un truc positif chez l'autre)" placeholder="J'ai adoré quand tu…" rows={5} />
-          <DuoText ctx={ctx} field="less_good" label="🌧️ Ce qui a moins bien marché (en « je »)" placeholder="Je me suis senti·e…" rows={5} />
+          <DuoText ctx={ctx} field="less_good" label="🌧️ Ce qui a moins bien marché entre nous (en « je »)" placeholder="Je me suis senti·e…" rows={5} />
         </div>
+      );
+    case "amelioration":
+      return (
+        <DuoText ctx={ctx} field="next_improvement" label="🛠️ Mon amélioration pour le couple (une seule, concrète)" placeholder="Je vais…" rows={4} hint="Elle sera relue au prochain point 🔁" />
       );
     case "prochaine":
       return (
@@ -136,6 +142,26 @@ function DuoText({
 }
 
 // ---------------------------------------------------------------------
+// Objectifs perso : atteints / pas atteints / pourquoi
+// ---------------------------------------------------------------------
+
+function ObjectifsStep({ ctx }: { ctx: PointCtx }) {
+  const goals = (a: Answer | null) => (
+    <p className="whitespace-pre-wrap break-words text-sm">{a?.next_goals || <i className="text-muted">Aucun objectif fixé</i>}</p>
+  );
+  return (
+    <div className="flex flex-col gap-5">
+      {ctx.prev.exists && (
+        <Duo ctx={ctx} label="🗒️ Mes objectifs fixés la semaine dernière" mine={goals(ctx.prev.mine)} theirs={goals(ctx.prev.theirs)} />
+      )}
+      <DuoText ctx={ctx} field="goals_done" label="✅ Objectifs atteints" placeholder="J'ai réussi à…" rows={4} />
+      <DuoText ctx={ctx} field="goals_missed" label="❌ Objectifs pas atteints" placeholder="Je n'ai pas…" rows={4} />
+      <DuoText ctx={ctx} field="goals_why" label="💬 Pourquoi, en bref" placeholder="Parce que…" rows={3} />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
 // 1. Relecture
 // ---------------------------------------------------------------------
 
@@ -155,10 +181,6 @@ function RelectureStep({ ctx }: { ctx: PointCtx }) {
       <div>
         <p className="text-xs font-semibold text-muted">🛠️ Amélioration</p>
         <p className="whitespace-pre-wrap break-words">{a?.next_improvement || <i className="text-muted">Aucune</i>}</p>
-      </div>
-      <div>
-        <p className="text-xs font-semibold text-muted">🎯 Objectifs</p>
-        <p className="whitespace-pre-wrap break-words">{a?.next_goals || <i className="text-muted">Aucun</i>}</p>
       </div>
     </div>
   );
@@ -186,7 +208,7 @@ function RelectureStep({ ctx }: { ctx: PointCtx }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Duo ctx={ctx} label="Ce que vous vous étiez fixé" mine={block(ctx.prev.mine)} theirs={block(ctx.prev.theirs)} />
+      <Duo ctx={ctx} label="L'amélioration promise la semaine dernière" mine={block(ctx.prev.mine)} theirs={block(ctx.prev.theirs)} />
       <Duo
         ctx={ctx}
         label="Mon amélioration, je l'ai…"

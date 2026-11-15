@@ -25,6 +25,24 @@ export default function ReglagesPage() {
     reload();
   }
 
+  const [testMsg, setTestMsg] = useState<string | null>(null);
+  async function testPush() {
+    setTestMsg("Envoi…");
+    try {
+      const { data } = await supabase().auth.getSession();
+      const r = await fetch("/api/push/test", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${data.session?.access_token}` },
+      }).then((x) => x.json());
+      if (!r.vapid) setTestMsg("⚠️ Les clés de notification manquent dans Vercel (NEXT_PUBLIC_VAPID_PUBLIC_KEY et VAPID_PRIVATE_KEY), puis il faut redéployer.");
+      else if (!r.subscriptions) setTestMsg("⚠️ Ce téléphone n'est pas abonné. Appuie sur « Activer les notifications » puis réessaie.");
+      else if (r.sent > 0) setTestMsg("✅ Envoyée ! Si rien ne s'affiche, autorise les notifications de l'app (ou de Chrome) dans les réglages du téléphone.");
+      else setTestMsg(`⚠️ Échec de l'envoi : ${(r.errors || []).join(" · ") || r.error || "erreur inconnue"}. Coupe puis réactive les notifications.`);
+    } catch (e) {
+      setTestMsg("⚠️ " + errMsg(e));
+    }
+  }
+
   async function togglePush() {
     try {
       if (push === "on") await disablePush();
@@ -93,6 +111,21 @@ export default function ReglagesPage() {
             {push === "on" ? "🔕 Couper les notifications" : "🔔 Activer les notifications"}
           </Button>
         )}
+        {push === "on" && (
+          <Button variant="soft" onClick={testPush}>
+            📨 M&apos;envoyer une notification de test
+          </Button>
+        )}
+        {testMsg && <p className="rounded-2xl bg-cream p-3 text-sm" data-testid="push-test-msg">{testMsg}</p>}
+        <a
+          href="/api/rappel"
+          className="rounded-2xl border border-line bg-cream p-3 text-center text-sm font-semibold text-rose"
+        >
+          📅 Ajouter le rappel du dimanche 20 h à mon agenda
+        </a>
+        <p className="text-xs text-muted">
+          Le plus fiable : le rappel s&apos;ajoute à l&apos;agenda du téléphone (iPhone ou Samsung) et sonne chaque dimanche, même si les notifications de l&apos;app ne marchent pas.
+        </p>
       </Card>
 
       {couple && (
