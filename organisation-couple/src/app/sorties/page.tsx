@@ -344,15 +344,27 @@ function OutingDetail({
     onChanged();
   }
 
-  async function cancel() {
-    if (!confirm(`Annuler la sortie « ${outing.activity_name} » ?`)) return;
-    const { error } = await supabase()
-      .from("outings")
-      .delete()
-      .eq("id", outing.id);
-    if (error) return toast(errMsg(error));
-    hint("outings");
-    onDeleted();
+  const [confirmDel, setConfirmDel] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  // Supprime la sortie, ses notes/commentaires (effacés avec elle) et ses photos
+  async function removeOuting() {
+    setDeleting(true);
+    try {
+      for (const p of photos) {
+        await supabase().from("memories").delete().eq("id", p.id);
+        await deletePhoto(p.path);
+      }
+      const { error } = await supabase().from("outings").delete().eq("id", outing.id);
+      if (error) throw error;
+      hint("outings");
+      hint("memories");
+      toast("🗑️ Sortie supprimée");
+      onDeleted();
+    } catch (e) {
+      toast(errMsg(e));
+      setDeleting(false);
+    }
   }
   const [place, setPlace] = useState(outing.place || "");
   const [progress, setProgress] = useState<{
@@ -527,10 +539,27 @@ function OutingDetail({
         </>
       )}
 
-      {outing.status === "prevue" && (
-        <button className="text-sm text-muted underline" onClick={cancel}>
-          Annuler cette sortie
+      {!confirmDel ? (
+        <button className="text-sm text-muted underline" onClick={() => setConfirmDel(true)} data-testid="delete-outing">
+          🗑️ {outing.status === "prevue" ? "Annuler cette sortie" : "Supprimer cette sortie"}
         </button>
+      ) : (
+        <div className="rounded-2xl border border-[#c0392b]/30 bg-cream p-3 text-sm">
+          <p>
+            Supprimer « {outing.activity_name} » du {formatDate(outing.date, { weekday: false })} ?
+            {isDone || photos.length > 0
+              ? ` Les notes, les commentaires${photos.length ? ` et ${photos.length} photo${photos.length > 1 ? "s" : ""}` : ""} seront effacés aussi.`
+              : ""}
+          </p>
+          <div className="mt-3 flex gap-2">
+            <Button variant="soft" className="flex-1 !py-2" onClick={() => setConfirmDel(false)} disabled={deleting}>
+              Garder
+            </Button>
+            <Button className="flex-1 !bg-[#c0392b] !py-2" onClick={removeOuting} disabled={deleting} data-testid="confirm-delete-outing">
+              {deleting ? "Suppression…" : "Oui, supprimer"}
+            </Button>
+          </div>
+        </div>
       )}
 
       {zoom &&
