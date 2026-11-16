@@ -61,6 +61,14 @@ export function isWalk(name: string | null | undefined) {
 
 export type Filters = { location: "tous" | "interieur" | "exterieur"; budget: "tous" | "petit" | "gros" };
 
+/** Dernière fois qu'une activité a été faite (pour le signaler sur la roulette, sans l'exclure). */
+export function lastDoneLabel(outings: { activity_id: string | null; status: string; date: string }[], activityId: string) {
+  const done = outings.filter((o) => o.activity_id === activityId && o.status === "faite").map((o) => o.date).sort();
+  if (!done.length) return null;
+  const last = done[done.length - 1];
+  return `✓ Déjà faite${done.length > 1 ? ` ${done.length} fois` : ""} · la dernière le ${formatDate(last)}`;
+}
+
 export function eligibleActivities(
   activities: Activity[],
   dateIso: string,

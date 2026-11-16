@@ -8,6 +8,7 @@ import {
   type Filters,
   capitalize,
   eligibleActivities,
+  lastDoneLabel,
   formatDate,
   isWalk,
   seasonLabel,
@@ -166,12 +167,12 @@ function DateCard({
   const [stepsGoal, setStepsGoal] = useState<string>(outing.steps_goal ? String(outing.steps_goal) : "");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Activités déjà faites ou déjà prévues ailleurs → exclues de la roulette
+  // Seules les activités déjà prévues ailleurs sont exclues ; celles déjà faites restent dans la roulette
   const excluded = useMemo(
     () =>
       new Set(
         allOutings
-          .filter((o) => o.id !== outing.id && o.activity_id && (o.status === "faite" || o.status === "prevue"))
+          .filter((o) => o.id !== outing.id && o.activity_id && o.status === "prevue")
           .map((o) => o.activity_id!),
       ),
     [allOutings, outing.id],
@@ -335,6 +336,9 @@ function DateCard({
               <p className="font-display text-2xl font-semibold" data-testid="spin-result">
                 {result.name}
               </p>
+              {lastDoneLabel(allOutings, result.id) && (
+                <p className="mt-1 text-sm text-muted">{lastDoneLabel(allOutings, result.id)}</p>
+              )}
               {isWalk(result.name) && <p className="mt-1 text-sm">👟 Vous pourrez fixer un objectif de pas juste après !</p>}
               <div className="mt-3 flex gap-2">
                 <Button variant="soft" className="flex-1" onClick={spin}>
@@ -388,7 +392,7 @@ function ManualList({
   return (
     <div className="flex flex-col gap-2">
       <label className="flex items-center gap-2 text-sm text-muted">
-        <input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Voir aussi hors saison / déjà faites
+        <input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Voir aussi hors saison / déjà prévues
       </label>
       {list.map((a) => (
         <button
@@ -401,7 +405,7 @@ function ManualList({
             <span className="block font-medium">{a.name}</span>
             <span className="text-xs text-muted">
               {seasonLabel(a.months)} · {a.location === "interieur" ? "🏠" : "🌳"} · {a.budget === "petit" ? "💸 petit" : "💎 gros"}
-              {excluded.has(a.id) && " · déjà faite/prévue"}
+              {excluded.has(a.id) && " · déjà prévue"}
             </span>
           </span>
         </button>
