@@ -97,7 +97,10 @@ export default function ReglagesPage() {
 
       <Card className="mb-4 flex flex-col gap-3">
         <h2 className="text-lg font-semibold">🔔 Notifications</h2>
-        <p className="text-sm text-muted">Le dimanche à 20 h « C&apos;est l&apos;heure de notre point 💞 », et quand l&apos;autre poste un outfit.</p>
+        <p className="text-sm text-muted">
+          Chaque matin vers 7 h « Prends ton outfit du jour en photo » (si tu ne l&apos;as pas encore posté), le dimanche à 20 h
+          « C&apos;est l&apos;heure de notre point 💞 », et quand l&apos;autre poste, réagit ou te recommande un son.
+        </p>
         {push === "unsupported" ? (
           <p className="rounded-2xl bg-peach-soft p-3 text-sm">
             {standalone
