@@ -28,7 +28,9 @@ export type StepKey =
   | "sortie"
   | "humeur"
   | "objectifs"
+  | "objectifs_suivants"
   | "bilan"
+  | "amelioration"
   | "prochaine"
   | "outfits"
   | "rdv"
@@ -53,7 +55,11 @@ export type Answer = {
   review_status: "tenu" | "moitie" | "pas_tenu" | null;
   mood: string | null;
   week_score: number | null;
+  /** Ancien champ unique (points faits avant la séparation en 3 cases) */
   goals_review: string;
+  goals_done: string;
+  goals_missed: string;
+  goals_why: string;
   good_things: string;
   less_good: string;
   next_improvement: string;

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase, errMsg } from "@/lib/supabase";
 import type { Answer, AnswerField, Point, Profile } from "@/lib/types";
-import { STEP_META } from "@/lib/constants";
+import { PART_META, STEP_META } from "@/lib/constants";
 import { useApp, useBroadcastField, useDebouncedSave, useTyping } from "../Providers";
 import { Button, OnlineDot, Page, SaveBadge, cx, nameOf } from "../ui";
 import { StepBody } from "./steps";
@@ -219,6 +219,8 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
               aria-label={STEP_META[s].title}
               className={cx(
                 "h-2 flex-1 rounded-full transition-all",
+                // petit espace entre la partie perso et la partie couple
+                i > 0 && STEP_META[ctx.point.steps[i - 1]].part !== STEP_META[s].part && "ml-2",
                 i === ctx.point.current_step ? "bg-rose" : i <= ctx.point.max_step ? "bg-peach/60" : "bg-line",
               )}
             />
@@ -228,9 +230,26 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
 
       <div key={ctx.point.current_step} className={dir === "fwd" ? "step-in" : "step-in-back"}>
         <div className="mb-4 mt-2">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted">
+          {ctx.point.current_step > 0 &&
+            STEP_META[ctx.point.steps[ctx.point.current_step - 1]].part === "perso" &&
+            meta.part === "couple" && (
+              <div className="pop mb-3 rounded-3xl bg-gradient-to-br from-rose-soft to-peach-soft p-4 text-center">
+                <p className="font-display text-xl font-semibold">💑 Place au couple</p>
+                <p className="text-sm text-muted">Le perso, c&apos;est fait. On parle de nous deux maintenant.</p>
+              </div>
+            )}
+          <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted">
+            <span
+              className={cx(
+                "rounded-full px-2.5 py-1 normal-case tracking-normal",
+                meta.part === "perso" ? "bg-peach-soft text-ink" : meta.part === "couple" ? "bg-rose-soft text-rose" : "bg-line text-ink",
+              )}
+              data-testid="step-part"
+            >
+              {PART_META[meta.part].emoji} {PART_META[meta.part].label}
+            </span>
             Étape {ctx.point.current_step + 1} / {ctx.point.steps.length}
-          </p>
+          </div>
           <h1 className="mt-1 text-[1.75rem] font-semibold leading-tight" data-testid="step-title">
             <span className="mr-1">{meta.emoji}</span> {meta.title}
           </h1>

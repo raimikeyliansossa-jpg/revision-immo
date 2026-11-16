@@ -1,15 +1,26 @@
 import type { Activity, StepKey } from "./types";
 
-export const STEP_META: Record<StepKey, { emoji: string; title: string; hint: string }> = {
-  relecture: { emoji: "🔁", title: "Relecture de la semaine dernière", hint: "On regarde ce qu'on s'était promis" },
-  sortie: { emoji: "🎟️", title: "Notre dernière sortie", hint: "C'était comment ?" },
-  humeur: { emoji: "😊", title: "Humeur et note de la semaine", hint: "Comment tu te sens ?" },
-  objectifs: { emoji: "🎯", title: "Mes objectifs de la semaine", hint: "Atteints ou pas, et pourquoi" },
-  bilan: { emoji: "🌟", title: "Bien / moins bien", hint: "Avec douceur et sincérité" },
-  prochaine: { emoji: "🛠️", title: "La semaine prochaine", hint: "Une amélioration, des objectifs" },
-  outfits: { emoji: "👗", title: "Nos outfits de la semaine", hint: "Le défilé de la semaine" },
-  rdv: { emoji: "📅", title: "Notre prochain rendez-vous", hint: "À deux 💞" },
-  recap: { emoji: "📝", title: "Récap", hint: "Notre point en un coup d'œil" },
+export type StepPart = "perso" | "couple" | "fin";
+
+export const PART_META: Record<StepPart, { emoji: string; label: string }> = {
+  perso: { emoji: "🙋", label: "Partie perso" },
+  couple: { emoji: "💑", label: "Partie couple" },
+  fin: { emoji: "📝", label: "Pour finir" },
+};
+
+export const STEP_META: Record<StepKey, { emoji: string; title: string; hint: string; part: StepPart }> = {
+  humeur: { emoji: "😊", title: "Humeur et note de la semaine", hint: "Comment tu te sens ?", part: "perso" },
+  objectifs: { emoji: "🎯", title: "Mes objectifs perso", hint: "Ce qui est atteint, ce qui ne l'est pas, et pourquoi", part: "perso" },
+  objectifs_suivants: { emoji: "🚀", title: "Mes objectifs perso de la semaine prochaine", hint: "Ce que je veux accomplir pour moi", part: "perso" },
+  relecture: { emoji: "🔁", title: "Notre amélioration de la semaine dernière", hint: "Ce qu'on s'était promis pour le couple", part: "couple" },
+  sortie: { emoji: "🎟️", title: "Notre dernière sortie", hint: "C'était comment ?", part: "couple" },
+  bilan: { emoji: "🌟", title: "Bien / moins bien entre nous", hint: "Avec douceur et sincérité", part: "couple" },
+  amelioration: { emoji: "🛠️", title: "Mon amélioration pour le couple", hint: "Une seule, concrète, relue au prochain point", part: "couple" },
+  outfits: { emoji: "👗", title: "Nos outfits de la semaine", hint: "Le défilé de la semaine", part: "couple" },
+  rdv: { emoji: "📅", title: "Notre prochain rendez-vous", hint: "À deux 💞", part: "couple" },
+  recap: { emoji: "📝", title: "Récap", hint: "Notre point en un coup d'œil", part: "fin" },
+  // Ancienne étape (points commencés avant la mise à jour)
+  prochaine: { emoji: "🛠️", title: "La semaine prochaine", hint: "Une amélioration, des objectifs", part: "couple" },
 };
 
 export const MOODS = ["🥰", "😊", "🙂", "😐", "😕", "😢", "😤", "😴"];

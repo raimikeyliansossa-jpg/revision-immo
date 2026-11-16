@@ -68,36 +68,40 @@ export function Recap({ pointId, celebrate = false }: { pointId: string; celebra
         )}
       </Card>
 
+      <h2 className="mt-2 text-xl font-semibold">🙋 Perso</h2>
+      {people.map(({ p, a }) => (
+        <Card key={`perso-${p.id}`}>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold">{fullName(p)}</h3>
+            <span className="rounded-full bg-peach-soft px-3 py-1 text-sm font-semibold">
+              {a?.mood} {a?.week_score ?? "–"}/10
+            </span>
+          </div>
+          <dl className="mt-3 flex flex-col gap-2 text-[15px]">
+            <RecapItem label="✅ Objectifs atteints" value={a?.goals_done} />
+            <RecapItem label="❌ Objectifs pas atteints" value={a?.goals_missed} />
+            <RecapItem label="💬 Pourquoi" value={a?.goals_why} />
+            {a?.goals_review && <RecapItem label="🎯 Mes objectifs" value={a.goals_review} />}
+            <RecapItem label="🚀 Objectifs de la semaine prochaine" value={a?.next_goals} always />
+          </dl>
+        </Card>
+      ))}
+
+      <h2 className="mt-2 text-xl font-semibold">💑 Couple</h2>
       {people.map(({ p, a }) => {
         const review = REVIEW_OPTIONS.find((r) => r.value === a?.review_status);
         return (
-          <Card key={p.id}>
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">{fullName(p)}</h3>
-              <span className="rounded-full bg-rose-soft px-3 py-1 text-sm font-semibold text-rose">
-                {a?.mood} {a?.week_score ?? "–"}/10
-              </span>
-            </div>
+          <Card key={`couple-${p.id}`}>
+            <h3 className="text-lg font-semibold">{fullName(p)}</h3>
             {review && (
-              <p className="mt-2 text-sm text-muted">
+              <p className="mt-1 text-sm text-muted">
                 Amélioration de la semaine passée : {review.emoji} {review.label}
               </p>
             )}
             <dl className="mt-3 flex flex-col gap-2 text-[15px]">
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-muted">🛠️ Mon amélioration</dt>
-                <dd className="whitespace-pre-wrap break-words">{a?.next_improvement || "—"}</dd>
-              </div>
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide text-muted">🎯 Mes objectifs</dt>
-                <dd className="whitespace-pre-wrap break-words">{a?.next_goals || "—"}</dd>
-              </div>
-              {a?.good_things && (
-                <div>
-                  <dt className="text-xs font-semibold uppercase tracking-wide text-muted">🌟 Le bien</dt>
-                  <dd className="whitespace-pre-wrap break-words">{a.good_things}</dd>
-                </div>
-              )}
+              <RecapItem label="🌟 Le bien" value={a?.good_things} />
+              <RecapItem label="🌧️ Le moins bien" value={a?.less_good} />
+              <RecapItem label="🛠️ Mon amélioration pour la semaine" value={a?.next_improvement} always />
             </dl>
           </Card>
         );
@@ -125,6 +129,16 @@ export function Recap({ pointId, celebrate = false }: { pointId: string; celebra
         )}
       </Card>
       <p className="text-center text-sm text-muted">✓ Enregistré dans votre historique 💞</p>
+    </div>
+  );
+}
+
+function RecapItem({ label, value, always = false }: { label: string; value?: string | null; always?: boolean }) {
+  if (!value && !always) return null;
+  return (
+    <div>
+      <dt className="text-xs font-semibold uppercase tracking-wide text-muted">{label}</dt>
+      <dd className="whitespace-pre-wrap break-words">{value || "—"}</dd>
     </div>
   );
 }

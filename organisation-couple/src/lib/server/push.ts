@@ -25,6 +25,7 @@ export async function sendPush(subs: Sub[], payload: { title: string; body: stri
   if (!configure()) return { sent: 0, error: "VAPID non configuré" };
   const admin = adminClient();
   let sent = 0;
+  const errors: string[] = [];
   await Promise.all(
     subs.map(async (s) => {
       try {
@@ -36,9 +37,10 @@ export async function sendPush(subs: Sub[], payload: { title: string; body: stri
         sent++;
       } catch (e) {
         const code = (e as { statusCode?: number }).statusCode;
+        errors.push(`${code ?? "?"} ${(e as { body?: string; message?: string }).body || (e as Error).message || ""}`.slice(0, 200));
         if (code === 404 || code === 410) await admin.from("push_subscriptions").delete().eq("endpoint", s.endpoint);
       }
     }),
   );
-  return { sent };
+  return { sent, errors };
 }
