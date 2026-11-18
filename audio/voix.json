@@ -1,1 +1,650 @@
-{}
+{
+ "101": [
+  {
+   "texte": "Un agent immobilier, ça fait quoi exactement ? Spoiler : pas juste ouvrir des portes.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/00.mp3",
+   "duree": 5.51
+  },
+  {
+   "texte": "Martin veut vendre sa maison. Mais seul, il est perdu.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/01.mp3",
+   "duree": 4.36
+  },
+  {
+   "texte": "Sophie est agent immobilier. Elle vend, achète ou loue les biens des autres.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/02.mp3",
+   "duree": 5.15
+  },
+  {
+   "texte": "Pour le vendeur, d'abord : estimer le bien au juste prix.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/03.mp3",
+   "duree": 3.89
+  },
+  {
+   "texte": "Puis annonces, visites, et négociation. En toute neutralité.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/04.mp3",
+   "duree": 4.49
+  },
+  {
+   "texte": "Côté acheteur, Léa cherche un T3.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/05.mp3",
+   "duree": 2.77
+  },
+  {
+   "texte": "Sophie lui sélectionne des biens, et suit son financement.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/06.mp3",
+   "duree": 3.58
+  },
+  {
+   "texte": "En location, même logique avec le bailleur.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/07.mp3",
+   "duree": 2.95
+  },
+  {
+   "texte": "Elle choisit un locataire solvable…",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/08.mp3",
+   "duree": 2.32
+  },
+  {
+   "texte": "…puis bail, état des lieux, et attestation d'assurance.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/09.mp3",
+   "duree": 3.79
+  },
+  {
+   "texte": "Retiens ça : l'agent est un intermédiaire neutre. Et un conseiller.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/10.mp3",
+   "duree": 5.09
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/101/11.mp3",
+   "duree": 1.25
+  }
+ ],
+ "102": [
+  {
+   "texte": "Sans cette loi, n'importe qui pourrait vendre ta maison. Elle date de 1970.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/00.mp3",
+   "duree": 6.22
+  },
+  {
+   "texte": "Karim veut ouvrir son agence immobilière.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/01.mp3",
+   "duree": 2.74
+  },
+  {
+   "texte": "Problème : une loi encadre tout ça.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/02.mp3",
+   "duree": 2.93
+  },
+  {
+   "texte": "La loi Hoguet, du 2 janvier 1970.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/03.mp3",
+   "duree": 3.34
+  },
+  {
+   "texte": "Le décret de 1972 l'applique. ALUR et Macron la modernisent.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/04.mp3",
+   "duree": 4.62
+  },
+  {
+   "texte": "Pour exercer, il faut une carte professionnelle. Délivrée par la CCI.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/05.mp3",
+   "duree": 5.28
+  },
+  {
+   "texte": "Carte T : transaction. Vendre ou louer les biens d'autrui.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/06.mp3",
+   "duree": 4.49
+  },
+  {
+   "texte": "Carte G : gestion. Encaisser les loyers d'un propriétaire.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/07.mp3",
+   "duree": 4.73
+  },
+  {
+   "texte": "Carte S : syndic de copropriété.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/08.mp3",
+   "duree": 3.0
+  },
+  {
+   "texte": "Karim, lui, veut vendre. Ce sera la carte T.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/09.mp3",
+   "duree": 3.16
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/102/10.mp3",
+   "duree": 1.2
+  }
+ ],
+ "103": [
+  {
+   "texte": "Tu prépares un BTS PI ? Bonne nouvelle : tu as déjà fait le plus dur.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/00.mp3",
+   "duree": 5.46
+  },
+  {
+   "texte": "Karim dépose sa demande de carte pro.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/01.mp3",
+   "duree": 2.46
+  },
+  {
+   "texte": "BTS PI ou Bac + 3 : accès direct. Sinon, il faut de l'expérience.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/02.mp3",
+   "duree": 7.55
+  },
+  {
+   "texte": "Il doit aussi être majeur, capable, et sans interdiction d'exercer.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/03.mp3",
+   "duree": 4.49
+  },
+  {
+   "texte": "Inscrit au RCS, assuré en RCP… et avoir une garantie financière.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/04.mp3",
+   "duree": 6.09
+  },
+  {
+   "texte": "Une garantie ? Elle sert à rembourser les fonds des clients.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/05.mp3",
+   "duree": 3.71
+  },
+  {
+   "texte": "Mais s'il ne touche jamais aux fonds, une déclaration sur l'honneur l'en dispense.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/06.mp3",
+   "duree": 4.83
+  },
+  {
+   "texte": "La carte est valable 3 ans.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/07.mp3",
+   "duree": 1.85
+  },
+  {
+   "texte": "Pour la renouveler : 42 heures de formation sur 3 ans.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/08.mp3",
+   "duree": 4.02
+  },
+  {
+   "texte": "Et ses salariés ? Une attestation de collaborateur chacun.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/09.mp3",
+   "duree": 3.84
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/103/10.mp3",
+   "duree": 1.1
+  }
+ ],
+ "104": [
+  {
+   "texte": "En immobilier, tout passe par écrit. Voici les 7 documents à connaître.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/00.mp3",
+   "duree": 5.25
+  },
+  {
+   "texte": "Un : le mandat. Sans lui, l'agent ne peut rien faire.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/01.mp3",
+   "duree": 4.62
+  },
+  {
+   "texte": "Sophie fait visiter la maison de Martin à Léa.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/02.mp3",
+   "duree": 2.69
+  },
+  {
+   "texte": "Deux : la reconnaissance de visite. Léa la signe.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/03.mp3",
+   "duree": 4.02
+  },
+  {
+   "texte": "Une semaine après, Léa veut acheter directement à Martin…",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/04.mp3",
+   "duree": 3.53
+  },
+  {
+   "texte": "Mais ce papier prouve que Sophie a présenté le bien.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/05.mp3",
+   "duree": 3.24
+  },
+  {
+   "texte": "Trois : l'offre d'achat. L'engagement écrit de l'acheteur.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/06.mp3",
+   "duree": 4.36
+  },
+  {
+   "texte": "Quatre : l'avant-contrat. Promesse ou compromis.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/07.mp3",
+   "duree": 4.18
+  },
+  {
+   "texte": "En location : le mandat, puis le bail…",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/08.mp3",
+   "duree": 3.19
+  },
+  {
+   "texte": "…et l'état des lieux, à l'entrée et à la sortie.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/09.mp3",
+   "duree": 3.42
+  },
+  {
+   "texte": "Quatre en vente, trois en location.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/10.mp3",
+   "duree": 2.53
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/104/11.mp3",
+   "duree": 1.1
+  }
+ ],
+ "105": [
+  {
+   "texte": "Deux registres, deux noms presque pareils. Et un piège classique à l'examen.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/00.mp3",
+   "duree": 5.56
+  },
+  {
+   "texte": "Sophie vient de signer un mandat avec Martin.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/01.mp3",
+   "duree": 2.82
+  },
+  {
+   "texte": "Elle l'inscrit tout de suite au registre des mandats. Dans l'ordre chronologique.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/02.mp3",
+   "duree": 5.33
+  },
+  {
+   "texte": "Le numéro est reporté sur l'exemplaire de Martin.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/03.mp3",
+   "duree": 3.19
+  },
+  {
+   "texte": "Plus tard, Léa verse un acompte à l'agence.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/04.mp3",
+   "duree": 2.93
+  },
+  {
+   "texte": "Ça, c'est de l'argent. Direction le registre-répertoire.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/05.mp3",
+   "duree": 4.26
+  },
+  {
+   "texte": "Résumé : les mandats d'un côté. L'argent de l'autre.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/06.mp3",
+   "duree": 4.02
+  },
+  {
+   "texte": "Pour l'argent : un compte spécial, et un reçu à chaque fois.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/07.mp3",
+   "duree": 4.36
+  },
+  {
+   "texte": "Et tout ça se garde 10 ans.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/08.mp3",
+   "duree": 1.8
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/105/09.mp3",
+   "duree": 1.15
+  }
+ ],
+ "106": [
+  {
+   "texte": "Un client veut payer en espèces. Une très grosse somme. Tu fais quoi ?",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/00.mp3",
+   "duree": 5.2
+  },
+  {
+   "texte": "Monsieur X veut acheter un appartement. En cash.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/01.mp3",
+   "duree": 3.6
+  },
+  {
+   "texte": "Mais la somme est énorme par rapport à ses revenus.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/02.mp3",
+   "duree": 3.42
+  },
+  {
+   "texte": "Sophie doit le déclarer à TRACFIN. C'est la lutte anti-blanchiment.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/03.mp3",
+   "duree": 5.02
+  },
+  {
+   "texte": "Autre règle : la transparence des prix.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/04.mp3",
+   "duree": 2.59
+  },
+  {
+   "texte": "Honoraires payés par l'acheteur ? En pourcentage TTC du prix, partout.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/05.mp3",
+   "duree": 5.8
+  },
+  {
+   "texte": "Et le code de déontologie de 2015 impose la loyauté envers les clients.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/06.mp3",
+   "duree": 5.2
+  },
+  {
+   "texte": "Qui surveille ? Le CNTGI. Il peut sanctionner un professionnel.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/07.mp3",
+   "duree": 5.04
+  },
+  {
+   "texte": "Et la DGCCRF vérifie prix, honoraires et publicités.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/08.mp3",
+   "duree": 4.6
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/106/09.mp3",
+   "duree": 1.15
+  }
+ ],
+ "107": [
+  {
+   "texte": "Ta maison ne se vend pas. Tu peux attaquer ton agent ? Pas si vite.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/00.mp3",
+   "duree": 4.86
+  },
+  {
+   "texte": "Six mois, et la maison de Martin n'est toujours pas vendue.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/01.mp3",
+   "duree": 3.66
+  },
+  {
+   "texte": "Il veut attaquer Sophie. Mais elle a fait son maximum.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/02.mp3",
+   "duree": 3.47
+  },
+  {
+   "texte": "Pour vendre, l'agent a une obligation de moyens. Pas de résultat.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/03.mp3",
+   "duree": 4.36
+  },
+  {
+   "texte": "Mais si elle rédige un compromis avec une clause fausse…",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/04.mp3",
+   "duree": 2.95
+  },
+  {
+   "texte": "…là, c'est une obligation de résultat. Sa responsabilité est engagée.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/05.mp3",
+   "duree": 6.3
+  },
+  {
+   "texte": "Envers son client : contractuelle. Envers un tiers : extracontractuelle.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/06.mp3",
+   "duree": 5.33
+  },
+  {
+   "texte": "Dans les deux cas, c'est du civil : il faut réparer.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/07.mp3",
+   "duree": 3.76
+  },
+  {
+   "texte": "Fraude, abus de confiance ? Là, c'est pénal. Jusqu'au retrait de la carte.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/08.mp3",
+   "duree": 5.93
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/107/09.mp3",
+   "duree": 1.07
+  }
+ ],
+ "11": [
+  {
+   "texte": "Entre la pancarte À vendre et la remise des clés, il y a 5 étapes. Tu les connais ?",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/00.mp3",
+   "duree": 5.56
+  },
+  {
+   "texte": "Voici Martin. Il veut vendre sa maison.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/01.mp3",
+   "duree": 2.64
+  },
+  {
+   "texte": "Mais il n'a aucune idée de comment faire.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/02.mp3",
+   "duree": 2.35
+  },
+  {
+   "texte": "Alors il pousse la porte d'une agence immobilière.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/03.mp3",
+   "duree": 3.37
+  },
+  {
+   "texte": "Étape 1 : le mandat.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/04.mp3",
+   "duree": 2.27
+  },
+  {
+   "texte": "Sophie lui fait signer un mandat écrit.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/05.mp3",
+   "duree": 2.35
+  },
+  {
+   "texte": "Sans ce papier, Sophie ne toucherait pas un euro. C'est la loi Hoguet.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/06.mp3",
+   "duree": 5.62
+  },
+  {
+   "texte": "Quelques jours plus tard, Léa visite la maison.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/07.mp3",
+   "duree": 3.19
+  },
+  {
+   "texte": "Coup de cœur. Elle fait une offre.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/08.mp3",
+   "duree": 2.59
+  },
+  {
+   "texte": "Étape 3 : le compromis de vente.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/09.mp3",
+   "duree": 2.69
+  },
+  {
+   "texte": "Martin et Léa signent le compromis.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/10.mp3",
+   "duree": 2.35
+  },
+  {
+   "texte": "Et là, Léa a 10 jours pour changer d'avis. Sans se justifier.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/11.mp3",
+   "duree": 4.6
+  },
+  {
+   "texte": "Reste le prêt. Si la banque refuse, la vente tombe.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/12.mp3",
+   "duree": 3.94
+  },
+  {
+   "texte": "C'est la condition suspensive. Mais ici, c'est oui.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/13.mp3",
+   "duree": 4.36
+  },
+  {
+   "texte": "Dernière étape : l'acte authentique.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/14.mp3",
+   "duree": 2.77
+  },
+  {
+   "texte": "Chez le notaire, tout le monde signe.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/15.mp3",
+   "duree": 2.74
+  },
+  {
+   "texte": "Léa est enfin propriétaire.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/16.mp3",
+   "duree": 1.85
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/11/17.mp3",
+   "duree": 1.1
+  }
+ ],
+ "12": [
+  {
+   "texte": "Ton locataire veut partir. Il te doit 3 mois de préavis… ou 1 seul ?",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/00.mp3",
+   "duree": 5.15
+  },
+  {
+   "texte": "Madame Diallo loue un appartement vide à Lyon.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/01.mp3",
+   "duree": 3.19
+  },
+  {
+   "texte": "Elle a trouvé un logement plus près de son travail.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/02.mp3",
+   "duree": 3.19
+  },
+  {
+   "texte": "Le 1er mars, elle envoie son congé en recommandé.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/03.mp3",
+   "duree": 3.58
+  },
+  {
+   "texte": "Son propriétaire n'est pas d'accord.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/04.mp3",
+   "duree": 2.22
+  },
+  {
+   "texte": "Pour lui : 3 mois de préavis. Donc départ le 1er juin.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/05.mp3",
+   "duree": 4.31
+  },
+  {
+   "texte": "Sauf que Lyon est en zone tendue.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/06.mp3",
+   "duree": 2.53
+  },
+  {
+   "texte": "Et là, la loi réduit le préavis à un mois.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/07.mp3",
+   "duree": 2.87
+  },
+  {
+   "texte": "Elle partira le 1er avril. Si elle l'a bien écrit dans sa lettre.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/08.mp3",
+   "duree": 4.78
+  },
+  {
+   "texte": "Raté pour Monsieur Petit.",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/09.mp3",
+   "duree": 1.62
+  },
+  {
+   "texte": "À retenir !",
+   "voix": "onwK4e9ZLuTAKqWW03F9",
+   "fichier": "audio/12/10.mp3",
+   "duree": 1.15
+  }
+ ]
+}
