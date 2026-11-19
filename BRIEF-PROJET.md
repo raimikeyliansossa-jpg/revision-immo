@@ -66,6 +66,7 @@ Je veux des vidéos **exactement dans le style des vidéos TikTok « explainer �
 - Piste retenue : **ElevenLabs** (voix IA premium, offre gratuite de 10 000 caractères/mois), modèle multilingue, voix française masculine de type narrateur. Prévoir de faire écouter 2-3 voix avant de tout générer.
 - Les voix sont générées à l'avance en **fichiers MP3** (un par plan), et l'appli les joue. La voix du téléphone reste seulement en secours.
 - On ne copie pas la voix exacte d'un créateur existant : on prend une voix du même style.
+- ✅ **Voix validée (19/11/2026) : Lily** (ElevenLabs, voice_id `pFZP5JQG7iQjIQuC4Bku`), voix **féminine douce et posée** : finalement préférée à une voix d'homme, car plus agréable pour rester concentré. Réglages : stability 0.55, style 0.15. Testées puis écartées : Daniel, Brian, George, Bill, Matilda, Alice.
 
 ### Les vidéos de référence envoyées
 1. Animation 2D storytelling : un monde où chaque mensonge fait grandir le nez. Plans courts, gros plans, éclairage chaud, sous-titres mot par mot.
@@ -187,9 +188,9 @@ Fichiers : `index.html`, `style.css`, `app.js` (fil, filtres, mélange), `video.
 **En ligne** : https://raimikeyliansossa-jpg.github.io/revision-immo/
 (dépôt `raimikeyliansossa-jpg/revision-immo`, branche `claude/tiktok-bts-revision-app-833uf4`)
 
-**Bloqué** : la clé ElevenLabs est refusée (« Invalid API key »). Il faut recréer une clé (elle commence par `sk_`, n'est affichée qu'une fois, permission Text to Speech), la ressaisir, puis :
-1. écouter 2-3 voix d'homme françaises style narrateur et en choisir une ;
-2. générer les voix de toutes les vidéos.
+**Voix** : clé ElevenLabs OK (enregistrée dans l'environnement « revision-immo »). Vidéos 101 à 105 générées avec Lily.
+**Reste à faire au renouvellement du forfait** (≈ 2 400 caractères) : vidéos 106, 107, 11 et 12 (encore avec Daniel), via
+`ELEVENLABS_API_KEY=proxy-injected python3 outils/generer_voix.py pFZP5JQG7iQjIQuC4Bku --video <id>`.
 
 **Ensuite** :
 - transformer les autres chapitres de mon Drive en vidéos + quiz + examens ;
