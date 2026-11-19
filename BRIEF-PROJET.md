@@ -188,6 +188,7 @@ Fichiers : `index.html`, `style.css`, `app.js` (fil, filtres, mélange), `video.
 **En ligne** : https://raimikeyliansossa-jpg.github.io/revision-immo/
 (dépôt `raimikeyliansossa-jpg/revision-immo`, branche `claude/tiktok-bts-revision-app-833uf4`)
 
+**Navigation (19/11/2026)** : accueil = 5 matières → liste des chapitres (numéro, thème, état du planning de révision « Révisé R3/6 · prochaine révision le… », vidéos vues, note d'examen) → fil TikTok du chapitre (carte d'annonce + bouton ▶ jaune, vidéos, examen en situation). Le planning vient du doc « Suivi révisions immo » (tâches planifiées) via `planning.json`.
 **Voix** : clé ElevenLabs OK (enregistrée dans l'environnement « revision-immo »). Vidéos 101 à 105 générées avec Lily.
 **Reste à faire au renouvellement du forfait** (≈ 2 400 caractères) : vidéos 106, 107, 11 et 12 (encore avec Daniel), via
 `ELEVENLABS_API_KEY=proxy-injected python3 outils/generer_voix.py pFZP5JQG7iQjIQuC4Bku --video <id>`.

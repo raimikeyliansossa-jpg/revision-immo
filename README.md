@@ -1,7 +1,8 @@
 # Révision Immo 📱
 
 Appli web mobile style TikTok pour réviser le BTS Professions Immobilières.
-Une carte par écran, on fait défiler pour passer à la suivante.
+Accueil (les 5 matières) → liste des chapitres → fil TikTok du chapitre
+(carte d'annonce, vidéos, examen de mises en situation). ✕ ou « retour » du téléphone = revenir à la liste.
 
 ## Les fichiers
 
@@ -9,9 +10,11 @@ Une carte par écran, on fait défiler pour passer à la suivante.
 |--------------|-------------------------------------------------------------|
 | `index.html` | La structure de la page (le « squelette »)                  |
 | `style.css`  | L'apparence : couleurs, plein écran, défilement aimanté     |
-| `app.js`     | La logique : lit `cards.json` et fabrique les cartes        |
+| `app.js`     | La navigation : matières → chapitres → fil du chapitre      |
 | `video.js`   | Le moteur des vidéos animées (décors, personnages, voix)    |
-| `cards.json` | Les cartes de révision (c'est ici qu'on en ajoute)          |
+| `cards.json` | Les cartes de révision. Le champ `chap` (ex. `"transaction-1"`) range la carte dans son chapitre ; sans `chap`, elle va dans « Compléments » |
+| `chapitres.json` | La liste de tes chapitres du Drive : numéro, titre, thème, ID du fichier Drive |
+| `planning.json` | Ton planning de révision (niveau R0 à R6, prochaine date), copié chaque matin depuis le doc « Suivi révisions immo » par la tâche « Mettre à jour l'appli Révision Immo » |
 | `manifest.json` + `icone-*.png` | Nom et icône de l'appli pour l'écran d'accueil Android |
 
 ## Lancer l'appli sur ton ordinateur

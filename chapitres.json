@@ -1,0 +1,186 @@
+[
+ {
+  "id": "transaction-1",
+  "matiere": "transaction",
+  "numero": 1,
+  "titre": "Le métier d'agent immobilier et la transaction immobilière",
+  "theme": "Les missions de l'agent, la loi Hoguet, la carte pro, les documents, les registres et les responsabilités.",
+  "fichier": "13A2qmkl25gDkOeufIIWKM6yQZJGBRI-KEfBsvQLPpW0"
+ },
+ {
+  "id": "transaction-2",
+  "matiere": "transaction",
+  "numero": 2,
+  "titre": "L'agence immobilière : structures, mercatique et statuts",
+  "theme": "Sous quelle forme monter une agence, comment elle se fait connaître, et ses statuts.",
+  "fichier": "1Pityk8IwQUgdXRDf2JvzNFDzPOrGlrdDJ-fTAol5xhI"
+ },
+ {
+  "id": "transaction-3",
+  "matiere": "transaction",
+  "numero": 3,
+  "titre": "Le négociateur immobilier : statut et organisation",
+  "theme": "Salarié ou agent commercial : le statut du négociateur et l'organisation de son travail.",
+  "fichier": "1WKMjivFaRUHo2QRlvv1JrVaCyunMrwFUT6xQCYXIx9Q"
+ },
+ {
+  "id": "transaction-4",
+  "matiere": "transaction",
+  "numero": 4,
+  "titre": "Les acteurs de l'immobilier",
+  "theme": "Qui fait quoi autour d'une vente : agents, notaires, banques, promoteurs, administrations…",
+  "fichier": "1CrdJT4VBAMHtzpzHYYK-fhMpkd7TdytdnuR65pkVHjY"
+ },
+ {
+  "id": "transaction-5",
+  "matiere": "transaction",
+  "numero": 5,
+  "titre": "Le marché de l'agence immobilière : l'offre et la demande",
+  "theme": "Comment l'agence trouve des biens à vendre et des clients pour les acheter.",
+  "fichier": "1gIY--ciYE2KXralRLV59jP10AeFsuqPy1uCEUUlKBGY"
+ },
+ {
+  "id": "copropriete-1",
+  "matiere": "copropriete",
+  "numero": 1,
+  "titre": "La copropriété",
+  "theme": "Lots, parties privatives et parties communes, tantièmes, règlement de copropriété.",
+  "fichier": "1pYaZ4RdFX3ds2IJhfrzTNG47XqraDHlF"
+ },
+ {
+  "id": "copropriete-2",
+  "matiere": "copropriete",
+  "numero": 2,
+  "titre": "Les acteurs de la copropriété et les majorités de vote en AG",
+  "theme": "Syndicat, syndic, conseil syndical… et les majorités de vote en assemblée générale.",
+  "fichier": "1jfUqp2wx0P-HilG44rd6rdp2oWfe0fnp"
+ },
+ {
+  "id": "copropriete-3",
+  "matiere": "copropriete",
+  "numero": 3,
+  "titre": "Qui gère la copropriété, et comment ?",
+  "theme": "La gestion de l'immeuble au quotidien : qui décide, qui exécute, qui contrôle.",
+  "fichier": "1Y9dJyxTCPgtyskQtX7Ks3QSyyjRZ-_5nNh1-pjrr9fw"
+ },
+ {
+  "id": "copropriete-4",
+  "matiere": "copropriete",
+  "numero": 4,
+  "titre": "Les documents de la copropriété et l'assemblée générale",
+  "theme": "Les documents clés de la copropriété et le déroulement de l'assemblée générale.",
+  "fichier": "1NiV_JJngosAkbpfh4Pcl3ipNl1CsDbWKX_4c7Slj_w8"
+ },
+ {
+  "id": "copropriete-5",
+  "matiere": "copropriete",
+  "numero": 5,
+  "titre": "Le syndic en action : missions, impayés et AG",
+  "theme": "Les missions du syndic, les charges impayées et la préparation de l'AG.",
+  "fichier": "1JZJNOKnsZFtyL4--bxzTI0yDYv-GoYTX8z5lkaHoMX4"
+ },
+ {
+  "id": "gestion-locative-1",
+  "matiere": "gestion-locative",
+  "numero": 1,
+  "titre": "Régimes juridiques et mandat de gestion",
+  "theme": "Les différents baux et le mandat qui confie la gestion du bien à l'agence.",
+  "fichier": "1VA_cVsz4HsWUojOKLFmwTy3OwWY4CGc0gaZJHko5ba4"
+ },
+ {
+  "id": "gestion-locative-2",
+  "matiere": "gestion-locative",
+  "numero": 2,
+  "titre": "Le local loué : usage, état, travaux et charges",
+  "theme": "L'état du logement, qui paie quels travaux et quelles charges.",
+  "fichier": "16O6W8VWe808sp8S4pUzyzywe3oxKSAzi54JxJym3dZ4"
+ },
+ {
+  "id": "gestion-locative-3",
+  "matiere": "gestion-locative",
+  "numero": 3,
+  "titre": "Les diagnostics immobiliers en location et en vente",
+  "theme": "Quels diagnostics fournir, quand, et combien de temps ils restent valables.",
+  "fichier": "1bTf2s34rFJtALlpV6EjmH-PjjapN86lwmAnwxz-CbHM"
+ },
+ {
+  "id": "gestion-locative-4",
+  "matiere": "gestion-locative",
+  "numero": 4,
+  "titre": "L'estimation du loyer et l'entrée du mandat de location",
+  "theme": "Fixer le bon loyer et rentrer un mandat de location.",
+  "fichier": "1y6whfUZbHPOoqa1rqG5xK5xe2nIt-HVXs41l6prDNiA"
+ },
+ {
+  "id": "eco-1",
+  "matiere": "eco",
+  "numero": 1,
+  "titre": "Économie, cadre réglementaire et déontologie immobilière",
+  "theme": "Le poids de l'immobilier dans l'économie, les règles du secteur et la déontologie.",
+  "fichier": "1SzFrKrRn4wyuEePTvt4IMoYjhjgGP7SNFXI0KShdjh4"
+ },
+ {
+  "id": "eco-2",
+  "matiere": "eco",
+  "numero": 2,
+  "titre": "Offre et demande sur le marché immobilier",
+  "theme": "Ce qui fait monter ou baisser les prix : l'offre, la demande et leurs moteurs.",
+  "fichier": "1aV-qSNSZ7aNySEk5bl747cyhQevFurs5Fcp25pOv9JQ"
+ },
+ {
+  "id": "eco-3",
+  "matiere": "eco",
+  "numero": 3,
+  "titre": "Les acteurs économiques, les banques et le financement immobilier",
+  "theme": "Ménages, entreprises, banques : comment on finance un achat immobilier.",
+  "fichier": "1gVBOj5kgYJ0EJhs0PlPFmyeweTyIQVgCIrI2_bFYV0g"
+ },
+ {
+  "id": "eco-4",
+  "matiere": "eco",
+  "numero": 4,
+  "titre": "Lire les indicateurs immobiliers",
+  "theme": "Prix, taux, volumes de ventes… savoir lire les chiffres du marché.",
+  "fichier": "1FjAHWcrb_FxcCrGT0384YPeQZjNmCXIbuRoyXxlYFus"
+ },
+ {
+  "id": "eco-5",
+  "matiere": "eco",
+  "numero": 5,
+  "titre": "Conjoncture économique et immobilier",
+  "theme": "Croissance, inflation, taux : comment la conjoncture pèse sur l'immobilier.",
+  "fichier": "1D7Bsx66_wgOlYlWhz-0nOlKh2tmoeIJuJns2qJdR8gA"
+ },
+ {
+  "id": "juridique-1",
+  "matiere": "juridique",
+  "numero": 1,
+  "titre": "L'encadrement juridique, les acteurs et le déroulement de la transaction",
+  "theme": "Les règles qui encadrent une vente, ses acteurs et ses étapes jusqu'à l'acte.",
+  "fichier": "1ecrodnZP9LJDEIdeVw8nYQYaQegFcOgKgRymGLbt9PA"
+ },
+ {
+  "id": "juridique-2",
+  "matiere": "juridique",
+  "numero": 2,
+  "titre": "Les sources du droit",
+  "theme": "D'où vient la règle de droit, et laquelle l'emporte sur l'autre.",
+  "fichier": "1fQNAcNygWjA12jZZ0nQfSSt4H9IX3kPfCjrzf_MTQAQ"
+ },
+ {
+  "id": "juridique-3",
+  "matiere": "juridique",
+  "numero": 3,
+  "titre": "Le droit de propriété et le droit au logement",
+  "theme": "Ce que permet la propriété, ses limites, et le droit au logement.",
+  "fichier": "1LekjZmIPmFmgZwCF73PIwX_uu0RO3T59tWurmYOUVRg"
+ },
+ {
+  "id": "juridique-4",
+  "matiere": "juridique",
+  "numero": 4,
+  "titre": "Fait juridique et acte juridique",
+  "theme": "La différence entre un événement qui produit des effets de droit et un acte voulu.",
+  "fichier": "1RL_T_EYW0RKtUa9wobj4cLyrJ3PVoYbxqwMKV__tv_I"
+ }
+]

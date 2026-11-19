@@ -14,24 +14,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Barre fixe en haut : les filtres par matière + le compteur -->
-  <header class="entete">
-    <!-- app.js crée ici un bouton par matière ("Tout", "Juridique"…) -->
-    <nav class="filtres" id="filtres" aria-label="Filtrer par matière"></nav>
-    <div class="outils">
-      <!-- Petit compteur : "3 / 10" -->
-      <div class="compteur" id="compteur">…</div>
-      <!-- Bouton pour mélanger les cartes (on / off) -->
-      <button class="bouton-melanger" id="bouton-melanger" aria-pressed="false">🔀 Mélanger</button>
+  <!-- ÉCRAN 1 et 2 : les menus (accueil = matières, puis la liste des chapitres).
+       app.js remplit cette zone. -->
+  <div class="menu" id="menu">
+    <p class="chargement">Chargement…</p>
+  </div>
+
+  <!-- ÉCRAN 3 : le fil TikTok d'un chapitre (caché tant qu'on n'a pas choisi) -->
+  <header class="entete" id="entete" hidden>
+    <div class="barre-fil">
+      <!-- ✕ = fermer le chapitre et revenir à la liste -->
+      <button class="bouton-rond" id="bouton-fermer" aria-label="Fermer le chapitre">✕</button>
+      <div class="titre-fil" id="titre-fil"></div>
       <!-- Son des vidéos : 🔊 / 🔇 -->
-      <button class="bouton-melanger" id="bouton-son">🔊</button>
+      <button class="bouton-rond" id="bouton-son">🔊</button>
     </div>
+    <!-- Petit compteur : "3 / 9" -->
+    <div class="compteur" id="compteur">…</div>
   </header>
 
   <!-- Le fil vertical : app.js va y ajouter une <section> par carte -->
-  <main class="fil" id="fil">
-    <p class="chargement">Chargement des cartes…</p>
-  </main>
+  <main class="fil" id="fil" hidden></main>
 
   <!-- video.js d'abord : app.js utilise ses fonctions -->
   <script src="suivi.js"></script>
