@@ -76,7 +76,7 @@ def appeler_elevenlabs(texte, voix, cle):
         "text": texte,
         "model_id": MODELE,
         "language_code": "fr",
-        "voice_settings": {"stability": 0.45, "similarity_boost": 0.8, "style": 0.25, "use_speaker_boost": True},
+        "voice_settings": {"stability": 0.55, "similarity_boost": 0.8, "style": 0.15, "use_speaker_boost": True},
     }).encode()
     req = urllib.request.Request(url, data=corps, method="POST", headers={
         "xi-api-key": cle, "Content-Type": "application/json", "Accept": "audio/mpeg"})
