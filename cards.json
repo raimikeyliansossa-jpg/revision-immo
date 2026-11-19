@@ -1946,6 +1946,1178 @@
     "reponse": "Non. La loi Hoguet impose un mandat écrit préalable. Sans mandat écrit, l'agent ne peut percevoir aucune rémunération, même si la vente se réalise grâce à lui."
   },
   {
+    "id": 201,
+    "type": "video",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Seul ou en réseau : comment s'organiser ?",
+    "contenu": "Karim a sa *carte pro*. Maintenant, il doit choisir : se lancer *seul*, ou *avec d'autres* ?",
+    "reponse": "*Agence indépendante* : seule, constitue seule son portefeuille · un interlocuteur unique\n*Succursales* (commerce intégré) : même enseigne, directeurs *salariés du groupe* · déclaration préalable à la *CCI* du siège\n*Délégation de mandat* : une agence autorise une autre à vendre son bien\n*Fichier commun* (AMEPI, Agences Réunies) : mandats partagés, *commission partagée*\nLe choix : *indépendance, notoriété, coûts*",
+    "personnages": {
+      "karim": {
+        "nom": "Karim",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      },
+      "lea": {
+        "nom": "Léa",
+        "role": "acheteuse",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e"
+      },
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "rue",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "objet": {
+          "emoji": "🪪",
+          "texte": "Carte T"
+        },
+        "narration": "Voici Karim. Il a enfin sa *carte professionnelle*."
+      },
+      {
+        "decor": "rue",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "surpris"
+          }
+        },
+        "gros_plan": "karim",
+        "narration": "Mais une question l'empêche de dormir : *seul*, ou *en réseau* ?"
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "parle": "karim",
+        "bulle": "Immobilière Karim !",
+        "narration": "Option 1 : l'*agence indépendante*. Il gère *seul* tous ses clients."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Indépendant",
+          "lignes": [
+            "*Un seul* interlocuteur",
+            "Suivi *personnalisé*",
+            "Libre de ses choix"
+          ]
+        },
+        "droite": {
+          "titre": "Mais…",
+          "lignes": [
+            "*Tous* les coûts",
+            "Peu de *notoriété*",
+            "Portefeuille seul"
+          ]
+        },
+        "narration": "Un *suivi personnalisé*… mais il porte *tous les coûts*, et personne ne le connaît."
+      },
+      {
+        "type": "document",
+        "titre": "RÉSEAU DE SUCCURSALES",
+        "lignes": [
+          "Même enseigne, mêmes services",
+          "*Directeurs = salariés du groupe*",
+          "Déclaration préalable à la CCI du siège"
+        ],
+        "tampon": "INTÉGRÉ",
+        "narration": "Option 2 : les *succursales*. Toutes les agences appartiennent au *même groupe*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "sophie": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "karim": {
+            "x": 72,
+            "emotion": "triste"
+          }
+        },
+        "objet": {
+          "emoji": "📄",
+          "texte": "Mandat"
+        },
+        "narration": "Problème : Karim a un mandat, mais *aucun acheteur*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "sophie": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "karim": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "parle": "sophie",
+        "bulle": "J'ai l'acheteuse !",
+        "narration": "Sophie, elle, a une acheteuse. Il lui *délègue* son mandat."
+      },
+      {
+        "type": "etapes",
+        "titre": "Le fichier commun",
+        "items": [
+          "Mandats souvent exclusifs",
+          "Logiciel réservé aux adhérents",
+          "L'acheteur vient d'une autre agence",
+          "Les deux agences partagent la commission"
+        ],
+        "actif": 3,
+        "narration": "Encore mieux : le *fichier commun*. On partage les mandats… et la *commission*."
+      },
+      {
+        "type": "chiffre",
+        "texte": "AMEPI",
+        "sous": "exemple de fichier commun (comme Agences Réunies)",
+        "narration": "Exemple : l'*AMEPI*. Mais ça ne marche que si tout le monde *joue le jeu*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Dans un réseau de succursales, qui dirige les agences ?",
+        "choix": [
+          "Des franchisés indépendants",
+          "Des salariés du groupe",
+          "Des agents commerciaux"
+        ],
+        "bonne": 1,
+        "explication": "Commerce intégré : même enseigne, directeurs salariés du groupe."
+      },
+      {
+        "question": "Une agence autorise une autre à vendre un bien de son portefeuille. C'est…",
+        "choix": [
+          "une délégation de mandat",
+          "une franchise",
+          "une succursale"
+        ],
+        "bonne": 0,
+        "explication": "Délégation de mandat (inter-cabinet) : plus de visibilité pour le bien."
+      },
+      {
+        "question": "Avec un fichier commun, si une autre agence trouve l'acquéreur…",
+        "choix": [
+          "elle prend toute la commission",
+          "les deux agences partagent la commission",
+          "personne n'est payé"
+        ],
+        "bonne": 1,
+        "explication": "Fichier commun (AMEPI…) : mandats partagés, commission partagée."
+      }
+    ]
+  },
+  {
+    "id": 202,
+    "type": "video",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Franchise, coopératif, mandataires : le match",
+    "contenu": "Trois façons d'entrer dans un *réseau*. Laquelle choisirais-tu ?",
+    "reponse": "*Franchise* : marque + savoir-faire contre *droit d'entrée* et *redevance* · fonds de commerce cédable · moins d'autonomie\n*Coopératif* : indépendants *membres et actionnaires* · *GIE* (ORPI) ou *société coopérative à capital variable* (L'ADRESSE)\n*Mandataires* : *agents commerciaux* chez eux · pas de coûts fixes · payés *à la commission*\n*Syndicats* : FNAIM, SNPI, UNIS (défense de la profession)",
+    "personnages": {
+      "karim": {
+        "nom": "Karim",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "neutre"
+          }
+        },
+        "narration": "Karim veut une *marque connue*. Trois réseaux s'offrent à lui."
+      },
+      {
+        "type": "document",
+        "titre": "CONTRAT DE FRANCHISE",
+        "lignes": [
+          "Le franchiseur fournit : marque, savoir-faire,",
+          "outils, formation, assistance juridique",
+          "*Le franchisé paie : droit d'entrée + redevance*"
+        ],
+        "tampon": "SIGNÉ",
+        "narration": "La *franchise* : on lui prête une *marque* et un *savoir-faire*… contre une *redevance*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "rougit"
+          }
+        },
+        "gros_plan": "karim",
+        "objet": {
+          "emoji": "💸",
+          "texte": "Redevance"
+        },
+        "narration": "Avantage : il pourra *revendre* son fonds de commerce. Mais la note est *salée*."
+      },
+      {
+        "type": "loi",
+        "source": "Réseau coopératif · en résumé",
+        "texte": "Des agences *indépendantes*, à la fois *membres et actionnaires* du réseau, qui le gèrent ensemble.",
+        "narration": "Le *coopératif* : des indépendants qui gèrent le réseau *ensemble*."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "GIE",
+          "lignes": [
+            "Agences *indépendantes*",
+            "Ex. *ORPI*"
+          ]
+        },
+        "droite": {
+          "titre": "Société coopérative",
+          "lignes": [
+            "À *capital variable*",
+            "Ex. *L'ADRESSE*"
+          ]
+        },
+        "narration": "Deux formes : le *GIE*, comme *ORPI*. Ou la *société coopérative*, comme *L'ADRESSE*."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "objet": {
+          "emoji": "💻",
+          "texte": "Pack d'outils"
+        },
+        "narration": "Le réseau de *mandataires* : des *agents commerciaux* qui travaillent *de chez eux*."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Mandataires : +",
+          "lignes": [
+            "*Pas de coûts fixes*",
+            "Pas de local",
+            "Souplesse"
+          ]
+        },
+        "droite": {
+          "titre": "Mandataires : –",
+          "lignes": [
+            "Statut indépendant",
+            "Payé *à la commission*",
+            "Rien sans vente"
+          ]
+        },
+        "narration": "Pas de local, *pas de coûts fixes*. Mais aucune vente… *aucun revenu*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Et les syndicats ?",
+        "items": [
+          "FNAIM",
+          "SNPI",
+          "UNIS"
+        ],
+        "actif": 2,
+        "narration": "Enfin, les *syndicats* : *FNAIM*, *SNPI*, *UNIS*. Ils défendent la *profession*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Que paie le franchisé au franchiseur ?",
+        "choix": [
+          "Rien du tout",
+          "Un droit d'entrée et une redevance",
+          "Un salaire"
+        ],
+        "bonne": 1,
+        "explication": "Marque + savoir-faire contre droit d'entrée et redevance, par contrat."
+      },
+      {
+        "question": "ORPI est un exemple de…",
+        "choix": [
+          "franchise",
+          "réseau coopératif (GIE)",
+          "réseau de mandataires"
+        ],
+        "bonne": 1,
+        "explication": "ORPI = GIE ; L'ADRESSE = société coopérative à capital variable."
+      },
+      {
+        "question": "Le principal avantage d'un réseau de mandataires ?",
+        "choix": [
+          "Pas de coûts fixes",
+          "Un salaire garanti",
+          "Une marque gratuite"
+        ],
+        "bonne": 0,
+        "explication": "Pas de bail, de local ni d'équipement. Mais rémunération uniquement à la commission."
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "type": "video",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Besoin, désir, demande : dans la tête du client",
+    "contenu": "Léa dit qu'elle veut « juste un logement ». C'est *faux*. Et un bon agent le sait.",
+    "reponse": "*Besoin* : sentiment de *manque* (Kotler et Dubois) · hiérarchie de *Maslow*\n*Désir* : le besoin associé à *un bien précis* · désirs illimités\n*Demande* = désir + *pouvoir d'achat* + *vouloir d'achat*\n*Motivation* : pousse à acheter · *Frein* : empêche d'acheter, à *lever*\n4 environnements : économique/social/démographique, institutionnel, technologique, socioculturel",
+    "personnages": {
+      "sophie": {
+        "nom": "Sophie",
+        "role": "agente",
+        "style": "femme",
+        "couleur": "#10b981",
+        "peau": "#8d5524",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
+      "lea": {
+        "nom": "Léa",
+        "role": "acheteuse",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "lea": {
+            "x": 28,
+            "emotion": "neutre"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "parle": "lea",
+        "bulle": "Je cherche à me loger.",
+        "narration": "Léa entre dans l'agence de Sophie."
+      },
+      {
+        "type": "loi",
+        "source": "Kotler et Dubois · en résumé",
+        "texte": "Le *besoin* est un sentiment de *manque* lié à la condition humaine.",
+        "narration": "Ça, c'est un *besoin* : un sentiment de *manque*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "lea": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "neutre"
+          }
+        },
+        "gros_plan": "lea",
+        "objet": {
+          "emoji": "🏡",
+          "texte": "Avec jardin"
+        },
+        "narration": "Mais Léa rêve d'une *maison avec jardin*. Le besoin devient un *désir*."
+      },
+      {
+        "type": "calcul",
+        "titre": "La demande",
+        "lignes": [
+          [
+            "Désir",
+            "une maison"
+          ],
+          [
+            "+ Pouvoir d'achat",
+            "prêt validé"
+          ],
+          [
+            "+ Vouloir d'achat",
+            "décidée"
+          ]
+        ],
+        "total": [
+          "=",
+          "DEMANDE"
+        ],
+        "narration": "Et avec un *pouvoir d'achat* et un *vouloir d'achat*… ça devient une *demande*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "lea": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "objet": {
+          "emoji": "✅",
+          "texte": "Financement OK"
+        },
+        "narration": "Sophie sait maintenant qu'elle a une *vraie acquéreuse*, pas une curieuse."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Motivation",
+          "lignes": [
+            "*Pousse* à l'achat",
+            "Sécurité",
+            "Confort, image"
+          ]
+        },
+        "droite": {
+          "titre": "Frein",
+          "lignes": [
+            "*Empêche* l'achat",
+            "Peur de s'endetter",
+            "Peur de mal choisir"
+          ]
+        },
+        "narration": "Pendant la visite, elle active les *motivations*… et elle *lève les freins*."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "lea": {
+            "x": 28,
+            "emotion": "surpris"
+          },
+          "sophie": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "parle": "sophie",
+        "bulle": "Parfait pour télétravailler !",
+        "narration": "Léa télétravaille ? Sophie lui montre le *bureau en plus*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les 4 environnements à surveiller",
+        "items": [
+          "Économique, social, démographique",
+          "Institutionnel (lois, CCI)",
+          "Technologique",
+          "Socioculturel (ex. télétravail)"
+        ],
+        "actif": 3,
+        "narration": "Le télétravail, c'est l'*environnement socioculturel*. Un bon agent *surveille tout*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Un désir d'acheter soutenu par un pouvoir d'achat et un vouloir d'achat, c'est…",
+        "choix": [
+          "un besoin",
+          "une demande",
+          "un frein"
+        ],
+        "bonne": 1,
+        "explication": "Besoin → désir → demande (désir + pouvoir d'achat + vouloir d'achat)."
+      },
+      {
+        "question": "La peur de s'endetter est…",
+        "choix": [
+          "une motivation",
+          "un frein",
+          "un besoin primaire"
+        ],
+        "bonne": 1,
+        "explication": "Le frein empêche l'achat : l'agent doit le repérer pour le lever."
+      },
+      {
+        "question": "Qui a établi une hiérarchie des besoins ?",
+        "choix": [
+          "Maslow",
+          "Hoguet",
+          "Kotler et Dubois"
+        ],
+        "bonne": 0,
+        "explication": "Maslow : on satisfait d'abord les besoins primaires. Kotler et Dubois ont défini le besoin (sentiment de manque)."
+      }
+    ]
+  },
+  {
+    "id": 204,
+    "type": "video",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Vendre un service qu'on ne voit pas",
+    "contenu": "Un agent ne vend pas des maisons. Il vend un *service*. Et ça change *tout*.",
+    "reponse": "*Plan de marchéage* : 4 leviers · *produit, prix, distribution, communication*\nLe service est *intangible* → le rendre tangible : photos, plans, fiches\n5 spécificités : *intangible, non stockable, simultanéité production/consommation, participation du client, non protégé*\nBien entrer les mandats : *adéquation bien / estimation*\nBut final : *fidéliser* et le *bouche-à-oreille*",
+    "personnages": {
+      "karim": {
+        "nom": "Karim",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      },
+      "lea": {
+        "nom": "Léa",
+        "role": "acheteuse",
+        "style": "femme",
+        "couleur": "#f97316",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "surpris"
+          }
+        },
+        "gros_plan": "karim",
+        "narration": "Karim se pose une question bizarre : qu'est-ce que je *vends*, au juste ?"
+      },
+      {
+        "type": "loi",
+        "source": "Mercatique des services · en résumé",
+        "texte": "L'agent vend un *service* pour le compte d'un client, en s'appuyant sur un bien *tangible*.",
+        "narration": "Réponse : un *service*. Le bien, lui, appartient au *vendeur*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Le plan de marchéage",
+        "items": [
+          "Produit : les services proposés",
+          "Prix : les honoraires",
+          "Distribution : les points de vente",
+          "Communication : la publicité"
+        ],
+        "actif": 3,
+        "narration": "Pour le vendre, *4 leviers* : *produit*, *prix*, *distribution*, *communication*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les 5 spécificités du service",
+        "items": [
+          "Intangible",
+          "Non stockable",
+          "Simultanéité production / consommation",
+          "Participation du client",
+          "Non protégé"
+        ],
+        "actif": 0,
+        "narration": "Mais un service a *5 particularités*. La première : il est *intangible*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "karim": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "objet": {
+          "emoji": "📸",
+          "texte": "Photos + plans"
+        },
+        "narration": "Alors Karim le rend *visible* : photos, plans, fiches techniques."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les 5 spécificités du service",
+        "items": [
+          "Intangible",
+          "Non stockable",
+          "Simultanéité production / consommation",
+          "Participation du client",
+          "Non protégé"
+        ],
+        "actif": 4,
+        "narration": "Il ne se *stocke* pas, il se produit *devant le client*, avec lui… et il se *copie* facilement."
+      },
+      {
+        "decor": "appartement",
+        "persos": {
+          "lea": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "karim": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "parle": "lea",
+        "bulle": "Merci, vous êtes top !",
+        "narration": "Donc Karim est *rapide*, *fiable*, *disponible*. Et il se distingue par sa *compétence*."
+      },
+      {
+        "type": "chiffre",
+        "texte": "FIDÉLISER",
+        "sous": "l'objectif final… et le bouche-à-oreille",
+        "narration": "Le but ? *Fidéliser*. Un client content en ramène *d'autres*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Quels sont les 4 leviers du plan de marchéage ?",
+        "choix": [
+          "Produit, prix, distribution, communication",
+          "Besoin, désir, demande, frein",
+          "Mandat, visite, offre, compromis"
+        ],
+        "bonne": 0,
+        "explication": "Le mix : produit, prix, distribution, communication."
+      },
+      {
+        "question": "Le service est intangible. Que fait l'agent ?",
+        "choix": [
+          "Il baisse ses honoraires",
+          "Il le rend tangible : photos, plans, fiches",
+          "Il le stocke pour plus tard"
+        ],
+        "bonne": 1,
+        "explication": "Intangible = non visible : on le rend tangible avec des supports concrets."
+      },
+      {
+        "question": "Un service est facile à copier. Comment se différencier ?",
+        "choix": [
+          "Par la compétence et la crédibilité",
+          "En déposant un brevet",
+          "En baissant les prix"
+        ],
+        "bonne": 0,
+        "explication": "Service non protégé : se différencier par la compétence et la crédibilité."
+      }
+    ]
+  },
+  {
+    "id": 205,
+    "type": "video",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Salarié ou agent commercial ? Les 3 statuts",
+    "contenu": "Karim recrute. Nina sera *salariée*, Théo *agent commercial*. Ça change *quoi* ?",
+    "reponse": "*Salarié non VRP* : contrat de travail (CCNI), subordination, horaires réglementés, minimum *SMIC*, congés payés\n*Salarié VRP* : contrat de travail, *secteur géographique*, temps libre d'organisation, minimum fixé par la convention\n*Agent commercial* : *contrat de mandat*, *code de commerce*, *aucune subordination*, 100 % commissions, pas de congés payés\nTous : sous la *carte pro de l'agent* + *attestation d'habilitation* (art. 9)",
+    "personnages": {
+      "karim": {
+        "nom": "Karim",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      },
+      "nina": {
+        "nom": "Nina",
+        "role": "négociatrice",
+        "style": "femme",
+        "couleur": "#a855f7",
+        "peau": "#e0ac69",
+        "cheveux": "#78350f"
+      },
+      "theo": {
+        "nom": "Théo",
+        "role": "négociateur",
+        "style": "homme",
+        "couleur": "#ef4444",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e",
+        "accessoire": "cravate"
+      },
+      "roux": {
+        "nom": "Mme Roux",
+        "role": "CCI",
+        "style": "femme",
+        "couleur": "#475569",
+        "peau": "#f1c27d",
+        "cheveux": "#b45309",
+        "accessoire": "lunettes"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "nina": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "karim": {
+            "x": 72,
+            "emotion": "content"
+          }
+        },
+        "parle": "karim",
+        "bulle": "Bienvenue Nina !",
+        "narration": "L'agence de Karim marche bien. Il recrute *Nina*."
+      },
+      {
+        "type": "document",
+        "titre": "CONTRAT DE TRAVAIL",
+        "lignes": [
+          "Convention collective de l'immobilier",
+          "*Lien de subordination*",
+          "Salaire minimum : SMIC · congés payés"
+        ],
+        "tampon": "SALARIÉE",
+        "narration": "Nina est *salariée*. Il y a un *lien de subordination* : Karim est son patron."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Non VRP",
+          "lignes": [
+            "Horaires *réglementés*",
+            "Minimum : *SMIC*",
+            "Accueil, visites"
+          ]
+        },
+        "droite": {
+          "titre": "VRP",
+          "lignes": [
+            "Temps *non réglementé*",
+            "*Secteur* géographique",
+            "Minimum de la *convention*"
+          ]
+        },
+        "narration": "Salariée *VRP* ou *non VRP* ? Le VRP a un *secteur* et organise son temps."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "theo": {
+            "x": 28,
+            "emotion": "content"
+          },
+          "karim": {
+            "x": 72,
+            "emotion": "neutre"
+          }
+        },
+        "gros_plan": "theo",
+        "narration": "Puis arrive *Théo*. Lui, il est *agent commercial*."
+      },
+      {
+        "type": "document",
+        "titre": "CONTRAT DE MANDAT",
+        "lignes": [
+          "Code de commerce",
+          "*Aucun lien de subordination*",
+          "Rémunération : % des honoraires encaissés"
+        ],
+        "tampon": "INDÉPENDANT",
+        "narration": "Pas de contrat de travail : un *mandat*. Théo est *indépendant*."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "theo": {
+            "x": 28,
+            "emotion": "triste"
+          },
+          "karim": {
+            "x": 72,
+            "emotion": "neutre"
+          }
+        },
+        "objet": {
+          "emoji": "💶",
+          "texte": "100 % commission"
+        },
+        "narration": "Pas de fixe. Pas de congés payés. Pas de vente… *pas d'argent*."
+      },
+      {
+        "type": "loi",
+        "source": "Décret de la loi Hoguet, art. 9 · en résumé",
+        "texte": "Tout collaborateur qui négocie pour le titulaire de la carte justifie de ses pouvoirs par une *attestation d'habilitation*.",
+        "narration": "Mais Nina comme Théo ont besoin d'une *attestation d'habilitation*."
+      },
+      {
+        "decor": "cci",
+        "persos": {
+          "karim": {
+            "x": 30,
+            "emotion": "content"
+          },
+          "roux": {
+            "x": 70,
+            "emotion": "neutre"
+          }
+        },
+        "objet": {
+          "emoji": "🪪",
+          "texte": "Attestation"
+        },
+        "narration": "Elle est *visée par la CCI*, puis remise par Karim. Ils travaillent sous *sa carte*."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Quel statut n'a aucun lien de subordination avec l'agence ?",
+        "choix": [
+          "Salarié VRP",
+          "Salarié non VRP",
+          "Agent commercial"
+        ],
+        "bonne": 2,
+        "explication": "Agent commercial : contrat de mandat, code de commerce, indépendant."
+      },
+      {
+        "question": "Qui a des horaires de travail réglementés ?",
+        "choix": [
+          "Le salarié non VRP",
+          "Le salarié VRP",
+          "L'agent commercial"
+        ],
+        "bonne": 0,
+        "explication": "Le VRP organise son temps ; l'agent commercial est totalement indépendant."
+      },
+      {
+        "question": "Tout négociateur doit avoir…",
+        "choix": [
+          "sa propre carte professionnelle",
+          "une attestation d'habilitation",
+          "un diplôme de BTS PI"
+        ],
+        "bonne": 1,
+        "explication": "Art. 9 du décret : attestation visée par la CCI, délivrée par le titulaire de la carte."
+      }
+    ]
+  },
+  {
+    "id": 206,
+    "type": "video",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Agent commercial : la liste de ses obligations",
+    "contenu": "Théo pensait être libre. Il est *indépendant*… mais il a *4 obligations*.",
+    "reponse": "Inscription au *RSAC* (greffe du tribunal de commerce)\n*Assurance RCP* propre\n*Compte bancaire dédié*\n*42 h* de formation sur 3 ans, dont *2 h déontologie* et *2 h non-discrimination*\nMicro-entrepreneur jusqu'à *83 600 €/an* (sorti après 2 ans de dépassement) · TVA au-delà de *37 500 €* (41 250 € majoré)\nRégime social : URSSAF · impôt : *BNC*",
+    "personnages": {
+      "theo": {
+        "nom": "Théo",
+        "role": "négociateur",
+        "style": "homme",
+        "couleur": "#ef4444",
+        "peau": "#f1c27d",
+        "cheveux": "#92400e",
+        "accessoire": "cravate"
+      },
+      "karim": {
+        "nom": "Karim",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917"
+      }
+    },
+    "scenes": [
+      {
+        "decor": "agence",
+        "persos": {
+          "theo": {
+            "x": 50,
+            "emotion": "content"
+          }
+        },
+        "parle": "theo",
+        "bulle": "Je suis mon propre patron !",
+        "narration": "Théo a signé. Il se croit *totalement libre*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les obligations de l'agent commercial",
+        "items": [
+          "Inscription au RSAC",
+          "Assurance RCP propre",
+          "Compte bancaire dédié",
+          "Formation continue"
+        ],
+        "actif": 0,
+        "narration": "D'abord, s'inscrire au *RSAC* : le registre spécial des agents commerciaux."
+      },
+      {
+        "type": "loi",
+        "source": "RSAC · en résumé",
+        "texte": "Le *registre spécial des agents commerciaux* est tenu par le *greffe du tribunal de commerce*.",
+        "narration": "Ce registre est tenu par le *greffe du tribunal de commerce*."
+      },
+      {
+        "type": "etapes",
+        "titre": "Les obligations de l'agent commercial",
+        "items": [
+          "Inscription au RSAC",
+          "Assurance RCP propre",
+          "Compte bancaire dédié",
+          "Formation continue"
+        ],
+        "actif": 2,
+        "narration": "Ensuite : sa *propre assurance RCP*, et un *compte bancaire dédié*."
+      },
+      {
+        "type": "calcul",
+        "titre": "Formation continue (loi ALUR)",
+        "lignes": [
+          [
+            "Déontologie",
+            "2 h minimum"
+          ],
+          [
+            "Lutte contre la discrimination",
+            "2 h minimum"
+          ]
+        ],
+        "total": [
+          "Sur 3 ans",
+          "42 h"
+        ],
+        "narration": "Et *42 heures* de formation sur 3 ans. Sinon : *pas de renouvellement* de son attestation."
+      },
+      {
+        "decor": "agence",
+        "persos": {
+          "theo": {
+            "x": 50,
+            "emotion": "rougit"
+          }
+        },
+        "gros_plan": "theo",
+        "narration": "Théo a oublié ses heures… il ne peut plus *négocier*."
+      },
+      {
+        "type": "chiffre",
+        "texte": "83 600 €",
+        "sous": "plafond annuel du micro-entrepreneur (services, 2026-2028)",
+        "narration": "Il peut être *micro-entrepreneur*, tant qu'il reste sous *83 600 euros* par an."
+      },
+      {
+        "type": "versus",
+        "gauche": {
+          "titre": "Micro-entrepreneur",
+          "lignes": [
+            "Régime *simplifié*",
+            "Sorti après *2 ans* de dépassement"
+          ]
+        },
+        "droite": {
+          "titre": "Ne dispense PAS de",
+          "lignes": [
+            "RSAC",
+            "RCP",
+            "Compte dédié"
+          ]
+        },
+        "narration": "Attention : ce régime ne le dispense *ni* du RSAC, *ni* de la RCP, *ni* du compte dédié."
+      }
+    ],
+    "quiz": [
+      {
+        "question": "Qui tient le RSAC ?",
+        "choix": [
+          "La CCI",
+          "Le greffe du tribunal de commerce",
+          "L'agent immobilier"
+        ],
+        "bonne": 1,
+        "explication": "Registre spécial des agents commerciaux : greffe du tribunal de commerce."
+      },
+      {
+        "question": "Combien d'heures de formation sur 3 ans ?",
+        "choix": [
+          "14 h",
+          "42 h",
+          "100 h"
+        ],
+        "bonne": 1,
+        "explication": "42 h sur 3 ans, dont 2 h de déontologie et 2 h de lutte contre la discrimination."
+      },
+      {
+        "question": "Le régime micro-entrepreneur dispense-t-il de l'assurance RCP ?",
+        "choix": [
+          "Oui",
+          "Non"
+        ],
+        "bonne": 1,
+        "explication": "Il ne dispense ni du RSAC, ni de la RCP, ni du compte bancaire dédié."
+      }
+    ]
+  },
+  {
+    "id": 299,
+    "type": "examen",
+    "matiere": "transaction",
+    "chap": "transaction-2",
+    "chapitre": "Ch. 2 · L'agence immobilière",
+    "titre": "Examen · Chapitre 2",
+    "contenu": "10 mises en situation : monter son agence, vendre son service, recruter. Réponds comme si tu étais en agence : ta note sur 20 sera enregistrée.",
+    "reponse": "",
+    "questions": [
+      {
+        "situation": "Tu veux ouvrir ton agence dans une petite ville. Tes clients veulent un seul interlocuteur qui les suit de A à Z, et tu tiens à décider de tout.",
+        "question": "Quelle structure te correspond le mieux ?",
+        "choix": [
+          "Une agence indépendante",
+          "Une succursale d'un grand groupe",
+          "Un réseau de mandataires"
+        ],
+        "bonne": 0,
+        "explication": "Agence indépendante : interlocuteur unique, suivi personnalisé, indépendance totale (mais tous les coûts et peu de notoriété)."
+      },
+      {
+        "situation": "Un groupe ouvre une nouvelle agence à son enseigne. Le directeur est un salarié du groupe.",
+        "question": "Quelle démarche le responsable doit-il faire ?",
+        "choix": [
+          "Une déclaration préalable à la CCI du siège du réseau",
+          "Une inscription au RSAC",
+          "Rien de particulier"
+        ],
+        "bonne": 0,
+        "explication": "Succursale (commerce intégré) : déclaration préalable auprès de la CCI du siège du réseau."
+      },
+      {
+        "situation": "Tu as un mandat exclusif sur un T3. Une agence voisine, adhérente du même fichier commun que toi, trouve l'acquéreur.",
+        "question": "Comment se passe la rémunération ?",
+        "choix": [
+          "Ton agence garde toute la commission",
+          "Les deux agences se partagent la commission",
+          "L'autre agence prend tout"
+        ],
+        "bonne": 1,
+        "explication": "Fichier commun (AMEPI, Agences Réunies) : on élargit l'offre sans perdre le mandat, et on partage la commission."
+      },
+      {
+        "situation": "Ton amie veut une marque connue, une formation et des outils clés en main. Elle accepte de payer pour ça et de respecter un cahier des charges.",
+        "question": "Que lui conseilles-tu ?",
+        "choix": [
+          "Une franchise",
+          "Un réseau coopératif",
+          "Une agence indépendante"
+        ],
+        "bonne": 0,
+        "explication": "Franchise : marque, savoir-faire, formation contre droit d'entrée et redevance ; indépendance relative."
+      },
+      {
+        "situation": "Un collègue veut rester indépendant mais profiter d'une marque et participer lui-même à la gestion du réseau, comme membre et actionnaire.",
+        "question": "Quel type de réseau lui correspond ?",
+        "choix": [
+          "Une franchise",
+          "Un réseau coopératif, comme ORPI",
+          "Un réseau de succursales"
+        ],
+        "bonne": 1,
+        "explication": "Coopératif : indépendants membres et actionnaires (GIE comme ORPI, ou société coopérative à capital variable comme L'ADRESSE)."
+      },
+      {
+        "situation": "Une cliente visite un appartement qui lui plaît, mais elle hésite : « Et si je n'arrivais plus à rembourser ? »",
+        "question": "Qu'est-ce que tu as en face de toi ?",
+        "choix": [
+          "Une motivation à activer",
+          "Un frein à lever",
+          "Un besoin latent"
+        ],
+        "bonne": 1,
+        "explication": "La peur de s'endetter est un frein : force psychologique qui empêche l'achat. L'agent doit le repérer et le lever."
+      },
+      {
+        "situation": "Un couple adore une maison. Leur banque vient de valider leur prêt et ils sont décidés.",
+        "question": "Comment qualifier ce couple ?",
+        "choix": [
+          "Un simple besoin",
+          "Une demande réelle",
+          "Des curieux"
+        ],
+        "bonne": 1,
+        "explication": "Demande = désir + pouvoir d'achat (prêt validé) + vouloir d'achat (décidés)."
+      },
+      {
+        "situation": "Ton patron te dit : « Notre service, le client ne le voit pas. Il faut qu'il le perçoive. »",
+        "question": "Que fais-tu concrètement ?",
+        "choix": [
+          "Tu baisses les honoraires",
+          "Tu rends le service tangible : photos, plans, fiches techniques",
+          "Tu fais moins de visites"
+        ],
+        "bonne": 1,
+        "explication": "Le service est intangible : on le rend tangible avec des supports concrets."
+      },
+      {
+        "situation": "Tu recrutes Théo comme agent commercial. Il te demande s'il aura un salaire fixe et des congés payés.",
+        "question": "Que lui réponds-tu ?",
+        "choix": [
+          "Oui, au minimum le SMIC",
+          "Non : il touche un pourcentage des honoraires des affaires conclues, sans fixe ni congés payés",
+          "Oui, le minimum de la convention collective"
+        ],
+        "bonne": 1,
+        "explication": "Agent commercial : contrat de mandat, 100 % commissions, pas de fixe, pas de frais remboursés, pas de congés payés."
+      },
+      {
+        "situation": "Un agent commercial de ton agence n'a pas fait ses heures de formation depuis 3 ans. Son attestation arrive à échéance.",
+        "question": "Que se passe-t-il ?",
+        "choix": [
+          "Rien, la formation est facultative",
+          "Son attestation d'habilitation ne peut pas être renouvelée : il ne peut plus négocier pour l'agence",
+          "Il doit repasser le BTS"
+        ],
+        "bonne": 1,
+        "explication": "42 h sur 3 ans (dont 2 h déontologie et 2 h non-discrimination) sont obligatoires pour renouveler l'attestation d'habilitation."
+      }
+    ]
+  },
+  {
     "id": 5,
     "type": "notion",
     "matiere": "eco",
