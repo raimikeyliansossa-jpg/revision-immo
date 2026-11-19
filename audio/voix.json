@@ -13,10 +13,10 @@
    "duree": 3.71
   },
   {
-   "texte": "Sophie est agent immobilier. Elle vend, achète ou loue les biens des autres.",
+   "texte": "Keylian est agent immobilier. Il vend, achète ou loue les biens des autres.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/101/02.mp3",
-   "duree": 4.73
+   "duree": 4.86
   },
   {
    "texte": "Pour le vendeur, d'abord : estimer le bien au juste prix.",
@@ -37,10 +37,10 @@
    "duree": 2.64
   },
   {
-   "texte": "Sophie lui sélectionne des biens, et suit son financement.",
+   "texte": "Keylian lui sélectionne des biens, et suit son financement.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/101/06.mp3",
-   "duree": 3.29
+   "duree": 3.16
   },
   {
    "texte": "En location, même logique avec le bailleur.",
@@ -49,10 +49,10 @@
    "duree": 2.64
   },
   {
-   "texte": "Elle choisit un locataire solvable…",
+   "texte": "Il choisit un locataire solvable…",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/101/08.mp3",
-   "duree": 2.12
+   "duree": 2.17
   },
   {
    "texte": "…puis bail, état des lieux, et attestation d'assurance.",
@@ -81,10 +81,10 @@
    "duree": 5.28
   },
   {
-   "texte": "Karim veut ouvrir son agence immobilière.",
+   "texte": "Keylian veut ouvrir son agence immobilière.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/102/01.mp3",
-   "duree": 2.35
+   "duree": 2.46
   },
   {
    "texte": "Problème : une loi encadre tout ça.",
@@ -129,10 +129,10 @@
    "duree": 2.64
   },
   {
-   "texte": "Karim, lui, veut vendre. Ce sera la carte T.",
+   "texte": "Keylian, lui, veut vendre. Ce sera la carte T.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/102/09.mp3",
-   "duree": 3.0
+   "duree": 3.16
   },
   {
    "texte": "À retenir !",
@@ -149,10 +149,10 @@
    "duree": 5.09
   },
   {
-   "texte": "Karim dépose sa demande de carte pro.",
+   "texte": "Keylian dépose sa demande de carte pro.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/103/01.mp3",
-   "duree": 2.4
+   "duree": 2.35
   },
   {
    "texte": "BTS PI ou Bac + 3 : accès direct. Sinon, il faut de l'expérience.",
@@ -223,7 +223,7 @@
    "duree": 3.66
   },
   {
-   "texte": "Sophie fait visiter la maison de Martin à Léa.",
+   "texte": "Keylian fait visiter la maison de Martin à Léa.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/104/02.mp3",
    "duree": 2.77
@@ -241,10 +241,10 @@
    "duree": 3.42
   },
   {
-   "texte": "Mais ce papier prouve que Sophie a présenté le bien.",
+   "texte": "Mais ce papier prouve que Keylian a présenté le bien.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/104/05.mp3",
-   "duree": 2.82
+   "duree": 3.11
   },
   {
    "texte": "Trois : l'offre d'achat. L'engagement écrit de l'acheteur.",
@@ -291,16 +291,16 @@
    "duree": 5.09
   },
   {
-   "texte": "Sophie vient de signer un mandat avec Martin.",
+   "texte": "Keylian vient de signer un mandat avec Martin.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/105/01.mp3",
-   "duree": 2.64
+   "duree": 2.46
   },
   {
-   "texte": "Elle l'inscrit tout de suite au registre des mandats. Dans l'ordre chronologique.",
+   "texte": "Il l'inscrit tout de suite au registre des mandats. Dans l'ordre chronologique.",
    "voix": "pFZP5JQG7iQjIQuC4Bku",
    "fichier": "audio/105/02.mp3",
-   "duree": 4.55
+   "duree": 4.6
   },
   {
    "texte": "Le numéro est reporté sur l'exemplaire de Martin.",

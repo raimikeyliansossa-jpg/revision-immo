@@ -9,6 +9,15 @@
     "contenu": "Un agent immobilier, ça fait *quoi* exactement ? Spoiler : pas juste ouvrir des portes.",
     "reponse": "Il aide *régulièrement* à vendre, acheter ou louer les biens *d'autrui*\nVendeur : *estimer* → mandat → communiquer → visites/négociation → documents\nAcquéreur : informer → sélectionner → visites → *suivi du financement*\nLocation : mandat → annonces → *sélection (solvabilité)* → bail + état des lieux + assurance\nIl reste un intermédiaire *neutre* et un *conseiller*",
     "personnages": {
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
       "martin": {
         "nom": "M. Martin",
         "role": "vendeur",
@@ -17,15 +26,6 @@
         "peau": "#e0ac69",
         "cheveux": "#57534e",
         "accessoire": "moustache"
-      },
-      "sophie": {
-        "nom": "Sophie",
-        "role": "agente",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
-        "cheveux": "#1c1917",
-        "accessoire": "badge"
       },
       "lea": {
         "nom": "Léa",
@@ -63,14 +63,14 @@
             "x": 28,
             "emotion": "neutre"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
         },
-        "parle": "sophie",
+        "parle": "keylian",
         "bulle": "Je m'occupe de tout !",
-        "narration": "Sophie est *agent immobilier*. Elle vend, achète ou loue les biens *des autres*."
+        "narration": "Keylian est *agent immobilier*. Il vend, achète ou loue les biens *des autres*."
       },
       {
         "type": "etapes",
@@ -101,7 +101,7 @@
       {
         "decor": "rue",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 25,
             "emotion": "content"
           },
@@ -122,12 +122,12 @@
           "Suivi + financement"
         ],
         "actif": 3,
-        "narration": "Sophie lui sélectionne des biens, et suit son *financement*."
+        "narration": "Keylian lui sélectionne des biens, et suit son *financement*."
       },
       {
         "decor": "appartement",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 30,
             "emotion": "content"
           },
@@ -142,13 +142,13 @@
         "type": "document",
         "titre": "DOSSIER LOCATAIRE",
         "lignes": [
-          "Candidat : Karim B.",
+          "Candidat : Keylian B.",
           "Revenus : 2 400 € / mois",
           "Loyer : 750 €",
           "*Solvabilité : vérifiée*"
         ],
         "tampon": "VALIDÉ",
-        "narration": "Elle choisit un locataire *solvable*…"
+        "narration": "Il choisit un locataire *solvable*…"
       },
       {
         "type": "etapes",
@@ -212,13 +212,14 @@
     "contenu": "Sans *cette loi*, n'importe qui pourrait vendre ta maison. Elle date de *1970*.",
     "reponse": "*Loi Hoguet* : 2 janvier 1970, le socle de la profession\n*Décret* d'application : 20 juillet 1972\n*ALUR* (24/03/2014) et *Macron* (06/08/2015) modernisent : formation continue, carte délivrée par la CCI\nCarte *T* transaction (+ marchand de liste) · *G* gestion · *S* syndic",
     "personnages": {
-      "karim": {
-        "nom": "Karim",
+      "keylian": {
+        "nom": "Keylian",
         "role": "futur agent",
         "style": "homme",
         "couleur": "#0ea5e9",
         "peau": "#c68642",
-        "cheveux": "#1c1917"
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
       },
       "roux": {
         "nom": "Mme Roux",
@@ -234,22 +235,22 @@
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
         },
-        "narration": "Karim veut ouvrir son *agence immobilière*."
+        "narration": "Keylian veut ouvrir son *agence immobilière*."
       },
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "surpris"
           }
         },
-        "gros_plan": "karim",
+        "gros_plan": "keylian",
         "narration": "Problème : une loi encadre tout ça."
       },
       {
@@ -284,7 +285,7 @@
       {
         "decor": "cci",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 30,
             "emotion": "neutre"
           },
@@ -333,7 +334,7 @@
       {
         "decor": "cci",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 30,
             "emotion": "content"
           },
@@ -342,12 +343,12 @@
             "emotion": "content"
           }
         },
-        "gros_plan": "karim",
+        "gros_plan": "keylian",
         "objet": {
           "emoji": "📇",
           "texte": "Carte T"
         },
-        "narration": "Karim, lui, veut vendre. Ce sera la carte *T*."
+        "narration": "Keylian, lui, veut vendre. Ce sera la carte *T*."
       }
     ],
     "quiz": [
@@ -393,13 +394,14 @@
     "contenu": "Tu prépares un *BTS PI* ? Bonne nouvelle : tu as déjà fait *le plus dur*.",
     "reponse": "Aptitude : *BTS PI* ou *Bac+3* = direct · Bac = 3 ans · sans diplôme = 4 ans (cadre) ou 10 ans\nAussi : majeur capable, *RCS*, assurance *RCP*, *garantie financière*\n*Aucun maniement de fonds* + déclaration sur l'honneur = dispense de garantie\nCarte valable *3 ans* · formation *42 h / 3 ans* dont 2 h de déontologie\nSalariés et agents commerciaux : *attestation de collaborateur* · succursale : déclaration à la CCI",
     "personnages": {
-      "karim": {
-        "nom": "Karim",
+      "keylian": {
+        "nom": "Keylian",
         "role": "futur agent",
         "style": "homme",
         "couleur": "#0ea5e9",
         "peau": "#c68642",
-        "cheveux": "#1c1917"
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
       },
       "roux": {
         "nom": "Mme Roux",
@@ -415,7 +417,7 @@
       {
         "decor": "cci",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 30,
             "emotion": "content"
           },
@@ -424,7 +426,7 @@
             "emotion": "neutre"
           }
         },
-        "narration": "Karim dépose sa demande de *carte pro*."
+        "narration": "Keylian dépose sa demande de *carte pro*."
       },
       {
         "type": "calcul",
@@ -480,7 +482,7 @@
       {
         "decor": "cci",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 30,
             "emotion": "surpris"
           },
@@ -489,14 +491,14 @@
             "emotion": "neutre"
           }
         },
-        "gros_plan": "karim",
+        "gros_plan": "keylian",
         "narration": "Une garantie ? Elle sert à *rembourser les fonds* des clients."
       },
       {
         "type": "document",
         "titre": "DÉCLARATION SUR L'HONNEUR",
         "lignes": [
-          "Je soussigné, Karim B.,",
+          "Je soussigné, Keylian B.,",
           "*ne reçois ni ne détiens aucun fonds,*",
           "*effet ou valeur.*",
           "Les fonds transitent par le notaire."
@@ -532,7 +534,7 @@
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
@@ -587,12 +589,12 @@
     "contenu": "En immobilier, *tout passe par écrit*. Voici les *7 documents* à connaître.",
     "reponse": "Vente : *mandat* → *reconnaissance de visite* → *offre d'achat* → *avant-contrat* (promesse ou compromis)\nLocation : *mandat* → *bail* → *état des lieux* (entrée et sortie)\nLa reconnaissance de visite *prouve* que l'agent a présenté le bien",
     "personnages": {
-      "sophie": {
-        "nom": "Sophie",
-        "role": "agente",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
         "cheveux": "#1c1917",
         "accessoire": "badge"
       },
@@ -638,7 +640,7 @@
       {
         "decor": "rue",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 25,
             "emotion": "content"
           },
@@ -647,7 +649,7 @@
             "emotion": "neutre"
           }
         },
-        "narration": "Sophie fait visiter la maison de Martin à *Léa*."
+        "narration": "Keylian fait visiter la maison de Martin à *Léa*."
       },
       {
         "type": "document",
@@ -678,17 +680,17 @@
       {
         "decor": "agence",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
         },
-        "gros_plan": "sophie",
+        "gros_plan": "keylian",
         "objet": {
           "emoji": "📄",
           "texte": "Preuve"
         },
-        "narration": "Mais ce papier *prouve* que Sophie a présenté le bien."
+        "narration": "Mais ce papier *prouve* que Keylian a présenté le bien."
       },
       {
         "type": "etapes",
@@ -732,7 +734,7 @@
             "x": 30,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 70,
             "emotion": "neutre"
           }
@@ -793,12 +795,12 @@
     "contenu": "Deux registres, deux noms presque pareils. Et un *piège classique* à l'examen.",
     "reponse": "*Registre des mandats* (art. 72) : tous les mandats, ordre chronologique, numéro reporté sur l'exemplaire du client\n*Registre-répertoire* (art. 86) : tous les *mouvements de fonds* pour le compte de tiers\nFonds clients : *compte bancaire spécial* + *reçu*\nArchivage des documents : *10 ans*",
     "personnages": {
-      "sophie": {
-        "nom": "Sophie",
-        "role": "agente",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
         "cheveux": "#1c1917",
         "accessoire": "badge"
       },
@@ -828,7 +830,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
@@ -837,7 +839,7 @@
           "emoji": "✍️",
           "texte": "Mandat signé"
         },
-        "narration": "Sophie vient de signer un *mandat* avec Martin."
+        "narration": "Keylian vient de signer un *mandat* avec Martin."
       },
       {
         "type": "document",
@@ -848,7 +850,7 @@
           "*N° 147 · 12/03 · Vente · M. Martin*"
         ],
         "tampon": "ART. 72",
-        "narration": "Elle l'inscrit *tout de suite* au *registre des mandats*. Dans l'ordre *chronologique*."
+        "narration": "Il l'inscrit *tout de suite* au *registre des mandats*. Dans l'ordre *chronologique*."
       },
       {
         "decor": "agence",
@@ -857,7 +859,7 @@
             "x": 28,
             "emotion": "surpris"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "neutre"
           }
@@ -876,7 +878,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "neutre"
           }
@@ -980,12 +982,12 @@
     "contenu": "Un client veut payer *en espèces*. Une très grosse somme. Tu fais quoi ?",
     "reponse": "*Déontologie* (décret du 28 août 2015) : obligation de *loyauté*\nPrix *TTC* affichés · honoraires acquéreur en *% du prix de vente* sur tous les supports\n*TRACFIN* : déclarer toute opération suspecte de blanchiment\n*CNTGI* : contrôle moralité et compétence, pouvoir disciplinaire depuis le 1er juillet 2018\n*DGCCRF* : contrôle les pratiques commerciales et les droits des consommateurs",
     "personnages": {
-      "sophie": {
-        "nom": "Sophie",
-        "role": "agente",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
         "cheveux": "#1c1917",
         "accessoire": "badge"
       },
@@ -1007,7 +1009,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "neutre"
           }
@@ -1025,19 +1027,19 @@
             "x": 28,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "surpris"
           }
         },
-        "gros_plan": "sophie",
+        "gros_plan": "keylian",
         "narration": "Mais la somme est *énorme* par rapport à ses revenus."
       },
       {
         "type": "loi",
         "source": "Lutte contre le blanchiment · en résumé",
         "texte": "L'agent doit *déclarer à TRACFIN* toute opération *suspectée* de venir d'activités criminelles.",
-        "narration": "Sophie doit le *déclarer à TRACFIN*. C'est la lutte anti-*blanchiment*."
+        "narration": "Keylian doit le *déclarer à TRACFIN*. C'est la lutte anti-*blanchiment*."
       },
       {
         "type": "document",
@@ -1130,12 +1132,12 @@
     "contenu": "Ta maison ne se vend pas. Tu peux *attaquer* ton agent ? Pas si vite.",
     "reponse": "*Civile* = réparer (dommages et intérêts) · *pénale* = sanctionner (amende, prison)\nContractuelle : envers le *client* · extracontractuelle : envers un *tiers*\nObligation de *moyens* : faire de son mieux pour vendre, sans garantie\nObligation de *résultat* : rédaction d'actes et devoir de conseil\nSanction possible : interdiction d'exercer et *retrait de la carte*",
     "personnages": {
-      "sophie": {
-        "nom": "Sophie",
-        "role": "agente",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
         "cheveux": "#1c1917",
         "accessoire": "badge"
       },
@@ -1167,14 +1169,14 @@
             "x": 28,
             "emotion": "fache"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "triste"
           }
         },
         "parle": "martin",
         "bulle": "C'est votre faute !",
-        "narration": "Il veut attaquer Sophie. Mais elle a fait *son maximum*."
+        "narration": "Il veut attaquer Keylian. Mais Keylian a fait *son maximum*."
       },
       {
         "type": "versus",
@@ -1206,17 +1208,17 @@
           "*Prêt : 500 000 € (erreur)*"
         ],
         "tampon": "ERREUR",
-        "narration": "Mais si elle rédige un compromis avec une *clause fausse*…"
+        "narration": "Mais s'il rédige un compromis avec une *clause fausse*…"
       },
       {
         "decor": "agence",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 50,
             "emotion": "pleure"
           }
         },
-        "gros_plan": "sophie",
+        "gros_plan": "keylian",
         "narration": "…là, c'est une obligation de *résultat*. Sa responsabilité est *engagée*."
       },
       {
@@ -1421,6 +1423,15 @@
     "contenu": "Entre la pancarte *À vendre* et la remise des clés, il y a *5 étapes*. Tu les connais ?",
     "reponse": "1. *Mandat écrit* signé avec l'agence (loi Hoguet)\n2. Visite puis *offre d'achat*\n3. *Compromis de vente* : *10 jours* de rétractation\n4. *Prêt accordé* = condition suspensive levée\n5. *Acte authentique* chez le notaire : remise des clés",
     "personnages": {
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
       "martin": {
         "nom": "M. Martin",
         "style": "homme",
@@ -1429,15 +1440,6 @@
         "cheveux": "#57534e",
         "accessoire": "moustache",
         "role": "vendeur"
-      },
-      "sophie": {
-        "nom": "Sophie",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
-        "cheveux": "#1c1917",
-        "accessoire": "badge",
-        "role": "agente"
       },
       "lea": {
         "nom": "Léa",
@@ -1495,13 +1497,13 @@
             "x": 28,
             "emotion": "neutre"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
         },
-        "parle": "sophie",
-        "bulle": "Bonjour ! Je suis Sophie.",
+        "parle": "keylian",
+        "bulle": "Bonjour ! Je suis Keylian.",
         "narration": "Alors il pousse la porte d'une *agence immobilière*."
       },
       {
@@ -1528,18 +1530,18 @@
           "*Honoraires : 5 % TTC*"
         ],
         "tampon": "SIGNÉ",
-        "narration": "Sophie lui fait signer un *mandat écrit*."
+        "narration": "Keylian lui fait signer un *mandat écrit*."
       },
       {
         "type": "loi",
         "source": "Loi Hoguet du 2 janvier 1970 · en résumé",
         "texte": "Sans *mandat écrit*, l'agent immobilier ne peut percevoir *aucune rémunération*.",
-        "narration": "Sans ce papier, Sophie ne toucherait *pas un euro*. C'est la *loi Hoguet*."
+        "narration": "Sans ce papier, Keylian ne toucherait *pas un euro*. C'est la *loi Hoguet*."
       },
       {
         "decor": "rue",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 25,
             "emotion": "content"
           },
@@ -1553,7 +1555,7 @@
       {
         "decor": "rue",
         "persos": {
-          "sophie": {
+          "keylian": {
             "x": 25,
             "emotion": "content"
           },
@@ -1593,7 +1595,7 @@
             "x": 50,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 80,
             "emotion": "neutre"
           }
@@ -1952,16 +1954,17 @@
     "chap": "transaction-2",
     "chapitre": "Ch. 2 · L'agence immobilière",
     "titre": "Seul ou en réseau : comment s'organiser ?",
-    "contenu": "Karim a sa *carte pro*. Maintenant, il doit choisir : se lancer *seul*, ou *avec d'autres* ?",
+    "contenu": "Keylian a sa *carte pro*. Maintenant, il doit choisir : se lancer *seul*, ou *avec d'autres* ?",
     "reponse": "*Agence indépendante* : seule, constitue seule son portefeuille · un interlocuteur unique\n*Succursales* (commerce intégré) : même enseigne, directeurs *salariés du groupe* · déclaration préalable à la *CCI* du siège\n*Délégation de mandat* : une agence autorise une autre à vendre son bien\n*Fichier commun* (AMEPI, Agences Réunies) : mandats partagés, *commission partagée*\nLe choix : *indépendance, notoriété, coûts*",
     "personnages": {
-      "karim": {
-        "nom": "Karim",
+      "keylian": {
+        "nom": "Keylian",
         "role": "agent immobilier",
         "style": "homme",
         "couleur": "#0ea5e9",
         "peau": "#c68642",
-        "cheveux": "#1c1917"
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
       },
       "lea": {
         "nom": "Léa",
@@ -1985,7 +1988,7 @@
       {
         "decor": "rue",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
@@ -1994,29 +1997,29 @@
           "emoji": "🪪",
           "texte": "Carte T"
         },
-        "narration": "Voici Karim. Il a enfin sa *carte professionnelle*."
+        "narration": "Voici Keylian. Il a enfin sa *carte professionnelle*."
       },
       {
         "decor": "rue",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "surpris"
           }
         },
-        "gros_plan": "karim",
+        "gros_plan": "keylian",
         "narration": "Mais une question l'empêche de dormir : *seul*, ou *en réseau* ?"
       },
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
         },
-        "parle": "karim",
-        "bulle": "Immobilière Karim !",
+        "parle": "keylian",
+        "bulle": "Immobilière Keylian !",
         "narration": "Option 1 : l'*agence indépendante*. Il gère *seul* tous ses clients."
       },
       {
@@ -2057,7 +2060,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "karim": {
+          "keylian": {
             "x": 72,
             "emotion": "triste"
           }
@@ -2066,7 +2069,7 @@
           "emoji": "📄",
           "texte": "Mandat"
         },
-        "narration": "Problème : Karim a un mandat, mais *aucun acheteur*."
+        "narration": "Problème : Keylian a un mandat, mais *aucun acheteur*."
       },
       {
         "decor": "agence",
@@ -2075,7 +2078,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "karim": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
@@ -2146,25 +2149,26 @@
     "contenu": "Trois façons d'entrer dans un *réseau*. Laquelle choisirais-tu ?",
     "reponse": "*Franchise* : marque + savoir-faire contre *droit d'entrée* et *redevance* · fonds de commerce cédable · moins d'autonomie\n*Coopératif* : indépendants *membres et actionnaires* · *GIE* (ORPI) ou *société coopérative à capital variable* (L'ADRESSE)\n*Mandataires* : *agents commerciaux* chez eux · pas de coûts fixes · payés *à la commission*\n*Syndicats* : FNAIM, SNPI, UNIS (défense de la profession)",
     "personnages": {
-      "karim": {
-        "nom": "Karim",
+      "keylian": {
+        "nom": "Keylian",
         "role": "agent immobilier",
         "style": "homme",
         "couleur": "#0ea5e9",
         "peau": "#c68642",
-        "cheveux": "#1c1917"
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
       }
     },
     "scenes": [
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "neutre"
           }
         },
-        "narration": "Karim veut une *marque connue*. Trois réseaux s'offrent à lui."
+        "narration": "Keylian veut une *marque connue*. Trois réseaux s'offrent à lui."
       },
       {
         "type": "document",
@@ -2180,12 +2184,12 @@
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "rougit"
           }
         },
-        "gros_plan": "karim",
+        "gros_plan": "keylian",
         "objet": {
           "emoji": "💸",
           "texte": "Redevance"
@@ -2219,7 +2223,7 @@
       {
         "decor": "appartement",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
@@ -2305,12 +2309,12 @@
     "contenu": "Léa dit qu'elle veut « juste un logement ». C'est *faux*. Et un bon agent le sait.",
     "reponse": "*Besoin* : sentiment de *manque* (Kotler et Dubois) · hiérarchie de *Maslow*\n*Désir* : le besoin associé à *un bien précis* · désirs illimités\n*Demande* = désir + *pouvoir d'achat* + *vouloir d'achat*\n*Motivation* : pousse à acheter · *Frein* : empêche d'acheter, à *lever*\n4 environnements : économique/social/démographique, institutionnel, technologique, socioculturel",
     "personnages": {
-      "sophie": {
-        "nom": "Sophie",
-        "role": "agente",
-        "style": "femme",
-        "couleur": "#10b981",
-        "peau": "#8d5524",
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
         "cheveux": "#1c1917",
         "accessoire": "badge"
       },
@@ -2331,14 +2335,14 @@
             "x": 28,
             "emotion": "neutre"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
         },
         "parle": "lea",
         "bulle": "Je cherche à me loger.",
-        "narration": "Léa entre dans l'agence de Sophie."
+        "narration": "Léa entre dans l'agence de Keylian."
       },
       {
         "type": "loi",
@@ -2353,7 +2357,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "neutre"
           }
@@ -2395,7 +2399,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
@@ -2404,7 +2408,7 @@
           "emoji": "✅",
           "texte": "Financement OK"
         },
-        "narration": "Sophie sait maintenant qu'elle a une *vraie acquéreuse*, pas une curieuse."
+        "narration": "Keylian sait maintenant qu'il a une *vraie acquéreuse*, pas une curieuse."
       },
       {
         "type": "versus",
@@ -2424,7 +2428,7 @@
             "Peur de mal choisir"
           ]
         },
-        "narration": "Pendant la visite, elle active les *motivations*… et elle *lève les freins*."
+        "narration": "Pendant la visite, il active les *motivations*… et il *lève les freins*."
       },
       {
         "decor": "appartement",
@@ -2433,14 +2437,14 @@
             "x": 28,
             "emotion": "surpris"
           },
-          "sophie": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
         },
-        "parle": "sophie",
+        "parle": "keylian",
         "bulle": "Parfait pour télétravailler !",
-        "narration": "Léa télétravaille ? Sophie lui montre le *bureau en plus*."
+        "narration": "Léa télétravaille ? Keylian lui montre le *bureau en plus*."
       },
       {
         "type": "etapes",
@@ -2498,13 +2502,14 @@
     "contenu": "Un agent ne vend pas des maisons. Il vend un *service*. Et ça change *tout*.",
     "reponse": "*Plan de marchéage* : 4 leviers · *produit, prix, distribution, communication*\nLe service est *intangible* → le rendre tangible : photos, plans, fiches\n5 spécificités : *intangible, non stockable, simultanéité production/consommation, participation du client, non protégé*\nBien entrer les mandats : *adéquation bien / estimation*\nBut final : *fidéliser* et le *bouche-à-oreille*",
     "personnages": {
-      "karim": {
-        "nom": "Karim",
+      "keylian": {
+        "nom": "Keylian",
         "role": "agent immobilier",
         "style": "homme",
         "couleur": "#0ea5e9",
         "peau": "#c68642",
-        "cheveux": "#1c1917"
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
       },
       "lea": {
         "nom": "Léa",
@@ -2519,13 +2524,13 @@
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "surpris"
           }
         },
-        "gros_plan": "karim",
-        "narration": "Karim se pose une question bizarre : qu'est-ce que je *vends*, au juste ?"
+        "gros_plan": "keylian",
+        "narration": "Keylian se pose une question bizarre : qu'est-ce que je *vends*, au juste ?"
       },
       {
         "type": "loi",
@@ -2561,7 +2566,7 @@
       {
         "decor": "agence",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 50,
             "emotion": "content"
           }
@@ -2570,7 +2575,7 @@
           "emoji": "📸",
           "texte": "Photos + plans"
         },
-        "narration": "Alors Karim le rend *visible* : photos, plans, fiches techniques."
+        "narration": "Alors Keylian le rend *visible* : photos, plans, fiches techniques."
       },
       {
         "type": "etapes",
@@ -2592,14 +2597,14 @@
             "x": 28,
             "emotion": "content"
           },
-          "karim": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
         },
         "parle": "lea",
         "bulle": "Merci, vous êtes top !",
-        "narration": "Donc Karim est *rapide*, *fiable*, *disponible*. Et il se distingue par sa *compétence*."
+        "narration": "Donc Keylian est *rapide*, *fiable*, *disponible*. Et il se distingue par sa *compétence*."
       },
       {
         "type": "chiffre",
@@ -2648,16 +2653,17 @@
     "chap": "transaction-2",
     "chapitre": "Ch. 2 · L'agence immobilière",
     "titre": "Salarié ou agent commercial ? Les 3 statuts",
-    "contenu": "Karim recrute. Nina sera *salariée*, Théo *agent commercial*. Ça change *quoi* ?",
+    "contenu": "Keylian recrute. Nina sera *salariée*, Théo *agent commercial*. Ça change *quoi* ?",
     "reponse": "*Salarié non VRP* : contrat de travail (CCNI), subordination, horaires réglementés, minimum *SMIC*, congés payés\n*Salarié VRP* : contrat de travail, *secteur géographique*, temps libre d'organisation, minimum fixé par la convention\n*Agent commercial* : *contrat de mandat*, *code de commerce*, *aucune subordination*, 100 % commissions, pas de congés payés\nTous : sous la *carte pro de l'agent* + *attestation d'habilitation* (art. 9)",
     "personnages": {
-      "karim": {
-        "nom": "Karim",
+      "keylian": {
+        "nom": "Keylian",
         "role": "agent immobilier",
         "style": "homme",
         "couleur": "#0ea5e9",
         "peau": "#c68642",
-        "cheveux": "#1c1917"
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
       },
       "nina": {
         "nom": "Nina",
@@ -2694,14 +2700,14 @@
             "x": 28,
             "emotion": "content"
           },
-          "karim": {
+          "keylian": {
             "x": 72,
             "emotion": "content"
           }
         },
-        "parle": "karim",
+        "parle": "keylian",
         "bulle": "Bienvenue Nina !",
-        "narration": "L'agence de Karim marche bien. Il recrute *Nina*."
+        "narration": "L'agence de Keylian marche bien. Il recrute *Nina*."
       },
       {
         "type": "document",
@@ -2712,7 +2718,7 @@
           "Salaire minimum : SMIC · congés payés"
         ],
         "tampon": "SALARIÉE",
-        "narration": "Nina est *salariée*. Il y a un *lien de subordination* : Karim est son patron."
+        "narration": "Nina est *salariée*. Il y a un *lien de subordination* : Keylian est son patron."
       },
       {
         "type": "versus",
@@ -2741,7 +2747,7 @@
             "x": 28,
             "emotion": "content"
           },
-          "karim": {
+          "keylian": {
             "x": 72,
             "emotion": "neutre"
           }
@@ -2767,7 +2773,7 @@
             "x": 28,
             "emotion": "triste"
           },
-          "karim": {
+          "keylian": {
             "x": 72,
             "emotion": "neutre"
           }
@@ -2787,7 +2793,7 @@
       {
         "decor": "cci",
         "persos": {
-          "karim": {
+          "keylian": {
             "x": 30,
             "emotion": "content"
           },
@@ -2800,7 +2806,7 @@
           "emoji": "🪪",
           "texte": "Attestation"
         },
-        "narration": "Elle est *visée par la CCI*, puis remise par Karim. Ils travaillent sous *sa carte*."
+        "narration": "Elle est *visée par la CCI*, puis remise par Keylian. Ils travaillent sous *sa carte*."
       }
     ],
     "quiz": [
@@ -2846,6 +2852,15 @@
     "contenu": "Théo pensait être libre. Il est *indépendant*… mais il a *4 obligations*.",
     "reponse": "Inscription au *RSAC* (greffe du tribunal de commerce)\n*Assurance RCP* propre\n*Compte bancaire dédié*\n*42 h* de formation sur 3 ans, dont *2 h déontologie* et *2 h non-discrimination*\nMicro-entrepreneur jusqu'à *83 600 €/an* (sorti après 2 ans de dépassement) · TVA au-delà de *37 500 €* (41 250 € majoré)\nRégime social : URSSAF · impôt : *BNC*",
     "personnages": {
+      "keylian": {
+        "nom": "Keylian",
+        "role": "agent immobilier",
+        "style": "homme",
+        "couleur": "#0ea5e9",
+        "peau": "#c68642",
+        "cheveux": "#1c1917",
+        "accessoire": "badge"
+      },
       "theo": {
         "nom": "Théo",
         "role": "négociateur",
@@ -2854,14 +2869,6 @@
         "peau": "#f1c27d",
         "cheveux": "#92400e",
         "accessoire": "cravate"
-      },
-      "karim": {
-        "nom": "Karim",
-        "role": "agent immobilier",
-        "style": "homme",
-        "couleur": "#0ea5e9",
-        "peau": "#c68642",
-        "cheveux": "#1c1917"
       }
     },
     "scenes": [

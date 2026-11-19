@@ -188,6 +188,7 @@ Fichiers : `index.html`, `style.css`, `app.js` (fil, filtres, mélange), `video.
 **En ligne** : https://raimikeyliansossa-jpg.github.io/revision-immo/
 (dépôt `raimikeyliansossa-jpg/revision-immo`, branche `claude/tiktok-bts-revision-app-833uf4`)
 
+**Personnage principal (19/11/2026)** : dans toutes les vidéos, le héros (l'agent immobilier) s'appelle **Keylian**, mon prénom, pour que je me sente dans la situation (ex. « Immobilière Keylian »). Prononcé « Kélian » par la voix. Les autres personnages (Léa, M. Martin, Sophie la collègue, Nina, Théo…) restent secondaires.
 **Navigation (19/11/2026)** : accueil = 5 matières → liste des chapitres (numéro, thème, état du planning de révision « Révisé R3/6 · prochaine révision le… », vidéos vues, note d'examen) → fil TikTok du chapitre (carte d'annonce + bouton ▶ jaune, vidéos, examen en situation). Le planning vient du doc « Suivi révisions immo » (tâches planifiées) via `planning.json`.
 **Transaction ch. 2 (19/11/2026)** : 6 vidéos (201 à 206 : formes d'agence, réseaux, besoin/désir/demande, mercatique des services, 3 statuts du négociateur, obligations de l'agent commercial) + examen 299 (10 situations). Voix Lily à générer au renouvellement du forfait (en attendant : voix du téléphone).
 **Voix** : clé ElevenLabs OK (enregistrée dans l'environnement « revision-immo »). Vidéos 101 à 105 générées avec Lily.

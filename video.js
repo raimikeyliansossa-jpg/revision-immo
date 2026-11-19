@@ -382,7 +382,7 @@ function parler(decoupage, surMorceau, piste) {
     const securite = setTimeout(terminer, avecVoix ? estime * 1.8 + 2000 : estime);
     if (!avecVoix) return;
 
-    const phrase = new SpeechSynthesisUtterance(voix);
+    const phrase = new SpeechSynthesisUtterance(voix.replace(/Keylian/g, "Kélian")); // prononciation du prénom
     phrase.lang = "fr-FR";
     phrase.rate = 1.1;
     const voixFr = speechSynthesis.getVoices().find((v) => v.lang.startsWith("fr"));

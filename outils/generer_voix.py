@@ -30,6 +30,7 @@ MODELE = "eleven_multilingual_v2"
 
 # Prononciation : ce que la voix doit dire à la place de ce qui est écrit
 PRONONCIATION = [
+    (r"\bKeylian\b", "Kélian"),
     (r"\bBTS PI\b", "B.T.S. P.I."),
     (r"\bCNTGI\b", "C.N.T.G.I."),
     (r"\bDGCCRF\b", "D.G.C.C.R.F."),
