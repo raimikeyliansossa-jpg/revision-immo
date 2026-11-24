@@ -119,6 +119,7 @@ export default function Home() {
               <Button className="mt-4 w-full" onClick={() => router.push(`/point?id=${running.id}`)} data-testid={`resume-${kind}`}>
                 Reprendre ▶︎
               </Button>
+              <CancelPoint point={running} onCancelled={load} className="mt-2 text-center" />
             </>
           ) : doneNow && current ? (
             <>
@@ -139,26 +140,9 @@ export default function Home() {
       )}
 
       {/* Les autres points commencés en avance : une simple ligne */}
-      {others.map((p) => {
-        const m = KIND_META[p.kind || "semaine"];
-        return (
-          <button
-            key={p.id}
-            onClick={() => router.push(`/point?id=${p.id}`)}
-            data-testid={`resume-${p.kind || "semaine"}`}
-            className="mb-2 flex w-full items-center gap-3 rounded-2xl border border-line bg-card px-4 py-3 text-left active:scale-[0.98]"
-          >
-            <span className="text-2xl">{m.emoji}</span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-sm font-semibold">{m.label}</span>
-              <span className="text-xs text-muted">
-                ⏳ Commencé en avance · étape {p.current_step + 1}/{p.steps.length}
-              </span>
-            </span>
-            <span className="text-sm font-semibold text-rose">Reprendre ›</span>
-          </button>
-        );
-      })}
+      {others.map((p) => (
+        <StartedLine key={p.id} point={p} onOpen={() => router.push(`/point?id=${p.id}`)} onCancelled={load} />
+      ))}
 
       <div className="mb-4 mt-3">
         <p className="mb-1.5 text-xs text-muted">Décalé ? Lancer un autre point :</p>
@@ -253,5 +237,63 @@ function InviteCard({ code }: { code: string }) {
         Partager l&apos;invitation
       </Button>
     </Card>
+  );
+}
+
+/** Petite ligne pour un point commencé en avance */
+function StartedLine({ point, onOpen, onCancelled }: { point: Point; onOpen: () => void; onCancelled: () => void }) {
+  const m = KIND_META[point.kind || "semaine"];
+  return (
+    <div className="mb-2 rounded-2xl border border-line bg-card px-4 py-3" data-testid={`line-${point.kind || "semaine"}`}>
+      <button onClick={onOpen} data-testid={`resume-${point.kind || "semaine"}`} className="flex w-full items-center gap-3 text-left active:scale-[0.98]">
+        <span className="text-2xl">{m.emoji}</span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-sm font-semibold">{m.label}</span>
+          <span className="text-xs text-muted">
+            ⏳ Commencé en avance · étape {point.current_step + 1}/{point.steps.length}
+          </span>
+        </span>
+        <span className="text-sm font-semibold text-rose">Reprendre ›</span>
+      </button>
+      <CancelPoint point={point} onCancelled={onCancelled} className="mt-1 pl-11" />
+    </div>
+  );
+}
+
+/** « Annuler ce point » : pour un point lancé par erreur */
+function CancelPoint({ point, onCancelled, className }: { point: Point; onCancelled: () => void; className?: string }) {
+  const { toast, hint } = useApp();
+  const [ask, setAsk] = useState(false);
+  const [busy, setBusy] = useState(false);
+  async function cancel() {
+    setBusy(true);
+    const { error } = await supabase().rpc("cancel_point", { p_point: point.id });
+    setBusy(false);
+    if (error) return toast(errMsg(error));
+    hint("points");
+    toast("Point annulé ↩️");
+    setAsk(false);
+    onCancelled();
+  }
+  if (!ask)
+    return (
+      <div className={className}>
+        <button onClick={() => setAsk(true)} className="text-xs text-muted underline" data-testid={`cancel-${point.kind || "semaine"}`}>
+          Annuler ce point (lancé par erreur)
+        </button>
+      </div>
+    );
+  return (
+    <div className={`${className || ""} rounded-2xl bg-cream p-3 text-left text-sm`} data-testid="confirm-cancel">
+      <p>Annuler ce point ? Ce que vous y avez écrit sera effacé. Vous pourrez le relancer le bon jour.</p>
+      <div className="mt-2 flex gap-2">
+        <Button variant="soft" className="flex-1" onClick={() => setAsk(false)}>
+          Garder
+        </Button>
+        <Button variant="danger" className="flex-1" onClick={cancel} disabled={busy} data-testid="confirm-cancel-yes">
+          Oui, annuler
+        </Button>
+      </div>
+    </div>
   );
 }
