@@ -5,13 +5,16 @@ import { useApp } from "@/components/Providers";
 import { Card, Empty, Page, PageHeader } from "@/components/ui";
 import { supabase } from "@/lib/supabase";
 import type { Answer, Point } from "@/lib/types";
-import { formatDate } from "@/lib/constants";
+import { KIND_META, formatDate } from "@/lib/constants";
+import { weeks, type Week } from "@/lib/bilan";
+import { periodTitle } from "@/components/point/BilanRecap";
 
 type Row = { point: Point; answers: Answer[]; avg: number | null };
 
 export default function EvolutionPage() {
   const { on } = useApp();
   const [rows, setRows] = useState<Row[]>([]);
+  const [ws, setWs] = useState<Week[]>([]);
 
   const load = useCallback(async () => {
     const sb = supabase();
@@ -19,11 +22,14 @@ export default function EvolutionPage() {
       sb.from("points").select("*").order("week_date", { ascending: false }),
       sb.from("point_answers").select("*"),
     ]);
+    const all = weeks({ points: p || [], answers: a || [], items: [], outings: [] });
+    setWs(all);
     setRows(
       (p || []).map((point: Point) => {
         const answers = (a || []).filter((x: Answer) => x.point_id === point.id);
-        const s = answers.map((x) => x.week_score).filter((v): v is number => v !== null);
-        return { point, answers, avg: s.length ? s.reduce((x, y) => x + y, 0) / s.length : null };
+        const sunday = point.kind === "semaine" || !point.kind ? point.week_date : point.covers_week;
+        const avg = sunday ? (all.find((w) => w.sunday === sunday)?.avg ?? null) : null;
+        return { point, answers, avg };
       }),
     );
   }, []);
@@ -34,18 +40,18 @@ export default function EvolutionPage() {
     return () => offs.forEach((o) => o());
   }, [load, on]);
 
-  const last8 = rows.filter((r) => r.avg !== null).slice(0, 8).reverse();
+  const last8 = ws.filter((w) => w.avg !== null).slice(-8);
 
   return (
     <Page>
       <PageHeader title="Notre évolution" emoji="📈" />
       <Card className="mb-5">
         <h2 className="text-lg font-semibold">Moyenne de nos notes de semaine</h2>
-        <p className="mb-2 text-xs text-muted">8 derniers points · touche un point pour voir le détail</p>
+        <p className="mb-2 text-xs text-muted">8 dernières semaines · moyenne de la 1re partie (mercredi) et de la 2e (dimanche)</p>
         {last8.length === 0 ? (
           <Empty emoji="📈">Le graphique apparaîtra après votre premier point.</Empty>
         ) : (
-          <LineChart data={last8.map((r) => ({ label: formatDate(r.point.week_date, { weekday: false }), value: r.avg! }))} />
+          <LineChart data={last8.map((w) => ({ label: formatDate(w.sunday, { weekday: false }), value: w.avg! }))} />
         )}
       </Card>
 
@@ -60,9 +66,11 @@ export default function EvolutionPage() {
                 href={r.point.status === "termine" ? `/points/${r.point.id}` : `/point?id=${r.point.id}`}
                 className="flex items-center gap-3 rounded-2xl border border-line bg-card p-3 active:scale-[0.98]"
               >
-                <span className="text-2xl">{r.answers.map((a) => a.mood || "🙂").join("")}</span>
+                <span className="text-2xl">
+                  {(r.point.kind || "semaine") === "semaine" ? r.answers.map((a) => a.mood || "🙂").join("") : KIND_META[r.point.kind].emoji}
+                </span>
                 <span className="flex-1">
-                  <span className="block font-medium">Dimanche {formatDate(r.point.week_date, { weekday: false, year: true })}</span>
+                  <span className="block font-medium">{periodTitle(r.point)}</span>
                   <span className="text-xs text-muted">{r.point.status === "termine" ? "✓ Terminé" : "⏳ En cours"}</span>
                 </span>
                 <span className="font-display text-xl font-semibold text-rose">

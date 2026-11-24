@@ -124,10 +124,10 @@ export default function ReglagesPage() {
           href="/api/rappel"
           className="rounded-2xl border border-line bg-cream p-3 text-center text-sm font-semibold text-rose"
         >
-          📅 Ajouter le rappel du dimanche 20 h à mon agenda
+          📅 Ajouter nos 4 rendez-vous à mon agenda
         </a>
         <p className="text-xs text-muted">
-          Le plus fiable : le rappel s&apos;ajoute à l&apos;agenda du téléphone (iPhone ou Samsung) et sonne chaque dimanche, même si les notifications de l&apos;app ne marchent pas.
+          Dimanche 20 h, mercredi 21 h, dernier jour du mois et fin de trimestre 21 h. Le plus fiable : ils s&apos;ajoutent à l&apos;agenda du téléphone (iPhone ou Samsung) et sonnent même si les notifications de l&apos;app ne marchent pas.
         </p>
       </Card>
 

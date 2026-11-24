@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { useApp } from "@/components/Providers";
 import { Button, Card, OnlineDot, Page, PhotoImg, fullName, nameOf } from "@/components/ui";
 import { supabase, errMsg } from "@/lib/supabase";
-import type { Outing, Point } from "@/lib/types";
-import { STEP_META, capitalize, formatDate, toIso, todayIso } from "@/lib/constants";
+import type { Outing, Point, PointKind } from "@/lib/types";
+import { KIND_META, STEP_META, capitalize, formatDate, todayIso } from "@/lib/constants";
+import { periodOf, suggestedKind } from "@/lib/bilan";
 
 const TILES = [
   { href: "/outfits", emoji: "👗", title: "Outfit", sub: "Poster ma tenue" },
@@ -21,14 +22,14 @@ const TILES = [
 export default function Home() {
   const { me, partner, couple, pointsDone, on, toast, hint } = useApp();
   const router = useRouter();
-  const [latest, setLatest] = useState<Point | null>(null);
+  const [points, setPoints] = useState<Point[] | null>(null);
   const [nextOuting, setNextOuting] = useState<Outing | null>(null);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     const sb = supabase();
     const [{ data: p }, { data: o }] = await Promise.all([
-      sb.from("points").select("*").order("week_date", { ascending: false }).limit(1).maybeSingle(),
+      sb.from("points").select("*").order("week_date", { ascending: false }),
       sb
         .from("outings")
         .select("*")
@@ -39,7 +40,7 @@ export default function Home() {
         .limit(1)
         .maybeSingle(),
     ]);
-    setLatest(p);
+    setPoints(p || []);
     setNextOuting(o);
   }, []);
 
@@ -49,22 +50,20 @@ export default function Home() {
     return () => offs.forEach((o) => o());
   }, [load, on]);
 
-  async function startPoint() {
+  async function startPoint(kind: PointKind) {
     setBusy(true);
-    const { data, error } = await supabase().rpc("start_point");
+    const { data, error } = await supabase().rpc("start_point", { p_kind: kind });
     setBusy(false);
     if (error) return toast(errMsg(error));
     hint("points");
     router.push(`/point?id=${data.id}`);
   }
 
-  const inProgress = latest?.status === "en_cours";
-  const sunday = (() => {
-    const d = new Date();
-    d.setDate(d.getDate() + ((7 - d.getDay()) % 7));
-    return toIso(d);
-  })();
-  const doneThisWeek = latest?.status === "termine" && latest.week_date === sunday;
+  const kind = suggestedKind(points || []);
+  const meta = KIND_META[kind];
+  const inProgress = (points || []).filter((p) => p.status === "en_cours");
+  const current = (points || []).find((p) => (p.kind || "semaine") === kind && p.week_date === periodOf(kind));
+  const doneNow = current?.status === "termine";
 
   return (
     <Page>
@@ -102,35 +101,68 @@ export default function Home() {
 
       {!partner && couple && <InviteCard code={couple.invite_code} />}
 
-      {/* Le point du dimanche */}
-      <Card className="mb-4 bg-gradient-to-br from-rose-soft to-peach-soft p-5">
-        <p className="text-sm font-medium text-rose">Dimanche soir 🌙</p>
-        <h2 className="mt-1 text-2xl font-semibold">Notre point du dimanche</h2>
-        {inProgress && latest ? (
-          <>
-            <p className="mt-1 text-sm text-muted">
-              En cours : {STEP_META[latest.steps[latest.current_step]].emoji} étape {latest.current_step + 1}/{latest.steps.length}
+      {/* Nos points */}
+      {inProgress.map((p) => {
+        const m = KIND_META[p.kind || "semaine"];
+        return (
+          <Card key={p.id} className="mb-3 border-2 border-rose/40 p-4">
+            <p className="text-sm font-medium text-rose">⏳ En cours</p>
+            <h2 className="text-xl font-semibold">
+              {m.emoji} {m.label}
+            </h2>
+            <p className="text-sm text-muted">
+              {STEP_META[p.steps[p.current_step]]?.emoji} étape {p.current_step + 1}/{p.steps.length}
             </p>
-            <Button className="mt-4 w-full" onClick={() => router.push(`/point?id=${latest.id}`)}>
-              Reprendre notre point ▶︎
+            <Button className="mt-3 w-full" onClick={() => router.push(`/point?id=${p.id}`)} data-testid={`resume-${p.kind || "semaine"}`}>
+              Reprendre ▶︎
             </Button>
-          </>
-        ) : doneThisWeek && latest ? (
-          <>
-            <p className="mt-1 text-sm text-muted">C&apos;est fait pour cette semaine ✓ Bravo à vous deux 🥰</p>
-            <Button variant="soft" className="mt-4 w-full" onClick={() => router.push(`/points/${latest.id}`)}>
-              Revoir le récap 📝
-            </Button>
-          </>
-        ) : (
-          <>
-            <p className="mt-1 text-sm text-muted">Lancez-le ensemble pendant votre FaceTime 📱💞📱</p>
-            <Button className="mt-4 w-full" onClick={startPoint} disabled={busy || !partner}>
-              {busy ? "On prépare…" : "Commencer notre point ✨"}
-            </Button>
-          </>
-        )}
-      </Card>
+          </Card>
+        );
+      })}
+      {points && !inProgress.some((p) => (p.kind || "semaine") === kind) && (
+        <Card className="mb-3 bg-gradient-to-br from-rose-soft to-peach-soft p-5" data-testid="main-point">
+          <p className="text-sm font-medium text-rose">{meta.when} 🌙</p>
+          <h2 className="mt-1 text-2xl font-semibold">
+            {meta.emoji} {meta.label}
+          </h2>
+          {doneNow && current ? (
+            <>
+              <p className="mt-1 text-sm text-muted">C&apos;est fait ✓ Bravo à vous deux 🥰</p>
+              <Button variant="soft" className="mt-4 w-full" onClick={() => router.push(`/points/${current.id}`)}>
+                Revoir le récap 📝
+              </Button>
+            </>
+          ) : (
+            <>
+              <p className="mt-1 text-sm text-muted">{meta.desc}</p>
+              <Button className="mt-4 w-full" onClick={() => startPoint(kind)} disabled={busy || !partner} data-testid="start-point">
+                {busy ? "On prépare…" : "Commencer ✨"}
+              </Button>
+            </>
+          )}
+        </Card>
+      )}
+      <div className="mb-4">
+        <p className="mb-1.5 text-xs text-muted">Décalé ? Lancer un autre point :</p>
+        <div className="grid grid-cols-2 gap-1.5">
+          {(Object.keys(KIND_META) as PointKind[]).map((k) => (
+            <button
+              key={k}
+              onClick={() => {
+                const running = inProgress.find((p) => (p.kind || "semaine") === k);
+                if (running) router.push(`/point?id=${running.id}`);
+                else startPoint(k);
+              }}
+              disabled={busy || !partner}
+              data-testid={`start-${k}`}
+              className="flex items-center gap-2 rounded-2xl border border-line bg-card px-3 py-2 text-left text-sm font-medium active:scale-95 disabled:opacity-50"
+            >
+              <span className="text-lg">{KIND_META[k].emoji}</span>
+              {KIND_META[k].short}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {nextOuting && (
         <Card className="mb-4 flex items-center gap-3">

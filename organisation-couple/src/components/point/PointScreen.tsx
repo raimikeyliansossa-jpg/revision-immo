@@ -3,7 +3,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase, errMsg } from "@/lib/supabase";
 import type { Answer, AnswerField, Point, Profile } from "@/lib/types";
-import { PART_META, STEP_META } from "@/lib/constants";
+import { KIND_META, PART_META, STEP_META } from "@/lib/constants";
+import type { History } from "@/lib/bilan";
 import { useApp, useBroadcastField, useDebouncedSave, useTyping } from "../Providers";
 import { Button, OnlineDot, Page, SaveBadge, cx, nameOf } from "../ui";
 import { StepBody } from "./steps";
@@ -17,6 +18,8 @@ export type PointCtx = {
   prev: { mine: Answer | null; theirs: Answer | null; exists: boolean };
   setMine: (field: AnswerField, value: Answer[AnswerField]) => void;
   partnerTyping: string | null;
+  /** Tout l'historique du couple (pour les bilans et les rappels) */
+  hist: History | null;
 };
 
 export function PointScreen({ pointId }: { pointId: string | null }) {
@@ -28,6 +31,7 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
   const [point, setPoint] = useState<Point | null>(null);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [prev, setPrev] = useState<PointCtx["prev"]>({ mine: null, theirs: null, exists: false });
+  const [hist, setHist] = useState<History | null>(null);
   const [edits, setEdits] = useState<Partial<Answer>>({});
   const [error, setError] = useState<string | null>(null);
   const [readyBusy, setReadyBusy] = useState(false);
@@ -43,7 +47,7 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
       const { data } = await sb.from("points").select("*").eq("id", pointId).maybeSingle();
       p = data;
     } else {
-      const { data, error } = await sb.rpc("start_point");
+      const { data, error } = await sb.rpc("start_point", { p_kind: "semaine" });
       if (error) return setError(errMsg(error));
       p = data;
     }
@@ -51,10 +55,11 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
     setPoint(p);
     const { data: ans } = await sb.from("point_answers").select("*").eq("point_id", p.id);
     setAnswers(Object.fromEntries((ans || []).map((a: Answer) => [a.user_id, a])));
-    // point précédent (pour la relecture)
+    // point du dimanche précédent (pour la relecture et les rappels)
     const { data: prevPoint } = await sb
       .from("points")
       .select("id")
+      .eq("kind", "semaine")
       .lt("week_date", p.week_date)
       .order("week_date", { ascending: false })
       .limit(1)
@@ -72,6 +77,30 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
   useEffect(() => {
     load();
   }, [load]);
+
+  // Historique complet du couple (petit : 2 personnes), rechargé à chaque changement
+  const loadHist = useCallback(async () => {
+    const [{ data: points }, { data: answers }, { data: items }, { data: outings }] = await Promise.all([
+      sb.from("points").select("*"),
+      sb.from("point_answers").select("*"),
+      sb.from("point_items").select("*").order("created_at"),
+      sb.from("outings").select("*"),
+    ]);
+    setHist({ points: points || [], answers: answers || [], items: items || [], outings: outings || [] });
+  }, [sb]);
+  useEffect(() => {
+    loadHist();
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const later = () => {
+      clearTimeout(t);
+      t = setTimeout(loadHist, 400);
+    };
+    const offs = ["db:points", "db:point_answers", "db:point_items", "db:outings", "resync"].map((e) => on(e, later));
+    return () => {
+      clearTimeout(t);
+      offs.forEach((o) => o());
+    };
+  }, [loadHist, on]);
 
   // ---------- Temps réel ----------
   // Quand l'étape change, les anciens « Prêt » ne comptent plus
@@ -143,8 +172,8 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
     const base = answers[me.id];
     const theirs = answers[partner.id];
     if (!base || !theirs) return null;
-    return { point, me, partner, mine: { ...base, ...edits }, theirs, prev, setMine, partnerTyping };
-  }, [point, me, partner, answers, edits, prev, setMine, partnerTyping]);
+    return { point, me, partner, mine: { ...base, ...edits }, theirs, prev, setMine, partnerTyping, hist };
+  }, [point, me, partner, answers, edits, prev, setMine, partnerTyping, hist]);
 
   if (error)
     return (
@@ -204,9 +233,14 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
           >
             ‹
           </button>
-          <div className="flex flex-1 items-center gap-1.5 text-xs text-muted">
-            <OnlineDot userId={ctx.partner.id} />
-            {nameOf(ctx.partner)} {partnerOnline ? "est là" : "n'est pas connecté·e"}
+          <div className="min-w-0 flex-1 text-xs text-muted">
+            <p className="truncate font-semibold text-ink" data-testid="point-kind">
+              {KIND_META[ctx.point.kind || "semaine"].emoji} {KIND_META[ctx.point.kind || "semaine"].label}
+            </p>
+            <p className="flex items-center gap-1.5">
+              <OnlineDot userId={ctx.partner.id} />
+              {nameOf(ctx.partner)} {partnerOnline ? "est là" : "n'est pas connecté·e"}
+            </p>
           </div>
           <SaveBadge />
         </div>
@@ -231,18 +265,32 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
       <div key={ctx.point.current_step} className={dir === "fwd" ? "step-in" : "step-in-back"}>
         <div className="mb-4 mt-2">
           {ctx.point.current_step > 0 &&
-            STEP_META[ctx.point.steps[ctx.point.current_step - 1]].part === "perso" &&
+            STEP_META[ctx.point.steps[ctx.point.current_step - 1]].part !== "couple" &&
             meta.part === "couple" && (
               <div className="pop mb-3 rounded-3xl bg-gradient-to-br from-rose-soft to-peach-soft p-4 text-center">
                 <p className="font-display text-xl font-semibold">💑 Place au couple</p>
-                <p className="text-sm text-muted">Le perso, c&apos;est fait. On parle de nous deux maintenant.</p>
+                <p className="text-sm text-muted">On parle de nous deux maintenant.</p>
+              </div>
+            )}
+          {ctx.point.current_step > 0 &&
+            STEP_META[ctx.point.steps[ctx.point.current_step - 1]].part === "synthese" &&
+            meta.part === "perso" && (
+              <div className="pop mb-3 rounded-3xl bg-gradient-to-br from-peach-soft to-rose-soft p-4 text-center">
+                <p className="font-display text-xl font-semibold">💬 Place aux questions</p>
+                <p className="text-sm text-muted">On a tout vu. À vous de répondre maintenant.</p>
               </div>
             )}
           <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted">
             <span
               className={cx(
                 "rounded-full px-2.5 py-1 normal-case tracking-normal",
-                meta.part === "perso" ? "bg-peach-soft text-ink" : meta.part === "couple" ? "bg-rose-soft text-rose" : "bg-line text-ink",
+                meta.part === "perso"
+                  ? "bg-peach-soft text-ink"
+                  : meta.part === "couple"
+                    ? "bg-rose-soft text-rose"
+                    : meta.part === "synthese"
+                      ? "bg-ink text-cream"
+                      : "bg-line text-ink",
               )}
               data-testid="step-part"
             >
