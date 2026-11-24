@@ -6,7 +6,7 @@ import { useApp } from "@/components/Providers";
 import { Button, Card, OnlineDot, Page, PhotoImg, fullName, nameOf } from "@/components/ui";
 import { supabase, errMsg } from "@/lib/supabase";
 import type { Outing, Point, PointKind } from "@/lib/types";
-import { KIND_META, STEP_META, capitalize, formatDate, todayIso } from "@/lib/constants";
+import { KIND_META, KIND_STYLE, STEP_META, capitalize, formatDate, todayIso } from "@/lib/constants";
 import { periodOf, suggestedKind } from "@/lib/bilan";
 
 const TILES = [
@@ -106,8 +106,8 @@ export default function Home() {
 
       {/* Nos points : une seule grande carte, celle du jour */}
       {points && (
-        <Card className="mb-3 bg-gradient-to-br from-rose-soft to-peach-soft p-5" data-testid="main-point">
-          <p className="text-sm font-medium text-rose">{running ? "⏳ En cours" : `${meta.when} 🌙`}</p>
+        <Card className={`mb-3 border-2 p-5 ${KIND_STYLE[kind].card} ${KIND_STYLE[kind].border}`} data-testid="main-point">
+          <p className={`text-sm font-medium ${KIND_STYLE[kind].text}`}>{running ? "⏳ En cours" : `${meta.when} 🌙`}</p>
           <h2 className="mt-1 text-2xl font-semibold">
             {meta.emoji} {meta.label}
           </h2>
@@ -116,7 +116,7 @@ export default function Home() {
               <p className="mt-1 text-sm text-muted">
                 {STEP_META[running.steps[running.current_step]]?.emoji} étape {running.current_step + 1}/{running.steps.length}
               </p>
-              <Button className="mt-4 w-full" onClick={() => router.push(`/point?id=${running.id}`)} data-testid={`resume-${kind}`}>
+              <Button className={`mt-4 w-full ${KIND_STYLE[kind].btn}`} onClick={() => router.push(`/point?id=${running.id}`)} data-testid={`resume-${kind}`}>
                 Reprendre ▶︎
               </Button>
               <CancelPoint point={running} onCancelled={load} className="mt-2 text-center" />
@@ -131,7 +131,7 @@ export default function Home() {
           ) : (
             <>
               <p className="mt-1 text-sm text-muted">{meta.desc}</p>
-              <Button className="mt-4 w-full" onClick={() => startPoint(kind)} disabled={busy || !partner} data-testid="start-point">
+              <Button className={`mt-4 w-full ${KIND_STYLE[kind].btn}`} onClick={() => startPoint(kind)} disabled={busy || !partner} data-testid="start-point">
                 {busy ? "On prépare…" : "Commencer ✨"}
               </Button>
             </>
@@ -159,7 +159,7 @@ export default function Home() {
                 }}
                 disabled={busy || !partner}
                 data-testid={`start-${k}`}
-                className="flex items-center gap-2 rounded-2xl border border-line bg-card px-3 py-2 text-left text-sm font-medium active:scale-95 disabled:opacity-50"
+                className={`flex items-center gap-2 rounded-2xl border px-3 py-2 text-left text-sm font-medium active:scale-95 disabled:opacity-50 ${KIND_STYLE[k].soft} ${KIND_STYLE[k].border}`}
               >
                 <span className="text-lg">{KIND_META[k].emoji}</span>
                 {KIND_META[k].short}
@@ -243,8 +243,9 @@ function InviteCard({ code }: { code: string }) {
 /** Petite ligne pour un point commencé en avance */
 function StartedLine({ point, onOpen, onCancelled }: { point: Point; onOpen: () => void; onCancelled: () => void }) {
   const m = KIND_META[point.kind || "semaine"];
+  const st = KIND_STYLE[point.kind || "semaine"];
   return (
-    <div className="mb-2 rounded-2xl border border-line bg-card px-4 py-3" data-testid={`line-${point.kind || "semaine"}`}>
+    <div className={`mb-2 rounded-2xl border-2 px-4 py-3 ${st.soft} ${st.border}`} data-testid={`line-${point.kind || "semaine"}`}>
       <button onClick={onOpen} data-testid={`resume-${point.kind || "semaine"}`} className="flex w-full items-center gap-3 text-left active:scale-[0.98]">
         <span className="text-2xl">{m.emoji}</span>
         <span className="min-w-0 flex-1">
@@ -253,9 +254,9 @@ function StartedLine({ point, onOpen, onCancelled }: { point: Point; onOpen: () 
             ⏳ Commencé en avance · étape {point.current_step + 1}/{point.steps.length}
           </span>
         </span>
-        <span className="text-sm font-semibold text-rose">Reprendre ›</span>
+        <span className={`text-sm font-semibold ${st.text}`}>Reprendre ›</span>
       </button>
-      <CancelPoint point={point} onCancelled={onCancelled} className="mt-1 pl-11" />
+      <CancelPoint point={point} onCancelled={onCancelled} className="mt-1 pl-11 text-left" />
     </div>
   );
 }
@@ -279,7 +280,7 @@ function CancelPoint({ point, onCancelled, className }: { point: Point; onCancel
     return (
       <div className={className}>
         <button onClick={() => setAsk(true)} className="text-xs text-muted underline" data-testid={`cancel-${point.kind || "semaine"}`}>
-          Annuler ce point (lancé par erreur)
+          Lancé par erreur ? Annuler
         </button>
       </div>
     );

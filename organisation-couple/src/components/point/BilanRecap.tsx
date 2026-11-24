@@ -1,6 +1,6 @@
 "use client";
 import type { Answer, Point, PointItem, Profile } from "@/lib/types";
-import { KIND_META, formatDate } from "@/lib/constants";
+import { KIND_META, KIND_STYLE, formatDate } from "@/lib/constants";
 import { monthLabel, quarterMonths } from "@/lib/bilan";
 import { Card, fullName } from "../ui";
 
@@ -88,7 +88,7 @@ export function BilanRecap({
 
   return (
     <div className="flex flex-col gap-4" data-testid="recap">
-      <Card className="bg-gradient-to-br from-rose-soft to-peach-soft text-center">
+      <Card className={`border-2 text-center ${KIND_STYLE[kind].card} ${KIND_STYLE[kind].border}`}>
         <p className="text-4xl">{meta.emoji}</p>
         <p className="font-display text-xl font-semibold">{meta.label}</p>
         <p className="text-sm text-muted">{periodTitle(point)}</p>
