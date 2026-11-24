@@ -15,3 +15,6 @@ end $$;
 
 revoke execute on function public.cancel_point(uuid) from public, anon;
 grant execute on function public.cancel_point(uuid) to authenticated;
+
+-- Fait connaître la nouvelle fonction à l'app tout de suite
+notify pgrst, 'reload schema';
