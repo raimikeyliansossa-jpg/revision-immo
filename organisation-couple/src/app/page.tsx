@@ -25,6 +25,7 @@ export default function Home() {
   const [points, setPoints] = useState<Point[] | null>(null);
   const [nextOuting, setNextOuting] = useState<Outing | null>(null);
   const [busy, setBusy] = useState(false);
+  const [confirmKind, setConfirmKind] = useState<PointKind | null>(null);
 
   const load = useCallback(async () => {
     const sb = supabase();
@@ -64,6 +65,8 @@ export default function Home() {
   const inProgress = (points || []).filter((p) => p.status === "en_cours");
   const current = (points || []).find((p) => (p.kind || "semaine") === kind && p.week_date === periodOf(kind));
   const doneNow = current?.status === "termine";
+  const running = inProgress.find((p) => (p.kind || "semaine") === kind) || null;
+  const others = inProgress.filter((p) => p !== running);
 
   return (
     <Page>
@@ -101,31 +104,23 @@ export default function Home() {
 
       {!partner && couple && <InviteCard code={couple.invite_code} />}
 
-      {/* Nos points */}
-      {inProgress.map((p) => {
-        const m = KIND_META[p.kind || "semaine"];
-        return (
-          <Card key={p.id} className="mb-3 border-2 border-rose/40 p-4">
-            <p className="text-sm font-medium text-rose">⏳ En cours</p>
-            <h2 className="text-xl font-semibold">
-              {m.emoji} {m.label}
-            </h2>
-            <p className="text-sm text-muted">
-              {STEP_META[p.steps[p.current_step]]?.emoji} étape {p.current_step + 1}/{p.steps.length}
-            </p>
-            <Button className="mt-3 w-full" onClick={() => router.push(`/point?id=${p.id}`)} data-testid={`resume-${p.kind || "semaine"}`}>
-              Reprendre ▶︎
-            </Button>
-          </Card>
-        );
-      })}
-      {points && !inProgress.some((p) => (p.kind || "semaine") === kind) && (
+      {/* Nos points : une seule grande carte, celle du jour */}
+      {points && (
         <Card className="mb-3 bg-gradient-to-br from-rose-soft to-peach-soft p-5" data-testid="main-point">
-          <p className="text-sm font-medium text-rose">{meta.when} 🌙</p>
+          <p className="text-sm font-medium text-rose">{running ? "⏳ En cours" : `${meta.when} 🌙`}</p>
           <h2 className="mt-1 text-2xl font-semibold">
             {meta.emoji} {meta.label}
           </h2>
-          {doneNow && current ? (
+          {running ? (
+            <>
+              <p className="mt-1 text-sm text-muted">
+                {STEP_META[running.steps[running.current_step]]?.emoji} étape {running.current_step + 1}/{running.steps.length}
+              </p>
+              <Button className="mt-4 w-full" onClick={() => router.push(`/point?id=${running.id}`)} data-testid={`resume-${kind}`}>
+                Reprendre ▶︎
+              </Button>
+            </>
+          ) : doneNow && current ? (
             <>
               <p className="mt-1 text-sm text-muted">C&apos;est fait ✓ Bravo à vous deux 🥰</p>
               <Button variant="soft" className="mt-4 w-full" onClick={() => router.push(`/points/${current.id}`)}>
@@ -142,26 +137,74 @@ export default function Home() {
           )}
         </Card>
       )}
-      <div className="mb-4">
+
+      {/* Les autres points commencés en avance : une simple ligne */}
+      {others.map((p) => {
+        const m = KIND_META[p.kind || "semaine"];
+        return (
+          <button
+            key={p.id}
+            onClick={() => router.push(`/point?id=${p.id}`)}
+            data-testid={`resume-${p.kind || "semaine"}`}
+            className="mb-2 flex w-full items-center gap-3 rounded-2xl border border-line bg-card px-4 py-3 text-left active:scale-[0.98]"
+          >
+            <span className="text-2xl">{m.emoji}</span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-semibold">{m.label}</span>
+              <span className="text-xs text-muted">
+                ⏳ Commencé en avance · étape {p.current_step + 1}/{p.steps.length}
+              </span>
+            </span>
+            <span className="text-sm font-semibold text-rose">Reprendre ›</span>
+          </button>
+        );
+      })}
+
+      <div className="mb-4 mt-3">
         <p className="mb-1.5 text-xs text-muted">Décalé ? Lancer un autre point :</p>
         <div className="grid grid-cols-2 gap-1.5">
-          {(Object.keys(KIND_META) as PointKind[]).map((k) => (
-            <button
-              key={k}
-              onClick={() => {
-                const running = inProgress.find((p) => (p.kind || "semaine") === k);
-                if (running) router.push(`/point?id=${running.id}`);
-                else startPoint(k);
-              }}
-              disabled={busy || !partner}
-              data-testid={`start-${k}`}
-              className="flex items-center gap-2 rounded-2xl border border-line bg-card px-3 py-2 text-left text-sm font-medium active:scale-95 disabled:opacity-50"
-            >
-              <span className="text-lg">{KIND_META[k].emoji}</span>
-              {KIND_META[k].short}
-            </button>
-          ))}
+          {(Object.keys(KIND_META) as PointKind[])
+            .filter((k) => k !== kind)
+            .map((k) => (
+              <button
+                key={k}
+                onClick={() => {
+                  const r = inProgress.find((p) => (p.kind || "semaine") === k);
+                  if (r) router.push(`/point?id=${r.id}`);
+                  else setConfirmKind(k);
+                }}
+                disabled={busy || !partner}
+                data-testid={`start-${k}`}
+                className="flex items-center gap-2 rounded-2xl border border-line bg-card px-3 py-2 text-left text-sm font-medium active:scale-95 disabled:opacity-50"
+              >
+                <span className="text-lg">{KIND_META[k].emoji}</span>
+                {KIND_META[k].short}
+              </button>
+            ))}
         </div>
+        {confirmKind && (
+          <div className="pop mt-2 rounded-2xl border border-rose/40 bg-card p-3 text-sm" data-testid="confirm-start">
+            <p>
+              Lancer <b>{KIND_META[confirmKind].label}</b> maintenant ? Il est prévu <b>{KIND_META[confirmKind].when.toLowerCase()}</b>.
+            </p>
+            <div className="mt-2 flex gap-2">
+              <Button variant="soft" className="flex-1" onClick={() => setConfirmKind(null)}>
+                Non
+              </Button>
+              <Button
+                className="flex-1"
+                data-testid="confirm-start-yes"
+                onClick={() => {
+                  const k = confirmKind;
+                  setConfirmKind(null);
+                  startPoint(k);
+                }}
+              >
+                Oui, on le fait
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       {nextOuting && (
