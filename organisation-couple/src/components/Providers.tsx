@@ -39,7 +39,7 @@ export function useApp() {
   return c;
 }
 
-const TABLES = ["points", "point_answers", "outings", "outing_ratings", "outfits", "outfit_reactions", "outfit_comments", "songs", "song_comments", "memories", "activities", "profiles"];
+const TABLES = ["points", "point_answers", "point_items", "outings", "outing_ratings", "outfits", "outfit_reactions", "outfit_comments", "songs", "song_comments", "memories", "activities", "profiles"];
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const sb = supabase();

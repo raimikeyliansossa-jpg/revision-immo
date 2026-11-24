@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase, errMsg } from "@/lib/supabase";
 import type { Activity, Outing } from "@/lib/types";
-import { type Filters, eligibleActivities, formatDate, todayIso } from "@/lib/constants";
+import { type Filters, eligibleActivities, lastDoneLabel, formatDate, todayIso } from "@/lib/constants";
 import { useApp } from "./Providers";
 import { Button, Segmented } from "./ui";
 import { Wheel, targetRotation } from "./point/Roulette";
@@ -28,9 +28,9 @@ export function ActivityRoulette({
   const [saving, setSaving] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Activités déjà faites ou déjà prévues → exclues, comme dans le point du dimanche
+  // Seules les activités déjà prévues sont exclues ; celles déjà faites restent (on choisit de relancer)
   const excluded = useMemo(
-    () => new Set(outings.filter((o) => o.activity_id && (o.status === "faite" || o.status === "prevue")).map((o) => o.activity_id!)),
+    () => new Set(outings.filter((o) => o.activity_id && o.status === "prevue").map((o) => o.activity_id!)),
     [outings],
   );
   const candidates = useMemo(() => eligibleActivities(activities, date, filters, excluded), [activities, date, filters, excluded]);
@@ -122,6 +122,7 @@ export function ActivityRoulette({
           <p className="text-sm text-muted">🎉 La roulette a choisi…</p>
           <div className="text-5xl">{result.emoji}</div>
           <p className="font-display text-2xl font-semibold">{result.name}</p>
+          {lastDoneLabel(outings, result.id) && <p className="mt-1 text-sm text-muted">{lastDoneLabel(outings, result.id)}</p>}
           <div className="mt-3 flex gap-2">
             <Button variant="soft" className="flex-1" onClick={spin} disabled={saving}>
               Relancer 🔁

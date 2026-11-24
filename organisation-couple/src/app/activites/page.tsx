@@ -84,7 +84,7 @@ export default function ActivitesPage() {
         className="mb-3 w-full rounded-2xl border border-line bg-card px-4 py-2.5 outline-none focus:border-rose"
       />
       <p className="mb-3 text-sm text-muted">
-        {activities.length} activités · celles déjà faites ne sortent plus à la roulette.
+        {activities.length} activités · la roulette ne propose que celles de saison.
       </p>
       <ul className="flex flex-col gap-2">
         {shown.map((a) => {

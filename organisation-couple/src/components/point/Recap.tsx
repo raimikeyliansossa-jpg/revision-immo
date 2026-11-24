@@ -1,7 +1,9 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Answer, Outing, Point } from "@/lib/types";
+import type { Answer, Outing, Point, PointItem } from "@/lib/types";
+import { addDays } from "@/lib/bilan";
+import { BilanRecap } from "./BilanRecap";
 import { REVIEW_OPTIONS, capitalize, formatDate } from "@/lib/constants";
 import { useApp } from "../Providers";
 import { Card, fullName } from "../ui";
@@ -12,6 +14,8 @@ export function Recap({ pointId, celebrate = false }: { pointId: string; celebra
   const [point, setPoint] = useState<Point | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [outings, setOutings] = useState<Outing[]>([]);
+  const [items, setItems] = useState<PointItem[]>([]);
+  const [mid, setMid] = useState<Answer[]>([]);
   const fired = useRef(false);
 
   const load = useCallback(async () => {
@@ -23,11 +27,22 @@ export function Recap({ pointId, celebrate = false }: { pointId: string; celebra
     setPoint(p);
     setAnswers(a || []);
     setOutings(o || []);
+    if (p && p.kind && p.kind !== "semaine") {
+      const { data: it } = await sb.from("point_items").select("*").eq("point_id", pointId).order("created_at");
+      setItems(it || []);
+    } else if (p) {
+      // le mercredi de la même semaine (note de la 1re partie + promesse pour la 2e)
+      const { data: m } = await sb.from("points").select("id").eq("kind", "mercredi").eq("week_date", addDays(p.week_date, -4)).maybeSingle();
+      if (m) {
+        const { data: ma } = await sb.from("point_answers").select("*").eq("point_id", m.id);
+        setMid(ma || []);
+      }
+    }
   }, [sb, pointId]);
 
   useEffect(() => {
     load();
-    const offs = [on("db:point_answers", load), on("db:outings", load)];
+    const offs = [on("db:point_answers", load), on("db:outings", load), on("db:point_items", load)];
     return () => offs.forEach((o) => o());
   }, [load, on]);
 
@@ -43,8 +58,15 @@ export function Recap({ pointId, celebrate = false }: { pointId: string; celebra
   }, [celebrate]);
 
   if (!point) return null;
+  if (point.kind && point.kind !== "semaine")
+    return <BilanRecap point={point} people={[me, partner].filter(Boolean) as NonNullable<typeof me>[]} answers={answers} items={items} />;
   const people = [me, partner].filter(Boolean).map((p) => ({ p: p!, a: answers.find((x) => x.user_id === p!.id) }));
-  const scores = answers.map((a) => a.week_score).filter((s): s is number => s !== null);
+  const notes = (uid: string, a?: Answer) => {
+    const h1 = mid.find((x) => x.user_id === uid)?.half1_score ?? a?.half1_score ?? null;
+    const h2 = a?.week_score ?? null;
+    return { h1, h2, avg: h1 !== null && h2 !== null ? (h1 + h2) / 2 : h2 };
+  };
+  const scores = people.map(({ p, a }) => notes(p.id, a).avg).filter((s): s is number => s !== null);
   const avg = scores.length ? scores.reduce((x, y) => x + y, 0) / scores.length : null;
   const planned = outings.filter((o) => o.activity_id);
 
@@ -74,13 +96,33 @@ export function Recap({ pointId, celebrate = false }: { pointId: string; celebra
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">{fullName(p)}</h3>
             <span className="rounded-full bg-peach-soft px-3 py-1 text-sm font-semibold">
-              {a?.mood} {a?.week_score ?? "–"}/10
+              {a?.mood} {(() => {
+                const n = notes(p.id, a);
+                return n.avg !== null ? n.avg.toLocaleString("fr-FR", { maximumFractionDigits: 1 }) : "–";
+              })()}
+              /10
             </span>
           </div>
+          {(() => {
+            const n = notes(p.id, a);
+            if (n.h1 === null) return null;
+            return (
+              <p className="mt-1 text-sm text-muted" data-testid="recap-halves">
+                1re partie {n.h1} · 2e partie {n.h2 ?? "–"}{" "}
+                {n.h2 !== null && n.h2 !== n.h1 && (
+                  <b className={n.h2 > n.h1 ? "text-good" : "text-bad"}>
+                    {n.h2 > n.h1 ? "📈 +" : "📉 "}
+                    {n.h2 - n.h1}
+                  </b>
+                )}
+              </p>
+            );
+          })()}
           <dl className="mt-3 flex flex-col gap-2 text-[15px]">
             <RecapItem label="✅ Objectifs atteints" value={a?.goals_done} />
             <RecapItem label="❌ Objectifs pas atteints" value={a?.goals_missed} />
             <RecapItem label="💬 Pourquoi" value={a?.goals_why} />
+            <RecapItem label="💪 Promis mercredi pour la 2e partie" value={mid.find((x) => x.user_id === p.id)?.mid_plan} />
             {a?.goals_review && <RecapItem label="🎯 Mes objectifs" value={a.goals_review} />}
             <RecapItem label="🚀 Objectifs de la semaine prochaine" value={a?.next_goals} always />
           </dl>

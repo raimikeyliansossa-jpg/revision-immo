@@ -34,12 +34,39 @@ export type StepKey =
   | "prochaine"
   | "outfits"
   | "rdv"
-  | "recap";
+  | "recap"
+  // Point du mercredi « Mi-temps »
+  | "mi_constat"
+  | "mi_note"
+  | "mi_plan"
+  // Bilan du mois
+  | "mois_rappel"
+  | "mois_chiffres"
+  | "mois_recit"
+  | "mois_perso"
+  | "mois_couple"
+  | "mois_ameliorations"
+  | "mois_points_noirs"
+  | "mois_objectifs"
+  // Point du trimestre
+  | "tri_rappel"
+  | "tri_score"
+  | "tri_analyse"
+  | "tri_avis"
+  | "tri_vision"
+  // Bilan qui remplace le point du dimanche : note de la 2e partie de semaine
+  | "note_semaine";
+
+export type PointKind = "semaine" | "mercredi" | "mois" | "trimestre";
 
 export type Point = {
   id: string;
   couple_id: string;
+  /** semaine : le dimanche · mercredi : le mercredi · mois / trimestre : le dernier jour */
   week_date: string;
+  kind: PointKind;
+  /** Bilan fait un dimanche à la place du point de la semaine : le dimanche concerné */
+  covers_week: string | null;
   steps: StepKey[];
   current_step: number;
   max_step: number;
@@ -64,6 +91,21 @@ export type Answer = {
   less_good: string;
   next_improvement: string;
   next_goals: string;
+  /** Note de la 1re partie de semaine (lundi → mercredi) */
+  half1_score: number | null;
+  mid_review: string;
+  mid_plan: string;
+  month_pride: string;
+  month_stuck: string;
+  month_best: string;
+  month_recurring: string;
+  month_improved: string;
+  month_goals: string;
+  avis_good: string;
+  avis_evolve: string;
+  q_live: string;
+  q_become: string;
+  q_goals: string;
   ready_step: number | null;
   updated_at: string;
 };
@@ -150,4 +192,17 @@ export type Photo = {
   taken_on?: string;
   /** Souvenirs uniquement : sortie à laquelle la photo est rattachée */
   outing_id?: string | null;
+};
+
+export type PointItem = {
+  id: string;
+  couple_id: string;
+  point_id: string;
+  kind: "point_noir" | "objectif_couple" | "vision_couple";
+  body: string;
+  solution: string;
+  status: "regle" | "revient" | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
 };

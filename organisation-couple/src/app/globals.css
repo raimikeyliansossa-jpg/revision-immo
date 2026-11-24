@@ -13,6 +13,7 @@
   --peach-soft: #ffeadb;
   --line: #f1e2d8;
   --good: #3f9d6b;
+  --bad: #c8483c;
 }
 
 .dark {
@@ -26,6 +27,7 @@
   --peach-soft: #45302a;
   --line: #3a2c2f;
   --good: #6cc796;
+  --bad: #f08a7e;
 }
 
 @theme inline {
@@ -39,6 +41,7 @@
   --color-peach-soft: var(--peach-soft);
   --color-line: var(--line);
   --color-good: var(--good);
+  --color-bad: var(--bad);
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;
 }

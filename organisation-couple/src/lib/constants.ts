@@ -1,8 +1,9 @@
-import type { Activity, StepKey } from "./types";
+import type { Activity, PointKind, StepKey } from "./types";
 
-export type StepPart = "perso" | "couple" | "fin";
+export type StepPart = "synthese" | "perso" | "couple" | "fin";
 
 export const PART_META: Record<StepPart, { emoji: string; label: string }> = {
+  synthese: { emoji: "📖", label: "Synthèse" },
   perso: { emoji: "🙋", label: "Partie perso" },
   couple: { emoji: "💑", label: "Partie couple" },
   fin: { emoji: "📝", label: "Pour finir" },
@@ -19,8 +20,35 @@ export const STEP_META: Record<StepKey, { emoji: string; title: string; hint: st
   outfits: { emoji: "👗", title: "Nos outfits de la semaine", hint: "Le défilé de la semaine", part: "couple" },
   rdv: { emoji: "📅", title: "Notre prochain rendez-vous", hint: "À deux 💞", part: "couple" },
   recap: { emoji: "📝", title: "Récap", hint: "Notre point en un coup d'œil", part: "fin" },
+  // Point du mercredi « Mi-temps »
+  mi_constat: { emoji: "📝", title: "Ma 1re partie de semaine", hint: "Mes objectifs du dimanche, et mon constat", part: "perso" },
+  mi_note: { emoji: "🔢", title: "Ma note de la 1re partie", hint: "Du lundi au mercredi", part: "perso" },
+  mi_plan: { emoji: "💪", title: "Ma 2e partie de semaine", hint: "Ce que je fais pour finir plus fort", part: "perso" },
+  // Bilan du mois
+  mois_rappel: { emoji: "🔁", title: "Nos points noirs du mois dernier", hint: "Les solutions ont-elles marché ?", part: "synthese" },
+  mois_chiffres: { emoji: "📊", title: "Le mois en chiffres", hint: "Vert = mieux que le mois d'avant, rouge = moins bien", part: "synthese" },
+  mois_recit: { emoji: "📜", title: "Ce qui s'est passé ce mois-ci", hint: "Objectifs, améliorations, sorties", part: "synthese" },
+  mois_perso: { emoji: "🏅", title: "Mon mois", hint: "Ma fierté, et ce qui a coincé", part: "perso" },
+  mois_couple: { emoji: "💖", title: "Notre mois à deux", hint: "Le plus beau moment, le sujet qui revient", part: "couple" },
+  mois_ameliorations: { emoji: "🏆", title: "Nos améliorations du mois", hint: "Ce qui est devenu une habitude", part: "couple" },
+  mois_points_noirs: { emoji: "⚫", title: "Points noirs et solutions", hint: "À écrire à deux, ils reviendront le mois prochain", part: "couple" },
+  mois_objectifs: { emoji: "🎯", title: "Objectifs du mois prochain", hint: "Rappelés chaque dimanche et chaque mercredi", part: "couple" },
+  // Point du trimestre
+  tri_rappel: { emoji: "🔁", title: "Ce qu'on s'était dit", hint: "Le trimestre dernier et nos derniers points noirs", part: "synthese" },
+  tri_score: { emoji: "🏅", title: "Notre score perso du trimestre", hint: "Chacun se mesure à lui-même", part: "synthese" },
+  tri_analyse: { emoji: "📖", title: "L'analyse des 3 mois", hint: "Atteint, pas atteint, et où se réveiller", part: "synthese" },
+  tri_avis: { emoji: "💑", title: "Mon avis sur l'autre", hint: "Avec sincérité et bienveillance", part: "couple" },
+  tri_vision: { emoji: "🔭", title: "Les 3 prochains mois", hint: "Ce que je veux vivre, qui je veux devenir", part: "perso" },
+  note_semaine: { emoji: "🔢", title: "Ma note de la semaine", hint: "Le bilan remplace le point du dimanche", part: "perso" },
   // Ancienne étape (points commencés avant la mise à jour)
   prochaine: { emoji: "🛠️", title: "La semaine prochaine", hint: "Une amélioration, des objectifs", part: "couple" },
+};
+
+export const KIND_META: Record<PointKind, { emoji: string; label: string; short: string; when: string; desc: string }> = {
+  semaine: { emoji: "💞", label: "Notre point du dimanche", short: "Dimanche", when: "Dimanche 20 h", desc: "Lancez-le ensemble pendant votre FaceTime 📱💞📱" },
+  mercredi: { emoji: "🔔", label: "Point du mercredi « Mi-temps »", short: "Mi-temps", when: "Mercredi 21 h", desc: "La piqûre de rappel : on fait mieux en 2e partie de semaine 💪" },
+  mois: { emoji: "📅", label: "Bilan du mois", short: "Bilan du mois", when: "Dernier jour du mois, 21 h", desc: "On regarde le mois en face, puis on trouve nos solutions" },
+  trimestre: { emoji: "🌱", label: "Point du trimestre", short: "Trimestre", when: "Fin de trimestre, 21 h", desc: "Notre score, l'analyse des 3 mois et qui on veut devenir" },
 };
 
 export const MOODS = ["🥰", "😊", "🙂", "😐", "😕", "😢", "😤", "😴"];
@@ -60,6 +88,14 @@ export function isWalk(name: string | null | undefined) {
 }
 
 export type Filters = { location: "tous" | "interieur" | "exterieur"; budget: "tous" | "petit" | "gros" };
+
+/** Dernière fois qu'une activité a été faite (pour le signaler sur la roulette, sans l'exclure). */
+export function lastDoneLabel(outings: { activity_id: string | null; status: string; date: string }[], activityId: string) {
+  const done = outings.filter((o) => o.activity_id === activityId && o.status === "faite").map((o) => o.date).sort();
+  if (!done.length) return null;
+  const last = done[done.length - 1];
+  return `✓ Déjà faite${done.length > 1 ? ` ${done.length} fois` : ""} · la dernière le ${formatDate(last)}`;
+}
 
 export function eligibleActivities(
   activities: Activity[],
