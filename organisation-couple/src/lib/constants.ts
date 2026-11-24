@@ -51,6 +51,42 @@ export const KIND_META: Record<PointKind, { emoji: string; label: string; short:
   trimestre: { emoji: "🌱", label: "Point du trimestre", short: "Trimestre", when: "Fin de trimestre, 21 h", desc: "Notre score, l'analyse des 3 mois et qui on veut devenir" },
 };
 
+/** Une couleur par type de point (classes écrites en entier pour Tailwind) */
+export const KIND_STYLE: Record<PointKind, { card: string; text: string; border: string; soft: string; bar: string; btn: string }> = {
+  semaine: {
+    card: "bg-gradient-to-br from-rose-soft to-peach-soft",
+    text: "text-rose",
+    border: "border-rose/50",
+    soft: "bg-rose-soft",
+    bar: "bg-rose",
+    btn: "",
+  },
+  mercredi: {
+    card: "bg-gradient-to-br from-amber-100 to-yellow-50 dark:from-amber-900/50 dark:to-yellow-950/30",
+    text: "text-amber-600 dark:text-amber-300",
+    border: "border-amber-400/60",
+    soft: "bg-amber-100 dark:bg-amber-900/40",
+    bar: "bg-amber-400",
+    btn: "!bg-amber-500 !text-white",
+  },
+  mois: {
+    card: "bg-gradient-to-br from-sky-100 to-indigo-50 dark:from-sky-900/50 dark:to-indigo-950/30",
+    text: "text-sky-700 dark:text-sky-300",
+    border: "border-sky-400/60",
+    soft: "bg-sky-100 dark:bg-sky-900/40",
+    bar: "bg-sky-500",
+    btn: "!bg-sky-600 !text-white",
+  },
+  trimestre: {
+    card: "bg-gradient-to-br from-emerald-100 to-lime-50 dark:from-emerald-900/50 dark:to-lime-950/30",
+    text: "text-emerald-700 dark:text-emerald-300",
+    border: "border-emerald-400/60",
+    soft: "bg-emerald-100 dark:bg-emerald-900/40",
+    bar: "bg-emerald-500",
+    btn: "!bg-emerald-600 !text-white",
+  },
+};
+
 export const MOODS = ["🥰", "😊", "🙂", "😐", "😕", "😢", "😤", "😴"];
 
 export const REVIEW_OPTIONS = [

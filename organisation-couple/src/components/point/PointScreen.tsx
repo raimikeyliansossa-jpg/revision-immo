@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase, errMsg } from "@/lib/supabase";
 import type { Answer, AnswerField, Point, Profile } from "@/lib/types";
-import { KIND_META, PART_META, STEP_META } from "@/lib/constants";
+import { KIND_META, KIND_STYLE, PART_META, STEP_META } from "@/lib/constants";
 import type { History } from "@/lib/bilan";
 import { useApp, useBroadcastField, useDebouncedSave, useTyping } from "../Providers";
 import { Button, OnlineDot, Page, SaveBadge, cx, nameOf } from "../ui";
@@ -234,7 +234,7 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
             ‹
           </button>
           <div className="min-w-0 flex-1 text-xs text-muted">
-            <p className="truncate font-semibold text-ink" data-testid="point-kind">
+            <p className={`inline-block max-w-full truncate rounded-full px-2 py-0.5 font-semibold ${KIND_STYLE[ctx.point.kind || "semaine"].soft} ${KIND_STYLE[ctx.point.kind || "semaine"].text}`} data-testid="point-kind">
               {KIND_META[ctx.point.kind || "semaine"].emoji} {KIND_META[ctx.point.kind || "semaine"].label}
             </p>
             <p className="flex items-center gap-1.5">
@@ -255,7 +255,7 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
                 "h-2 flex-1 rounded-full transition-all",
                 // petit espace entre la partie perso et la partie couple
                 i > 0 && STEP_META[ctx.point.steps[i - 1]].part !== STEP_META[s].part && "ml-2",
-                i === ctx.point.current_step ? "bg-rose" : i <= ctx.point.max_step ? "bg-peach/60" : "bg-line",
+                i === ctx.point.current_step ? KIND_STYLE[ctx.point.kind || "semaine"].bar : i <= ctx.point.max_step ? "bg-peach/60" : "bg-line",
               )}
             />
           ))}
@@ -325,7 +325,7 @@ export function PointScreen({ pointId }: { pointId: string | null }) {
                 </Button>
               )}
               <Button
-                className={cx("flex-1 text-lg", iAmReady && "!bg-good")}
+                className={cx("flex-1 text-lg", iAmReady ? "!bg-good" : KIND_STYLE[ctx.point.kind || "semaine"].btn)}
                 onClick={toggleReady}
                 disabled={readyBusy}
                 data-testid="ready-btn"

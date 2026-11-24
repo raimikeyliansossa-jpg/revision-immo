@@ -5,7 +5,7 @@ import { useApp } from "@/components/Providers";
 import { Card, Empty, Page, PageHeader } from "@/components/ui";
 import { supabase } from "@/lib/supabase";
 import type { Answer, Point } from "@/lib/types";
-import { KIND_META, formatDate } from "@/lib/constants";
+import { KIND_META, KIND_STYLE, formatDate } from "@/lib/constants";
 import { weeks, type Week } from "@/lib/bilan";
 import { periodTitle } from "@/components/point/BilanRecap";
 
@@ -64,7 +64,7 @@ export default function EvolutionPage() {
             <li key={r.point.id}>
               <Link
                 href={r.point.status === "termine" ? `/points/${r.point.id}` : `/point?id=${r.point.id}`}
-                className="flex items-center gap-3 rounded-2xl border border-line bg-card p-3 active:scale-[0.98]"
+                className={`flex items-center gap-3 rounded-2xl border border-l-4 border-line bg-card p-3 active:scale-[0.98] ${KIND_STYLE[r.point.kind || "semaine"].border}`}
               >
                 <span className="text-2xl">
                   {(r.point.kind || "semaine") === "semaine" ? r.answers.map((a) => a.mood || "🙂").join("") : KIND_META[r.point.kind].emoji}
